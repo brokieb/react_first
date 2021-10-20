@@ -1,3 +1,3 @@
-export default function Home() {
-	return <h2>KONTA WSZYSTKIE</h2>;
+export default function Home(currentPage) {
+	return <h2>Szczegóły mojego konta</h2>;
 }

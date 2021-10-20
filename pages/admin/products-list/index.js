@@ -1,10 +1,10 @@
-import ProductsList from '../../../components/products/ProductsList';
+import ProductsList from '../../../components/admin/ProductsList';
 import axios from 'axios';
 
 export default function Home(props) {
 	return (
 		<div>
-			<ProductsList editMode="true" products={props.products}></ProductsList>
+			<ProductsList products={props.products}></ProductsList>
 		</div>
 	);
 }

@@ -1,30 +1,29 @@
-import NewProductForm from '../../../components/admin/NewProductForm';
+import NewClientForm from '../../../components/auth/NewClientForm';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
 export default function Home() {
 	const router = useRouter();
-	function addProductHandler(data) {
+	function addClientHandler(data) {
 		axios
-			.post('/api/postNewProduct', {
+			.post('/api/postNewClient', {
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				params: {
-					title: data.title,
-					description: data.description,
-					price: data.price,
-					imageUrl: data.imageUrl,
+					name: data.name,
+					email: data.email,
+					password: data.password,
 				},
 			})
 			.then((res) => {
 				if (res.status == '201') {
 					console.log('poprawnie dodano :)', res);
-					router.push('/');
+					router.push('/auth/login');
 				} else {
 					console.log('blad');
 				}
 			});
 	}
-	return <NewProductForm onAddProduct={addProductHandler}></NewProductForm>;
+	return <NewClientForm onAddClient={addClientHandler}></NewClientForm>;
 }

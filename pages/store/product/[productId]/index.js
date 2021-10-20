@@ -1,4 +1,4 @@
-import ProductDetails from '../../../../components/products/ProductDetails';
+import ProductDetails from '../../../../components/store/ProductDetails';
 import axios from 'axios';
 export default function Home(props) {
 	return (

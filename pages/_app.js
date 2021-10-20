@@ -1,13 +1,27 @@
-import Layout from '../components/layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SSRProvider } from '@react-aria/ssr';
+import MainNavigation from '../components/layout/MainNavigation';
+import AuthProvider from '../components/auth/AuthProvider';
+import Layout from '../components/layout/Layout';
+import { useSession,SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+
+
+
 	return (
 		<SSRProvider>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
+			<SessionProvider session={session}>
+				<MainNavigation />
+				<Layout>
+					<AuthProvider>
+						<div>
+					<Component {...pageProps} />
+							</div>
+					</AuthProvider>
+				</Layout>
+			</SessionProvider>
 		</SSRProvider>
 	);
 }

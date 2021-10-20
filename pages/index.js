@@ -1,21 +1,31 @@
-import ProductsList from '../components/products/ProductsList';
+import ProductsList from '../components/store/ProductsList';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home(props) {
-	return (
-		<div>
-			<h2>Najczęściej kupowane</h2>
-			<ProductsList products={props.products}></ProductsList>
-			<h2>WAarto spojrzeć</h2>
-			<h2>Ostatnie zakupy</h2>
-			<h2>Przeceny</h2>
-		</div>
-	);
+	if (props.products != undefined) {
+		return (
+			<div>
+				strona główna
+				<p>asdaasda</p>
+				<p>asdaasda</p>
+				<p>asdaasda</p>
+				<p>asdaasda</p>
+				<ProductsList products={props.products}></ProductsList>
+			</div>
+		);
+	} else {
+		return <h2>Nothing here</h2>;
+	}
 }
 
 export async function getServerSideProps() {
-	const data = await axios.get('http://localhost:3000/api/getProducts');
+	console.log('@@@@@@@@@@@@@@@@@@@@@@');
+	const data = await axios.get('http://localhost:3000/api/getProducts', {
+		params: {
+			_id: null,
+		},
+	});
 	return {
 		props: {
 			products: data.data,
