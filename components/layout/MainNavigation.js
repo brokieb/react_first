@@ -30,9 +30,8 @@ function MainNavigation() {
 		router.push(e.target.getAttribute('href'));
 	}
 	function UserPanel() {
-		const { data: session } = useSession();
+		const { data: session,status } = useSession();
 		if (session) {
-			console.log(session);
 			return (
 				<>
 					<Dropdown>

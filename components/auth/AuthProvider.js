@@ -1,35 +1,45 @@
-import Container from 'react-bootstrap/Container';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+import React from 'react';
+import { useSession,signIn  } from 'next-auth/react';
+import { useRouter } from "next/router";
 
-function AuthProvider(props) {
+// import signIn from '../../pages/auth/login'
+function AuthProvider({ children }) {
+  const { data: session, status } = useSession()
+  const isUser = !!session?.user
   const router = useRouter();
-  const { data: session } = useSession();
-console.log(session)
-  let allowed = null;
+  const role = 'admin';
+  let needAuth = false;
 
-  if (router.pathname.startsWith('/auth') && session) {
-    allowed = false;
-  }else if(router.pathname.startsWith('/user') && !session){
-    allowed = false;
-  }else{
-    allowed = true;
+  if (router.pathname.startsWith("/admin") && role !== "admin") {
+    needAuth = true;
+  }else if(router.pathname.startsWith("/auth") && session){
+    needAuth = true
   }
 
-  console.log(allowed);
-  
-    if (allowed == true) {
-    return<Container className='pt-2 d-flex justify-content-center flex-column align-items-center'>{props.children}</Container>;
-	}else{
-		return(
-		<Container className='pt-2 d-flex justify-content-center flex-column align-items-center'>
-		        <h2>Błąd strony container</h2>
-		        <h4>Strona którą próbujesz odwiedzić nie istnieje w tym miejscu</h4>
-		        <p>Przekierowywanie...</p>
-		      </Container>
-			  )
-	}
+  if(needAuth == true){
+    React.useEffect(() => {
+      if (status === "loading") return // Do nothing while loading
+      if (!isUser) {
+        return <>nie dziala</>
+      } // If not authenticated, force log in
+    }, [isUser, status])
+    if (isUser) {
+      return children
+    }
+    
+  }else{
+    return children;
+  }
+
+
+
+ 
+
+
+
+  // Session is being fetched, or no user.
+  // If no user, useEffect() will redirect.
+  return <div>Wczytywanie strony lub nie masz uprawnień...</div>
 }
 
 export default AuthProvider;
