@@ -2,9 +2,11 @@ import NewProductForm from '../../../components/admin/NewProductForm';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-export default function Home() {
+export default function Home(context) {
 	const router = useRouter();
+	console.log('to uruchamianko???? xddd');
 	function addProductHandler(data) {
+		console.log('to uruchamianko????');
 		axios
 			.post('/api/postNewProduct', {
 				headers: {

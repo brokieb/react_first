@@ -1,48 +1,56 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 function NewProductForm(props) {
-	const titleInputRef = useRef();
-	const imageInputRef = useRef();
-	const priceInputRef = useRef();
-	const descriptionInputRef = useRef();
+	const [product, setProduct] = useState(props.product);
+	const schema = yup
+		.object()
+		.shape({
+			title: yup.string().required('To pole jest obowiązkowe'),
+			image: yup.string().required('To pole jest obowiązkowe'),
+			price: yup.string().required('To pole jest obowiązkowe'),
+			description: yup.string().required('To pole jest obowiązkowe'),
+		})
+		.required();
 
-	function submitHandler(event) {
-		event.preventDefault();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
 
-		const enteredTitle = titleInputRef.current.value;
-		const enteredImage = imageInputRef.current.value;
-		const enteredPrice = priceInputRef.current.value;
-		const enteredDescription = descriptionInputRef.current.value;
-
-		const productData = {
-			title: enteredTitle,
-			imageUrl: enteredImage,
-			price: enteredPrice,
-			description: enteredDescription,
-		};
-
-		props.onAddProduct(productData);
-	}
+	const onSubmit = (data) => {
+		console.log(data, 'tooo?');
+		props.onAddProduct(data);
+	};
 
 	return (
-		<Form onSubmit={submitHandler} className="col-6">
+		<Form onSubmit={handleSubmit(onSubmit)} className="col-6">
 			<Form.Group>
 				<Form.Label htmlFor="title">Tytuł</Form.Label>
-				<Form.Control type="text" required id="title" ref={titleInputRef} />
+				<Form.Control value={props.product.title} type="text" required id="title" {...register('title')} isInvalid={!!errors.title} />
+				<Form.Control.Feedback type="invalid">{errors.title?.message}</Form.Control.Feedback>
 			</Form.Group>
 			<Form.Group>
 				<Form.Label htmlFor="image">Zdjęcie</Form.Label>
-				<Form.Control type="url" required id="image" ref={imageInputRef} />
+				<Form.Control type="url" required id="image" {...register('image')} isInvalid={!!errors.image} />
+				<Form.Control.Feedback type="invalid">{errors.image?.message}</Form.Control.Feedback>
 			</Form.Group>
 			<Form.Group>
 				<Form.Label htmlFor="price">Cena</Form.Label>
-				<Form.Control type="text" required id="price" ref={priceInputRef} />
+				<Form.Control type="text" required id="price" {...register('price')} isInvalid={!!errors.price} />
+				<Form.Control.Feedback type="invalid">{errors.price?.message}</Form.Control.Feedback>
 			</Form.Group>
 			<Form.Group>
 				<Form.Label htmlFor="description">Opis</Form.Label>
-				<Form.Control as="textarea" id="description" required rows="5" ref={descriptionInputRef}></Form.Control>
+				<Form.Control as="textarea" id="description" required rows="5" {...register('description')} isInvalid={!!errors.description}></Form.Control>
+				<Form.Control.Feedback type="invalid">{errors.description?.message}</Form.Control.Feedback>
 			</Form.Group>
 			<div className="pt-2">
 				<Button variant="primary" type="submit">

@@ -1,7 +1,7 @@
 import ProductsList from '../components/store/ProductsList';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Link from 'next/link';
 export default function Home(props) {
 	if (props.products != undefined) {
 		return (
@@ -10,7 +10,7 @@ export default function Home(props) {
 				<p>asdaasda</p>
 				<p>asdaasda</p>
 				<p>asdaasda</p>
-				<p>asdaasda</p>
+				<Link href="/auth/login">TEST </Link>
 				<ProductsList products={props.products}></ProductsList>
 			</div>
 		);

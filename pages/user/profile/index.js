@@ -1,24 +1,24 @@
-import { useSession } from "next-auth/react"
-import Router from 'next/router'
-
+import { useSession, signIn } from 'next-auth/react';
+import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 export default function Home(currentPage) {
-	const { status } = useSession({
-		required: true,
-		onUnauthenticated() {
-		  // The user is not authenticated, handle it here.
-		  Router.push('/')
-		}
-	  })
-	
-	  if (status === "loading") {
-		return "Loading or not authenticated..."
-	  }
-	
-	  return <>Masz uprawnienie</>
-	}
-
-	Home.auth = {
-		role: "admin",
-		loading:  <>Loading admin...</>,
-		unauthorized: "/ad", // redirect to this url
-	  }
+	const { data: session } = useSession();
+	console.log(session);
+	const userDetails = session.user;
+	return (
+		<div className="d-flex justify-content-between w-50">
+			<div>
+				<h1>{userDetails.name}</h1>
+				<h3>twoj@email.pl</h3>
+				<p>Inna informacja bardzo ważna</p>
+				<p>Inna informacja bardzo ważna</p>
+				<div>
+					<Button variant="danger">Usuń konto</Button>
+				</div>
+			</div>
+			<div style={{ width: '150px' }}>
+				<Image src={userDetails.image} roundedCircle className="border-primary w-100" />
+			</div>
+		</div>
+	);
+}

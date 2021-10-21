@@ -39,34 +39,6 @@ export default async function auth(req, res) {
 						}
 					}
 				},
-
-				// // The credentials is used to generate a suitable form on the sign in page.
-				// // You can specify whatever fields you are expecting to be submitted.
-				// // e.g. domain, username, password, 2FA token, etc.
-				// // You can pass any HTML attribute to the <input> tag through the object.
-				// credentials: {
-				// 	name: { label: 'Login', type: 'text', placeholder: 'jsmith' },
-				// 	email: { label: 'Email', type: 'text', placeholder: 'jsmith' },
-				// 	password: { label: 'Hasło', type: 'password' },
-				// 	rpassword: { label: 'Powtórz hasło', type: 'password' },
-				// },
-				// async authorize(credentials, req) {
-				// 	await dbConnect();
-				// 	const result = await User.findOne({ email: credentials.email });
-
-				// 	if (result == null) {
-				// 		//zakladamy uzytkownika
-				// 	} else {
-				// 		const checkPw = await bcrypt.compare(credentials.password, result.password);
-				// 		if (!checkPw) {
-				// 			throw new Error('Niepoprawne hasło');
-				// 		} else {
-				// 			return { name: result.name, email: result.email, id: result._id, image: result.image };
-				// 		}
-
-				// 		//użytkownik taki istnieje
-				// 	}
-				// },
 			}),
 			// ...add more providers here
 		],
@@ -75,6 +47,14 @@ export default async function auth(req, res) {
 		},
 		jwt: {
 			signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
+		},
+		callbacks: {
+			/**
+			 * @param  {object} session      Session object
+			 * @param  {object} user         User object    (if using database sessions)
+			 *                               JSON Web Token (if not using database sessions)
+			 * @return {object}              Session that will be returned to the client
+			 */
 		},
 	});
 }
