@@ -30,7 +30,7 @@ function MainNavigation() {
 		router.push(e.target.getAttribute('href'));
 	}
 	function UserPanel() {
-		const { data: session,status } = useSession();
+		const { data: session, status } = useSession();
 		if (session) {
 			return (
 				<>
@@ -50,10 +50,6 @@ function MainNavigation() {
 							<Dropdown.Item href="/admin/products-list" className="d-flex flex-row gap-2 align-items-center" onClick={redirect.bind(this)}>
 								<FontAwesomeIcon style={{ width: '1.5em' }} icon={faSitemap} />
 								Produkty
-							</Dropdown.Item>
-							<Dropdown.Item href="/admin/new-product" className="d-flex flex-row gap-2 align-items-center" onClick={redirect.bind(this)}>
-								<FontAwesomeIcon style={{ width: '1.5em' }} icon={faSitemap} />
-								Dodaj produkt
 							</Dropdown.Item>
 							<Dropdown.Item href="/admin/stats" className="d-flex flex-row gap-2 align-items-center" onClick={redirect.bind(this)}>
 								<FontAwesomeIcon style={{ width: '1.5em' }} icon={faChartLine} />
@@ -121,12 +117,6 @@ function MainNavigation() {
 						</Link>
 						<Link href="/store/products-list">
 							<Nav.Link href="/store/products-list">Wszystkie produkty</Nav.Link>
-						</Link>
-						<Link href="/new-meetup">
-							<Nav.Link href="/new-meetup">?</Nav.Link>
-						</Link>
-						<Link href="/new-meetup">
-							<Nav.Link href="/new-meetup">?</Nav.Link>
 						</Link>
 					</Nav>
 					<span className="bg-danger">111</span>

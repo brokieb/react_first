@@ -1,5 +1,8 @@
 import ProductsList from '../../../components/admin/ProductsList';
+
 import axios from 'axios';
+
+import { Button, Card } from 'react-bootstrap';
 
 export default function Home(props) {
 	return (

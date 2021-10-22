@@ -1,3 +1,10 @@
+import { Card } from 'react-bootstrap';
+
 export default function Home() {
-	return <h2>KONTA WSZYSTKIE</h2>;
+	return (
+		<div className="d-flex justify-content-between w-100">
+			<div>TABELA</div>
+			<div>PRZYCISKI</div>
+		</div>
+	);
 }
