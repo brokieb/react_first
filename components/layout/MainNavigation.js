@@ -43,7 +43,7 @@ function MainNavigation() {
 								<FontAwesomeIcon style={{ width: '1.5em' }} icon={faCashRegister} />
 								Zamówienia
 							</Dropdown.Item>
-							<Dropdown.Item href="/admin/accounts" className="d-flex flex-row gap-2 align-items-center" onClick={redirect.bind(this)}>
+							<Dropdown.Item href="/admin/credentials" className="d-flex flex-row gap-2 align-items-center" onClick={redirect.bind(this)}>
 								<FontAwesomeIcon style={{ width: '1.5em' }} icon={faUsersCog} />
 								Konta
 							</Dropdown.Item>

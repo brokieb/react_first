@@ -2,7 +2,7 @@ import ProductCard from './ProductCard';
 
 function ProductsList(props) {
 	return (
-		<div className="d-flex flex-wrap">
+		<div className="d-flex flex-wrap justify-content-around">
 			{props.products.map((product) => (
 				<ProductCard
 					editMode={props.editMode}

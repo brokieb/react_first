@@ -1,7 +1,7 @@
 import ProductCard from './ProductCard';
 import { Card } from 'react-bootstrap';
 import { useState } from 'react';
-import NewProductFormModal from './NewProductFormModal';
+import NewProductFormModal from './product/NewProductFormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';

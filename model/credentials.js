@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const accountSchema = new Schema({
+const credentialsSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
@@ -22,6 +22,10 @@ const accountSchema = new Schema({
 		type: Boolean,
 		default: true,
 	},
+	productId: {
+		type: Schema.Types.ObjectId,
+		ref: 'Product',
+	},
 	// users: {
 	//     profiles:[{
 
@@ -29,4 +33,4 @@ const accountSchema = new Schema({
 	// }
 });
 
-export default mongoose.models.Account || mongoose.model('Acount', accountSchema);
+export default mongoose.models.Credentials || mongoose.model('Credentials', credentialsSchema);

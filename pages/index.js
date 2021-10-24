@@ -1,12 +1,12 @@
 import ProductsList from '../components/store/ProductsList';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
 export default function Home(props) {
 	if (props.products != undefined) {
 		return (
 			<div>
 				strona główna
+				<h1>TEST 2 2 22</h1>
 				<p>asdaasda</p>
 				<p>asdaasda</p>
 				<p>asdaasda</p>
