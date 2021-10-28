@@ -17,7 +17,6 @@ const usersSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: true,
 	},
 	emailVerified: {
 		type: Number,
@@ -39,26 +38,6 @@ const usersSchema = new Schema({
 		],
 	},
 });
-
-// clientSchema.methods.addToCart = function (product) {
-// 	product.quantity = 1;
-// 	const cartProductIndex = this.cart.items.findIndex((cp) => {
-// 		return cp.productId.toString() === product._id.toString();
-// 	});
-// 	let newQty = 1;
-// 	const updatedCart = [...this.cart.items];
-// 	if (cartProductIndex >= 0) {
-// 		newQty = this.cart.items[cartProductIndex].quantity + 1;
-// 		updatedCart[cartProductIndex].quantity = newQty;
-// 	} else {
-// 		updatedCart.push({
-// 			productId: product._id,
-// 			quantity: newQty,
-// 		});
-// 	}
-// 	this.cart.items = updatedCart;
-// 	return this.save();
-// };
 
 // clientSchema.methods.removeFromCart = function (productId) {
 // 	const updatedCartItems = this.cart.items.filter((item) => {

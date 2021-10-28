@@ -1,10 +1,11 @@
 import ProductDetails from '../../../../components/store/ProductDetails';
 import axios from 'axios';
 export default function Home(props) {
+	console.log(props.product);
 	return (
 		// <div></div>
 		<ProductDetails
-			_id={props.product.id}
+			_id={props.product._id}
 			title={props.product.title}
 			description={props.product.description}
 			price={props.product.price}

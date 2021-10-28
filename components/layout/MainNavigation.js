@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -20,8 +21,10 @@ import {
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
+import { set } from '../../features/counter/counterSlice';
 import { useContext } from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import axios from 'axios';
 
 function MainNavigation() {
 	const router = useRouter();
@@ -31,6 +34,20 @@ function MainNavigation() {
 	}
 	function UserPanel() {
 		const { data: session, status } = useSession();
+		const count = useSelector((state) => state.counter.value);
+		const dispatch = useDispatch();
+		axios
+			.get('/api/getCartItems', {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((res) => {
+				if (res.status == '200') {
+					let data = res.data.cart.items;
+					dispatch(set(data.length));
+				}
+			});
 		if (session) {
 			return (
 				<>
@@ -66,12 +83,19 @@ function MainNavigation() {
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
-					<Button variant="link" className="position-relative ps-0">
-						<FontAwesomeIcon style={{ width: '1.5em' }} icon={faShoppingCart} className="text-light" size="lg" />
-						<Badge bg="warning" text="dark" pill className="position-absolute" style={{ fontSize: '0.7em', right: '-0.7em' }}>
-							99
-						</Badge>
-					</Button>
+					<Link href="/user/cart">
+						<Button variant="link" className="position-relative ps-0">
+							<FontAwesomeIcon style={{ width: '1.5em' }} icon={faShoppingCart} className="text-light" size="lg" />
+							{count == 0 ? (
+								<></>
+							) : (
+								<Badge bg="warning" text="dark" pill className="position-absolute" style={{ fontSize: '0.7em', right: '-0.7em' }}>
+									{count}
+								</Badge>
+							)}
+						</Button>
+					</Link>
+
 					<Dropdown>
 						<Dropdown.Toggle variant="link" bsPrefix="p-0">
 							<img className="xa" style={{ width: '35px', borderRadius: '100%' }} src={session.user.image} />

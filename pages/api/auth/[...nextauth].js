@@ -1,6 +1,7 @@
 import NextAuth, { signIn } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import FacebookProvider from 'next-auth/providers/facebook';
 import bcrypt from 'bcrypt';
 import clientPromise from '../../../lib/mongodb';
 import dbConnect from '../../../lib/dbConnect';
@@ -49,12 +50,11 @@ export default async function auth(req, res) {
 			signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
 		},
 		callbacks: {
-			/**
-			 * @param  {object} session      Session object
-			 * @param  {object} user         User object    (if using database sessions)
-			 *                               JSON Web Token (if not using database sessions)
-			 * @return {object}              Session that will be returned to the client
-			 */
+			async session({ session, token, user }) {
+				//dołączenie do obiektu sesji id użytkownika z bazy
+				session.user.uid = token.sub;
+				return Promise.resolve(session);
+			},
 		},
 	});
 }

@@ -3,16 +3,23 @@ import LoginForm from '../../../components/auth/LoginForm';
 import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function SignIn({ providers }) {
 	return (
 		<>
 			<LoginForm>
-				{Object.values(providers).map((provider) => (
+				<Button onClick={() => signIn('github')}>Zaloguj się przez Github</Button>
+				<Link href="/auth/register">
+					<Button>Załóż konto email</Button>
+				</Link>
+				{/* {Object.values(providers).map((provider) => (
 					<div key={provider.name}>
-						<Button onClick={() => signIn(provider.id)}>Sign in with {provider.name}</Button>
+						<Button onClick={() => signIn(provider.id)}>
+							Sign in {provider.id}with {provider.name}
+						</Button>
 					</div>
-				))}
+				))} */}
 			</LoginForm>
 		</>
 	);

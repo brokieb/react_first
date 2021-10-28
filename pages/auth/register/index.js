@@ -6,7 +6,7 @@ export default function Home() {
 	const router = useRouter();
 	function addClientHandler(data) {
 		axios
-			.post('/api/postNewClient', {
+			.post('/api/auth/postNewUser', {
 				headers: {
 					'Content-Type': 'application/json',
 				},

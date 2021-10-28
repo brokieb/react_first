@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-
+import Loading from '../layout/Loading';
 // import signIn from '../../pages/auth/login'
 function AuthProvider({ children }) {
 	const { data: session, status, token } = useSession();
@@ -21,7 +21,18 @@ function AuthProvider({ children }) {
 	if (allowed) {
 		return children;
 	} else {
-		return <div>Wczytywanie strony lub nie masz uprawnień...</div>;
+		return <Loading />;
+	}
+}
+export async function getServerSideProps(context) {
+	const session = await getSession({ req: context.req });
+	if (!session) {
+		return {
+			redirect: {
+				destination: '/',
+				permanent: false,
+			},
+		};
 	}
 }
 

@@ -20,7 +20,6 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps() {
-	console.log('@@@@@@@@@@@@@@@@@@@@@@');
 	const data = await axios.get('http://localhost:3000/api/getProducts', {
 		params: {
 			_id: null,
