@@ -2,13 +2,13 @@ import axios from 'axios';
 import { increment } from '../../../features/counter/counterSlice';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import CartItemsTable from '../../../components/user/CartItemsTable';
 export default function Home() {
 	const [loading, setLoading] = useState(true);
 	const [data, setData] = useState([{}]);
 	const [sumPrice, setSumPrice] = useState(0);
-
+	const [acceptTerms, setAcceptTerms] = useState(false);
 	useEffect(() => {
 		function getData() {
 			axios
@@ -39,7 +39,16 @@ export default function Home() {
 		}
 	}, []);
 
-	function createOrderHandler() {
+	function handleCreateOrder() {
+		axios
+			.post('/api/postNewOrder', {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((res) => {
+				console.log(res);
+			});
 		console.log('tworzonko');
 	}
 	return (
@@ -53,9 +62,41 @@ export default function Home() {
 						Pełna wartość zamówienia : <strong>{sumPrice}</strong>
 					</div>
 					<div>
-						<Link href="/user/create-order">
-							<Button variant="success">Finalizuj zamówienie</Button>
-						</Link>
+						Po dokonaniu płatności, dane do logowania zostaną automatycznie wysłane na adres email podany przy rejestracji lub jeżeli taki adres nie
+						został podany twoje aktualne subskrypcje będą widoczne w zakładce <Link href="/user/orders">ZAMÓWIENIA</Link> na twoim profilu.
+					</div>
+					<div>
+						<div className="mb-3">
+							<Form.Check
+								checked={acceptTerms}
+								type="checkbox"
+								id="accept-terms"
+								label={acceptTerms ? 'Regulamin strony został zaakceptowany :)' : 'Akceptuję regulamin strony, i chcę realizować zamówienie'}
+								onChange={() => {
+									if (acceptTerms) {
+										setAcceptTerms(false);
+									} else {
+										setAcceptTerms(true);
+									}
+								}}
+							/>
+						</div>
+					</div>
+					<div>
+						{acceptTerms ? (
+							<Button
+								variant="success"
+								onClick={() => {
+									handleCreateOrder();
+								}}
+							>
+								Finalizuj zamówienie a
+							</Button>
+						) : (
+							<Button disabled="disabled" variant="success">
+								Finalizuj zamówienie
+							</Button>
+						)}
 					</div>
 				</>
 			)}

@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import { Container, Navbar, Nav, Dropdown, Badge, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faRocket,
@@ -18,11 +16,7 @@ import {
 	faCreditCard,
 	faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Badge from 'react-bootstrap/Badge';
-import Button from 'react-bootstrap/Button';
 import { set } from '../../features/counter/counterSlice';
-import { useContext } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import axios from 'axios';
 
@@ -95,12 +89,10 @@ function MainNavigation() {
 							)}
 						</Button>
 					</Link>
-
 					<Dropdown>
 						<Dropdown.Toggle variant="link" bsPrefix="p-0">
 							<img className="xa" style={{ width: '35px', borderRadius: '100%' }} src={session.user.image} />
 						</Dropdown.Toggle>
-
 						<Dropdown.Menu align="end">
 							<Dropdown.Item href="/user/profile" className="d-flex flex-row gap-2 align-items-center" onClick={redirect.bind(this)}>
 								<FontAwesomeIcon style={{ width: '1.5em' }} icon={faUserCircle} />

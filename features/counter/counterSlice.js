@@ -2,11 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export function Home() {
-	console.log('?????????????');
-	const [state, setState] = useState(5);
-}
-
 export const cartItemsCounterSlice = createSlice({
 	name: 'counter',
 	initialState: {

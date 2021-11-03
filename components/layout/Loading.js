@@ -1,11 +1,15 @@
 import { Spinner } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 export default function Home(props) {
 	const [longLoading, setLongLoading] = useState(false);
-	setTimeout(function () {
-		setLongLoading(true);
-	}, 5000);
+	useEffect(() => {
+		const timer = setTimeout(function () {
+			console.log('loadi');
+			setLongLoading(true);
+		}, 5000);
+		return () => clearTimeout(timer);
+	}, []);
 	return (
 		<div className="d-flex gap-2 flex-column">
 			<div className="d-flex flex-row justify-content-center gap-2">

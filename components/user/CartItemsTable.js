@@ -13,7 +13,7 @@ export default function CredentialsTableContent(props) {
 				accessor: 'productId.title', // accessor is the "key" in the data
 			},
 			{
-				Header: 'ilość',
+				Header: 'ilość miesięcy',
 				accessor: 'quantity',
 			},
 			{
