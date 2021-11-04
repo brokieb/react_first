@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTable } from 'react-table';
-import { faLock, faUnlock, faFolderOpen, faCalendarPlus, faUser, faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faUnlock, faFolderOpen, faCalendarPlus, faUser, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faUser as farUser } from '@fortawesome/free-regular-svg-icons';
 import CredentialsDetailsModal from './CredentialsDetailsModal';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import ToggleCredentialsActive from './ToggleCredentialsActive';
 
 export default function CredentialsTableContent(props) {
 	const [loadingData, setLoadingData] = useState(true);
 	const [data, setData] = useState([{}]);
-	const [buttonsStatus, setbuttonsStatus] = useState(false);
-	const [buttonsStatus2, setbuttonsStatus2] = useState(false);
 	const [showCredentialsDetailsModal, setShowCredentialsDetailsModal] = useState(false);
 	const [InitialShowModal, setInitialShowModal] = useState(false);
 	const [ModalCredentialsId, setModalCredentialsId] = useState(false);
@@ -22,49 +20,12 @@ export default function CredentialsTableContent(props) {
 	};
 	const handleShowCredentialsDetailsModal = () => setShowCredentialsDetailsModal(true);
 
-	async function lockerHandler(id, index) {
-		axios
-			.put('/api/putEditCredentials', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				params: {
-					id: id,
-					newStatus: buttonsStatus[index] ? false : true,
-				},
-			})
-			.then((res) => {
-				if (res.status == '204') {
-					console.log('to dziala!!');
-					let helperArray = buttonsStatus;
-					helperArray[index] = true;
-					setbuttonsStatus(helperArray);
-					return true;
-				} else {
-					return false;
-				}
-			});
-	}
-	function getData() {
+	function getData(init) {
 		axios.get('http://localhost:3000/api/getCredentials').then((ans) => {
 			ans.data.forEach((arg, index) => {
-				// setbuttonsStatus((oldArray) => [...oldArray, arg.active]);
 				arg['buttons'] = (
 					<div className="d-flex justify-content-around">
-						{buttonsStatus ? (
-							<>asdasd</>
-						) : (
-							<Button
-								variant="danger"
-								size="sm"
-								onClick={() => {
-									console.log('kliknieto');
-									setbuttonsStatus(true);
-								}}
-							>
-								<FontAwesomeIcon icon={faLock} />
-							</Button>
-						)}
+						<ToggleCredentialsActive init={init} arg={arg} index={index} />
 						<Button
 							className="btn btn-sm btn-primary"
 							onClick={function () {
@@ -97,9 +58,9 @@ export default function CredentialsTableContent(props) {
 			setLoadingData(false);
 		});
 	}
-	if (loadingData) {
-		getData();
-	}
+	useEffect(() => {
+		getData(true);
+	}, []);
 	const columns = [
 		{
 			Header: 'Email',
@@ -126,10 +87,7 @@ export default function CredentialsTableContent(props) {
 			accessor: 'buttons',
 		},
 	];
-	if (!loadingData) {
-		// const readyData = React.useMemo(() => data, []);
-		// const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, readyData });
-	}
+
 	return (
 		<>
 			{loadingData ? (
