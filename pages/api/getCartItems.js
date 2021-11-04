@@ -15,6 +15,6 @@ export default async function handler(req, res) {
 			return res.status(400).json(err);
 		}
 	} else {
-		return res.status(401).json({ err: 'WRONG METHOD' });
+		return res.status(402).json({ err: 'WRONG METHOD' });
 	}
 }

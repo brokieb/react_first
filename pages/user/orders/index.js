@@ -1,12 +1,29 @@
 import OrderHistoryCard from '../../../components/user/OrderHistoryCard';
-
-export default function Home() {
-	return (
-		<div className="w-50 d-flex flex-column gap-2">
-			<OrderHistoryCard login="loginek" password="asdasdasdas" title="jakis tytul" days_left="5"></OrderHistoryCard>
-			<OrderHistoryCard login="loginek" password="asdasdasdas" title="jakis tytul 2 " days_left="35"></OrderHistoryCard>
-			<OrderHistoryCard login="loginek" password="asdasdasdas" title="jakis tytul3 3" days_left="66"></OrderHistoryCard>
-			<OrderHistoryCard login="loginek" password="asdasdasdas" title="jakis tytul 4444" days_left="12"></OrderHistoryCard>
-		</div>
-	);
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+export default function Home(props) {
+  const [readyData, setReadyData] = useState(false);
+  const [loading, setLoading] = useState(true);
+  async function getData() {
+    const data = await axios.get('http://localhost:3000/api/getOrders', {
+      params: {
+        _id: null,
+      },
+    });
+    console.log(data.data);
+    setReadyData(
+      data.data.map((item, index) => {
+        return <OrderHistoryCard key={index} order={item}></OrderHistoryCard>;
+      })
+    );
+    setLoading(false);
+  }
+  useEffect(() => {
+    getData();
+  }, []);
+  return loading ? (
+    <>?</>
+  ) : (
+    <div className='w-50 d-flex flex-column gap-2'>{readyData}</div>
+  );
 }
