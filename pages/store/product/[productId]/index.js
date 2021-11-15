@@ -1,22 +1,15 @@
-import ProductDetails from '../../../../components/store/ProductDetails';
-import axios from 'axios';
+import ProductDetails from 'app/components/common/store/ProductDetails';
+import axiosInstance from 'app/lib/axiosInstance';
 export default function Home(props) {
-	console.log(props.product);
-	return (
-		// <div></div>
-		<ProductDetails
-			_id={props.product._id}
-			title={props.product.title}
-			description={props.product.description}
-			price={props.product.price}
-			imageUrl={props.product.imageUrl}
-		></ProductDetails>
-	);
+	console.log(props);
+
+	return <ProductDetails product={props.product}></ProductDetails>;
 }
 
 export async function getServerSideProps(context) {
 	const productId = context.params.productId;
-	const data = await axios.get('http://localhost:3000/api/getProducts', {
+
+	const data = await axiosInstance.get('/prods/getProducts', {
 		params: {
 			_id: productId,
 		},

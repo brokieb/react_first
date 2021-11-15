@@ -3,10 +3,11 @@ import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import FacebookProvider from 'next-auth/providers/facebook';
 import bcrypt from 'bcrypt';
-import clientPromise from '../../../lib/mongodb';
-import dbConnect from '../../../lib/dbConnect';
-import User from '../../../model/users';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
+
+import clientPromise from 'app/lib/mongodb';
+import dbConnect from 'app/lib/dbConnect';
+import User from 'model/users';
 
 export default async function auth(req, res) {
 	return await NextAuth(req, res, {
@@ -27,7 +28,7 @@ export default async function auth(req, res) {
 				},
 				async authorize(credentials, req) {
 					const user = await User.findOne({ email: credentials.email });
-					console.log(user);
+
 					if (user == null) {
 						return null;
 					} else {
@@ -35,7 +36,6 @@ export default async function auth(req, res) {
 						if (!checkPw) {
 							return null;
 						} else {
-							console.log('zalogowano :(');
 							return { name: user.name, _id: user._id };
 						}
 					}
@@ -50,9 +50,12 @@ export default async function auth(req, res) {
 			signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
 		},
 		callbacks: {
-			async session({ session, token, user }) {
-				//dołączenie do obiektu sesji id użytkownika z bazy
-				session.user.uid = token.sub;
+			async session({ session, token }) {
+				//dołączenie do obiektu sesji id użytkownika i uprawnienia z bazy
+				const user = await User.findById(token.sub);
+				session.user.permission = user.permission ? user.permission : 0;
+				session.user.uid = user._id;
+
 				return Promise.resolve(session);
 			},
 		},

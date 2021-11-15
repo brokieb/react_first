@@ -1,29 +1,29 @@
-import OrderHistoryCard from '../../../components/user/OrderHistoryCard';
-import axios from 'axios';
+import OrderHistoryCard from 'app/components/elements/cards/user/OrderHistoryCard';
+import axiosInstance from 'app/lib/axiosInstance';
+
 import { useEffect, useState } from 'react';
+import Loading from 'app/components/layout/Loading';
 export default function Home(props) {
-  const [readyData, setReadyData] = useState(false);
-  const [loading, setLoading] = useState(true);
-  async function getData() {
-    const data = await axios.get('http://localhost:3000/api/getOrders', {
-      params: {
-        _id: null,
-      },
-    });
-    console.log(data.data);
-    setReadyData(
-      data.data.map((item, index) => {
-        return <OrderHistoryCard key={index} order={item}></OrderHistoryCard>;
-      })
-    );
-    setLoading(false);
-  }
-  useEffect(() => {
-    getData();
-  }, []);
-  return loading ? (
-    <>?</>
-  ) : (
-    <div className='w-50 d-flex flex-column gap-2'>{readyData}</div>
-  );
+	const [readyData, setReadyData] = useState(false);
+	const [loading, setLoading] = useState(true);
+
+	async function getData() {
+		const data = await axiosInstance.get('/api/order/getOrders', {
+			params: {
+				_id: null,
+				sort: { createdAt: 'asc' },
+			},
+		});
+
+		setReadyData(
+			data.data.map((item, index) => {
+				return <OrderHistoryCard key={index} order={item}></OrderHistoryCard>;
+			}),
+		);
+		setLoading(false);
+	}
+	useEffect(() => {
+		getData();
+	}, []);
+	return loading ? <Loading /> : <div className="w-50 d-flex flex-column gap-2">{readyData}</div>;
 }

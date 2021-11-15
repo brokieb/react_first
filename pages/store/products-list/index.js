@@ -1,19 +1,19 @@
-import ProductsList from '../../../components/store/ProductsList';
-import axios from 'axios';
-import { getSession } from 'next-auth/react';
+import ProductsList from 'app/components/common/store/ProductsList';
+import axiosInstance from 'app/lib/axiosInstance';
+import Loading from 'app/components/layout/Loading';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home(props) {
-	if (props.products != undefined) {
-		return <ProductsList products={props.products}></ProductsList>;
-	} else {
-		return <h2>Nothing here</h2>;
-	}
+	return (
+		<div>
+			<ProductsList products={props.products}></ProductsList>
+		</div>
+	);
 }
 
-export async function getServerSideProps(context) {
-	const session = await getSession({ req: context.req });
-	const data = await axios.get('http://localhost:3000/api/getProducts', {
+export async function getServerSideProps() {
+	const data = await axiosInstance.get('/api/prods/getProducts', {
 		params: {
 			_id: null,
 		},
@@ -23,19 +23,4 @@ export async function getServerSideProps(context) {
 			products: data.data,
 		},
 	};
-	// if (!session) {
-	// 	console.log('tutaj klika');
-	// 	return {
-	// 		redirect: {
-	// 			destination: '/',
-	// 			permanent: false,
-	// 		},
-	// 	};
-	// }
-	console.log('uruchamiam');
 }
-
-// export async function getServerSideProps() {
-//   console.log('@@@@@@@@@@@@@@@@@@@@@@');
-
-// }

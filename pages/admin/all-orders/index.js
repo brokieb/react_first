@@ -1,7 +1,6 @@
-import axios from 'axios';
+import axiosInstance from 'app/lib/axiosInstance';
 export default function Home() {
-	axios.get('http://localhost:3000/api/getTest').then((ans) => {
-		console.log(ans);
+	axiosInstance.get('/api/getTest').then((ans) => {
 		// const creds = ans.data;
 		// setReadyData(<>Szcegóły konta {creds.email}</>);
 		// setLoadingData(false);

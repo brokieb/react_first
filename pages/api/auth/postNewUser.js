@@ -1,13 +1,11 @@
 import bcrypt from 'bcrypt';
-import User from '../../../model/users';
-import dbConnect from '../../../lib/dbConnect';
+import User from 'model/users';
+import dbConnect from 'app/lib/dbConnect';
 
 export default async function handler(req, res) {
-	console.log('wyslanko');
 	if (req.method === 'POST') {
 		const readyData = req.body.params;
 		const saltRounds = 10;
-		console.log(readyData, '???????????????????');
 
 		await dbConnect();
 
@@ -29,7 +27,6 @@ export default async function handler(req, res) {
 				res.status(201).json({ mess: 'Poprawnie dodano' });
 			})
 			.catch((err) => {
-				console.log(err);
 				return res.status(401).json({ mess: err });
 			});
 	}

@@ -1,4 +1,4 @@
-import NewClientForm from '../../../components/auth/NewClientForm';
+import NewClientForm from 'app/components/elements/forms/auth/NewClientForm';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
@@ -21,7 +21,6 @@ export default function Home() {
 					console.log('poprawnie dodano :)', res);
 					router.push('/auth/login');
 				} else {
-					console.log('blad');
 				}
 			});
 	}

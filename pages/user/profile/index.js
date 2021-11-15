@@ -3,7 +3,7 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 export default function Home() {
 	const { data: session } = useSession();
-
+	console.log(session);
 	return (
 		<div>
 			<main>

@@ -1,26 +1,24 @@
-import ProductsList from '../components/store/ProductsList';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Loading from 'app/components/layout/Loading';
+import ProductsList from 'app/components/common/store/ProductsList';
+import axiosInstance from 'app/lib/axiosInstance';
 export default function Home(props) {
-	if (props.products != undefined) {
-		return (
-			<div>
-				strona główna
-				<h1>TEST 2 2 22</h1>
-				<p>asdaasda</p>
-				<p>asdaasda</p>
-				<p>asdaasda</p>
-				<Link href="/auth/login">TEST </Link>
-				<ProductsList products={props.products}></ProductsList>
-			</div>
-		);
-	} else {
-		return <h2>Nothing here</h2>;
-	}
+	return (
+		<div>
+			strona główna
+			<h1>TEST a2 2 22</h1>
+			<p>asdaasda</p>
+			<p>asdaasda</p>
+			<p>asdaasda</p>
+			<Link href="/auth/login">TEST A</Link>
+			<ProductsList products={props.products}></ProductsList>
+		</div>
+	);
 }
 
 export async function getServerSideProps() {
-	const data = await axios.get('http://localhost:3000/api/getProducts', {
+	const data = await axiosInstance.get('/api/prods/getProducts', {
 		params: {
 			_id: null,
 		},
