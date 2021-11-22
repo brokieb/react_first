@@ -1,6 +1,6 @@
-import ProductsList from 'app/components/common/store/ProductsList';
+import ProductsList from 'app/components/common/store/productsList';
 import axiosInstance from 'app/lib/axiosInstance';
-import Loading from 'app/components/layout/Loading';
+import Loading from 'app/components/layout/loading';
 import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

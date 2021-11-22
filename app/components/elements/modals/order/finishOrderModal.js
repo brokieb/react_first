@@ -4,7 +4,7 @@ import axiosInstance from 'app/lib/axiosInstance';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import Loading from 'app/components/layout/Loading';
+import Loading from 'app/components/layout/loading';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { createHash } from 'crypto';

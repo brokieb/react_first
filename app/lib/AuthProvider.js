@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import Loading from 'app/components/layout/Loading';
+import Loading from 'app/components/layout/loading';
 function AuthProvider({ children }) {
 	const { data: session, status, token } = useSession();
 	const isUser = !!session?.user;

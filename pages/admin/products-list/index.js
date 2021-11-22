@@ -1,21 +1,25 @@
-import ProductsList from 'app/components/common/admin/ProductsList';
+import ProductsList from 'app/components/common/admin/productsList';
 import axiosInstance from 'app/lib/axiosInstance';
-import { useEffect, useState } from 'react';
-import Loading from 'app/components/layout/Loading';
-import { Button, Card } from 'react-bootstrap';
+import { useEffect, useState, createContext } from 'react';
+import Loading from 'app/components/layout/loading';
+
+export const ProductsDataContext = createContext({
+	ProductsData: [],
+	setProductsData: () => {},
+});
 
 export default function Home(props) {
-	const [readyData, setReadyData] = useState('');
+	const [ProductsData, setProductsData] = useState([]);
+	const products = useMemo(() => ({ ProductsData, setProductsData }), [ProductsDataContext]);
+
 	const [loadingData, setLoadingData] = useState(true);
-	function getData() {
+
+	useEffect(() => {
 		axiosInstance.get('/api/prods/getProducts').then((ans) => {
 			const data = ans.data;
-			setReadyData(data);
+			setProductsData(data);
 			setLoadingData(false);
 		});
-	}
-	useEffect(() => {
-		getData();
 	}, []);
 	return (
 		<>
@@ -23,7 +27,7 @@ export default function Home(props) {
 				<Loading />
 			) : (
 				<div>
-					<ProductsList products={readyData}></ProductsList>
+					<ProductsList products={ProductsData}></ProductsList>
 				</div>
 			)}
 		</>

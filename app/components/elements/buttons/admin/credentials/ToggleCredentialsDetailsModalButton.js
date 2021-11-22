@@ -1,35 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CredentialsDetailsModal from '../../../modals/admin/credentials/CredentialsDetailsModal';
-export default function CredentialsDetailsModalButton(props) {
-	const [showCredentialsDetailsModal, setShowCredentialsDetailsModal] = useState(false);
+import { ModalShow } from 'pages/admin/credentials';
+import { ModalDataIndex } from 'pages/admin/credentials';
+export default function CredentialsDetailsModalButton({ credId }) {
 	const [showModalInit, setShowModalInit] = useState(false);
+	const [reload, setReload] = useState(false);
 
+	const { modalShow, setModalShow } = useContext(ModalShow);
+	const { modalIndex, setModalIndex } = useContext(ModalDataIndex);
 	return (
 		<>
 			<Button
-				className="btn btn-sm btn-primary"
+				size="sm"
+				variant="primary"
 				onClick={() => {
-					setShowModalInit(true);
-					setShowCredentialsDetailsModal(true);
+					setModalIndex(credId);
+					setModalShow(true);
 				}}
 			>
 				<FontAwesomeIcon icon={faFolderOpen} />
 			</Button>
-			{showModalInit ? (
-				<CredentialsDetailsModal
-					show={showCredentialsDetailsModal}
-					handleClose={() => {
-						console.log('XDDD');
-						setShowCredentialsDetailsModal(false);
-					}}
-					credId={props.credId}
-				></CredentialsDetailsModal>
-			) : (
-				<></>
-			)}
 		</>
 	);
 }

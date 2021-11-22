@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-import AddToCardButton from 'app/components/elements/buttons/store/AddToCardButton';
+import AddToCardButton from 'app/components/elements/buttons/store/addToCardButton';
 
 function ProductCard(props) {
 	return (

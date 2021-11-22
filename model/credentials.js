@@ -29,9 +29,9 @@ const credentialsSchema = new Schema(
 		},
 		users: [
 			{
-				orderPartId: {
+				orderId: {
 					type: Schema.Types.ObjectId,
-					ref: 'Order.products._id',
+					ref: 'Order',
 				},
 				profileName: {
 					type: String,
@@ -39,6 +39,29 @@ const credentialsSchema = new Schema(
 				expiredIn: {
 					type: Date,
 					required: true,
+				},
+			},
+		],
+		usersHistory: [
+			{
+				orderId: {
+					type: Schema.Types.ObjectId,
+					ref: 'Order',
+				},
+				profileName: {
+					type: String,
+				},
+				addedTime: {
+					type: Date,
+					required: true,
+				},
+				expiredIn: {
+					type: Date,
+					required: true,
+				},
+				status: {
+					type: String,
+					enum: ['BANNED', 'MOVED'],
 				},
 			},
 		],

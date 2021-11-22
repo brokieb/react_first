@@ -2,9 +2,9 @@ import { Card } from 'react-bootstrap';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import ProductCard from 'app/components/elements/cards/admin/ProductCard';
-import NewProductFormModal from 'app/components/elements/modals/admin/product/NewProductFormModal';
+import axiosInstance from 'app/lib/axiosInstance';
+import ProductCard from 'app/components/elements/cards/admin/productCard';
+import NewProductFormModal from 'app/components/elements/modals/admin/product/newProductFormModal';
 
 function ProductsList(props) {
 	const [show, setShow] = useState(false);
@@ -12,11 +12,8 @@ function ProductsList(props) {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	function addProductHandler(data) {
-		axios
+		axiosInstance
 			.post('/api/prods/postNewProduct', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				params: {
 					title: data.title,
 					description: data.description,

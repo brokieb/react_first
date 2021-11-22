@@ -10,7 +10,12 @@ export default function ActualSlotsInUse(props) {
 
 	const ans = [];
 	for (const i = 0; i < props.maxUsers; i++) {
-		ans.push(<FontAwesomeIcon key={i} icon={i < props.nowUsers ? faUser : farUser} />);
+		if (i > 4) {
+			ans.push(<>...</>);
+			break;
+		} else {
+			ans.push(<FontAwesomeIcon key={i} icon={i < props.nowUsers ? faUser : farUser} />);
+		}
 	}
 
 	return ans;

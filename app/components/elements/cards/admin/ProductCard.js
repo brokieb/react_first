@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import EditProductFormModal from 'app/components/elements/modals/admin/product/EditProductFormModal';
+import EditProductFormModal from 'app/components/elements/modals/admin/product/editProductFormModal';
 
 function ProductCard(props) {
 	const [show, setShow] = useState(false);
@@ -15,9 +15,14 @@ function ProductCard(props) {
 	return (
 		<Card style={{ width: '18rem' }} className="m-2" key={props.product._id}>
 			<Link href={'/store/product/' + props.product._id}>
-				<Card.Img variant="top" src={props.product.imageUrl} alt={props.product.imageUrl} style={{ cursor: 'pointer' }} />
+				<Card.Img
+					variant="top"
+					src={props.product.imageUrl}
+					alt={props.product.imageUrl}
+					style={{ cursor: 'pointer' }}
+				/>
 			</Link>
-			<Card.Body className="d-flex flex-column justify-content-between">
+			<Card.Body className="d-flex flex-column justify-content-between pt-1">
 				<div>
 					<Link href={'/store/product/' + props.product._id}>
 						<a className="link-primary card-title h5">{props.product.title}</a>
@@ -26,11 +31,6 @@ function ProductCard(props) {
 				</div>
 				<div className="d-flex justify-content-around align-items-center">
 					<div className="gap-2 d-flex">
-						<Link href="#">
-							<Button href="#" variant="outline">
-								<FontAwesomeIcon size="lg" icon={faEye} />
-							</Button>
-						</Link>
 						<Button variant="outline" onClick={handleShow}>
 							<FontAwesomeIcon size="lg" icon={faEdit} />
 						</Button>
@@ -38,7 +38,12 @@ function ProductCard(props) {
 					<h4 className="m-0 cursor-pointer">{props.product.price} zł</h4>
 				</div>
 			</Card.Body>
-			<EditProductFormModal show={show} handleClose={handleClose} onEditProduct={editProductHandler} product={props.product}></EditProductFormModal>
+			<EditProductFormModal
+				show={show}
+				handleClose={handleClose}
+				onEditProduct={editProductHandler}
+				product={props.product}
+			></EditProductFormModal>
 		</Card>
 	);
 }

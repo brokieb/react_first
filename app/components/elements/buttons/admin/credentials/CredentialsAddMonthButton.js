@@ -1,14 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axiosInstance from 'app/lib/axiosInstance';
 import { Button } from 'react-bootstrap';
 import { faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CredentialsDataContext } from 'pages/admin/credentials/index';
+
+import AccountExpiredIn from 'app/components/common/credentialsTableElements/accountExpiredIn';
+import GetIndex from 'app/components/modules/getIndex';
+import { produceWithPatches } from 'immer';
+
 export default function AddMonthHandlerButton(props) {
-	const [showCredentialsDetailsModal, setShowCredentialsDetailsModal] = useState(false);
-	const [showModalInit, setShowModalInit] = useState(false);
-	const value = useContext(PageContext);
-	console.log(value, '<-');
-	// console.log(value, '<---');
+	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
 	function addMonthHandler() {
 		axiosInstance
 			.put('/api/creds/putEditCredentials', {
@@ -18,8 +20,15 @@ export default function AddMonthHandlerButton(props) {
 				},
 			})
 			.then((res) => {
-				if (res.status == '204') {
-					setbuttonStatus(state);
+				if (res.status == '200') {
+					setCredentialsData((item) => {
+						return item.map((item, index) => {
+							if (item._id == props.credId) {
+								item.expiredIn = res.data.data.expiredIn;
+							}
+							return item;
+						});
+					});
 				} else {
 					return false;
 				}
@@ -27,16 +36,13 @@ export default function AddMonthHandlerButton(props) {
 	}
 
 	return (
-		<>
-			<div>--2 3--asd</div>
-			<Button
-				className="btn btn-sm btn-secondary"
-				onClick={() => {
-					addMonthHandler();
-				}}
-			>
-				<FontAwesomeIcon icon={faCalendarPlus} />
-			</Button>
-		</>
+		<Button
+			className="btn btn-sm btn-secondary"
+			onClick={() => {
+				addMonthHandler();
+			}}
+		>
+			<FontAwesomeIcon icon={faCalendarPlus} />
+		</Button>
 	);
 }

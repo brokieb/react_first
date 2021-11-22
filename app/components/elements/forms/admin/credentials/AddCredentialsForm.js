@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import NewCredentialsFormModal from 'app/components/elements/modals/admin/credentials/NewCredentialsFormModal';
+import NewCredentialsFormModal from 'app/components/elements/modals/admin/credentials/newCredentialsFormModal';
 import axios from 'axios';
 export default function AddCredentialsForm() {
 	const [showAddCredentialsModal, setShowAddCredentialsModal] = useState(false);
@@ -8,11 +8,9 @@ export default function AddCredentialsForm() {
 	const handleShowAddCredentialsModal = () => setShowAddCredentialsModal(true);
 
 	function addCredentialsHandler(data) {
-		axios
+		console.log(data, '<111');
+		axiosInstance
 			.post('/api/creds/postNewCredentials', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				params: {
 					email: data.email,
 					password: data.password,

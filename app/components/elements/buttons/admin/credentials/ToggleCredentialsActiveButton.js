@@ -1,27 +1,42 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { faLock, faUnlock, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { faUser as farUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axiosInstance from 'app/lib/axiosInstance';
-
-export default function ToggleCredentialsActive(props) {
-	const [buttonStatus, setbuttonStatus] = useState('loading');
+import { CredentialsDataContext } from 'pages/admin/credentials/index';
+import GetIndex from 'app/components/modules/getIndex';
+export default function ToggleCredentialsActive({ credId }) {
+	const [index, setIndex] = useState('');
+	const [loading, setLoading] = useState(true);
+	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
 	useEffect(() => {
-		setbuttonStatus(props.arg.active ? 'unlocked' : 'locked');
-	}, []);
+		setIndex(GetIndex(credentialsData, credId));
+		setLoading(false);
+	}, [credId]);
+
+	// useEffect(() => {
+	// 	setLoading(false);
+	// }, [credentialsData]);
 
 	async function lockerHandler(status, state) {
 		axiosInstance
 			.put('/api/creds/putEditCredentials', {
 				params: {
-					id: props.arg._id,
+					id: credId,
 					newStatus: status,
 				},
 			})
 			.then((res) => {
 				if (res.status == '200') {
-					setbuttonStatus(state);
+					setCredentialsData((item) => {
+						return item.map((item, index) => {
+							if (item._id == credId) {
+								item.active = status;
+							}
+							return item;
+						});
+					});
+					setLoading(false);
 				} else {
 					return false;
 				}
@@ -29,27 +44,27 @@ export default function ToggleCredentialsActive(props) {
 	}
 
 	function ButtonState() {
-		switch (buttonStatus) {
-			case 'locked':
+		switch (credentialsData[index].active.toString()) {
+			case 'false':
 				return (
 					<Button
 						variant="danger"
 						size="sm"
 						onClick={() => {
-							setbuttonStatus('loading');
+							setLoading(true);
 							lockerHandler('true', 'unlocked');
 						}}
 					>
 						<FontAwesomeIcon icon={faLock} />
 					</Button>
 				);
-			case 'unlocked':
+			case 'true':
 				return (
 					<Button
 						variant="success"
 						size="sm"
 						onClick={() => {
-							setbuttonStatus('loading');
+							setLoading(true);
 							lockerHandler('false', 'locked');
 						}}
 					>
@@ -57,13 +72,19 @@ export default function ToggleCredentialsActive(props) {
 					</Button>
 				);
 			default:
-				return (
-					<Button variant="warning" size="sm" disabled>
-						<FontAwesomeIcon icon={faSpinner} spin />
-					</Button>
-				);
+				return <>?-{credentialsData[index].active}-3</>;
 		}
 	}
 
-	return <ButtonState />;
+	return (
+		<>
+			{loading ? (
+				<Button variant="warning" size="sm" disabled>
+					<FontAwesomeIcon icon={faSpinner} spin />
+				</Button>
+			) : (
+				<ButtonState />
+			)}
+		</>
+	);
 }

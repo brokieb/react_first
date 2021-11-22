@@ -1,15 +1,12 @@
-import NewClientForm from 'app/components/elements/forms/auth/NewClientForm';
-import axios from 'axios';
+import NewClientForm from 'app/components/elements/forms/auth/newClientForm';
+import axiosInstance from 'app/lib/axiosInstance';
 import { useRouter } from 'next/router';
 
 export default function Home() {
 	const router = useRouter();
 	function addClientHandler(data) {
-		axios
+		axiosInstance
 			.post('/api/auth/postNewUser', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				params: {
 					name: data.name,
 					email: data.email,

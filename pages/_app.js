@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 
 import store from 'app/lib/reduxStore';
 import 'app/styles/index.scss';
-import MainNavigation from 'app/components/layout/MainNavigation';
+import MainNavigation from 'app/components/layout/mainNavigation';
 import AuthProvider from 'app/lib/AuthProvider';
-import Layout from 'app/components/layout/Layout';
+import Layout from 'app/components/layout/layout';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (

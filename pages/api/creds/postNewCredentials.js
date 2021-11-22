@@ -8,6 +8,8 @@ export default async function handler(req, res) {
 		if (req.method === 'POST') {
 			const readyData = req.body.params;
 			await dbConnect();
+			console.log(readyData, '======');
+
 			const cred = new Credentials({
 				productId: new mongoose.Types.ObjectId(readyData.productId),
 				email: readyData.email,
@@ -15,10 +17,15 @@ export default async function handler(req, res) {
 				expiredIn: readyData.expiredIn,
 				comment: readyData.comment,
 				active: readyData.active,
+				usersMaxLen: readyData.usersMaxLen,
 			});
 			const ans = await cred.save();
-			await Product.findByIdAndUpdate(ans.productId, { $push: { credentials: { credentialsId: ans._id } } });
-			return res.status(201).json({ mess: 'Poprawnie dodano produkt' });
+			await Product.findByIdAndUpdate(ans.productId, {
+				$push: { credentials: { credentialsId: ans._id } },
+			});
+			return res.status(200).json({ mess: 'Poprawnie dodano produkt' });
 		}
-	} catch (error) {}
+	} catch (error) {
+		console.log(error, 'BŁAAAAD!!');
+	}
 }

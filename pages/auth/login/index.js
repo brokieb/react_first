@@ -1,5 +1,5 @@
 import { getProviders, signIn } from 'next-auth/react';
-import LoginForm from 'app/components/elements/forms/auth/LoginForm';
+import LoginForm from 'app/components/elements/forms/auth/loginForm';
 import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import { useSession } from 'next-auth/react';

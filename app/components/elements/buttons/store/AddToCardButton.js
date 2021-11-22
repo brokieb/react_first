@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { increment } from 'app/features/counter/counterSlice';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
+import axiosInstance from 'app/lib/axiosInstance';
 import { useSession } from 'next-auth/react';
 
 export default function AddToCardButton(props) {
@@ -13,11 +13,8 @@ export default function AddToCardButton(props) {
 	const [cookies, setCookie] = useCookies(['cart']);
 
 	function addToCardHandler() {
-		axios
+		axiosInstance
 			.put('/api/cart/putAddCardProduct', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				params: {
 					productId: props._id,
 					cart: cookies.cartId,

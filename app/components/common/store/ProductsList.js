@@ -1,4 +1,4 @@
-import ProductCard from 'app/components/elements/cards/store/ProductCard';
+import ProductCard from 'app/components/elements/cards/store/productCard';
 
 function ProductsList(props) {
 	return (

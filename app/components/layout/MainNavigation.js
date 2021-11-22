@@ -17,7 +17,7 @@ import {
 	faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { useSession, signOut } from 'next-auth/react';
-import axios from 'axios';
+import axiosInstance from 'app/lib/axiosInstance';
 import { useCookies } from 'react-cookie';
 import { set } from 'app/features/counter/counterSlice';
 
@@ -33,11 +33,8 @@ function MainNavigation() {
 		const [cookies, setCookie] = useCookies(['cart']);
 		const count = useSelector((state) => state.counter.value);
 		const dispatch = useDispatch();
-		axios
+		axiosInstance
 			.get('/api/cart/getCartItems', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				params: {
 					cart: cookies.cartId,
 				},

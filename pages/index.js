@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Loading from 'app/components/layout/Loading';
-import ProductsList from 'app/components/common/store/ProductsList';
+import Loading from 'app/components/layout/loading';
+import ProductsList from 'app/components/common/store/productsList';
 import axiosInstance from 'app/lib/axiosInstance';
 export default function Home(props) {
 	return (

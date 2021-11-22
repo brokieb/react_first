@@ -1,8 +1,8 @@
-import OrderHistoryCard from 'app/components/elements/cards/user/OrderHistoryCard';
+import OrderHistoryCard from 'app/components/elements/cards/user/orderHistoryCard';
 import axiosInstance from 'app/lib/axiosInstance';
 
 import { useEffect, useState } from 'react';
-import Loading from 'app/components/layout/Loading';
+import Loading from 'app/components/layout/loading';
 export default function Home(props) {
 	const [readyData, setReadyData] = useState(false);
 	const [loading, setLoading] = useState(true);

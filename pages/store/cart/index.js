@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axiosInstance from 'app/lib/axiosInstance';
 import Router from 'next/router';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { Button, Form, Alert } from 'react-bootstrap';
-import Loading from 'app/components/layout/Loading';
+import Loading from 'app/components/layout/loading';
 import { increment } from 'app/features/counter/counterSlice';
-import CartItemsTable from 'app/components/common/store/CartItemsTable';
+import CartItemsTable from 'app/components/common/store/cartItemsTable';
 import FinishOrderModal from 'app/components/elements/modals/order/finishOrderModal';
 
 export default function Home() {
@@ -20,11 +20,8 @@ export default function Home() {
 	const [cookies, setCookie] = useCookies(['cart']);
 	const { data: session, status } = useSession();
 	function getData() {
-		axios
+		axiosInstance
 			.get('/api/cart/getCartItems', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				params: {
 					cart: cookies.cartId ? cookies.cartId : null,
 				},
@@ -32,9 +29,12 @@ export default function Home() {
 			.then((res) => {
 				if (res.status == '200') {
 					if (res.data.status == 'MERGED_CARTS') {
-						setErr('Aktualny koszyk zawiera się z koszyka stworzonego przed zalogowaniem oraz tego dołączonego do twojego konta');
+						setErr(
+							'Aktualny koszyk zawiera się z koszyka stworzonego przed zalogowaniem oraz tego dołączonego do twojego konta',
+						);
 					}
 					console.log(res.data);
+					console.log(res.data, '@@@');
 					if (res.data.main) {
 						const activeCart = res.data.main.cart;
 						if (activeCart) {
@@ -64,12 +64,8 @@ export default function Home() {
 	}, []);
 
 	function handleCreateOrder() {
-		axios
-			.post('/api/order/postNewOrder', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
+		axiosInstance
+			.post('/api/order/postNewOrder', {})
 			.then((res) => {
 				setData([]);
 				setShowCreateOrderModal(<FinishOrderModal orderId={res.data._id} />);
@@ -99,8 +95,10 @@ export default function Home() {
 						Pełna wartość zamówienia : <strong>{sumPrice}</strong>
 					</div>
 					<div>
-						Po dokonaniu płatności, dane do logowania zostaną automatycznie wysłane na adres email podany przy rejestracji lub jeżeli taki adres nie
-						został podany twoje aktualne subskrypcje będą widoczne w zakładce <Link href="/user/orders">ZAMÓWIENIA</Link> na twoim profilu.
+						Po dokonaniu płatności, dane do logowania zostaną automatycznie wysłane na adres email
+						podany przy rejestracji lub jeżeli taki adres nie został podany twoje aktualne
+						subskrypcje będą widoczne w zakładce <Link href="/user/orders">ZAMÓWIENIA</Link> na
+						twoim profilu.
 					</div>
 					<div>
 						<div className="mb-3">
@@ -109,7 +107,11 @@ export default function Home() {
 									checked={acceptTerms}
 									type="checkbox"
 									id="accept-terms"
-									label={acceptTerms ? 'Regulamin strony został zaakceptowany :)' : 'Akceptuję regulamin strony oraz chcę realizować zamówienie'}
+									label={
+										acceptTerms
+											? 'Regulamin strony został zaakceptowany :)'
+											: 'Akceptuję regulamin strony oraz chcę realizować zamówienie'
+									}
 									onChange={() => {
 										if (acceptTerms) {
 											setAcceptTerms(false);
@@ -123,7 +125,11 @@ export default function Home() {
 									checked={acceptTerms}
 									type="checkbox"
 									id="accept-terms"
-									label={acceptTerms ? 'Regulamin strony został zaakceptowany :)' : 'Akceptuję regulamin strony oraz chcę realizować zamówienie'}
+									label={
+										acceptTerms
+											? 'Regulamin strony został zaakceptowany :)'
+											: 'Akceptuję regulamin strony oraz chcę realizować zamówienie'
+									}
 									onChange={() => {
 										if (acceptTerms) {
 											setAcceptTerms(false);
