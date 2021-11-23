@@ -23,6 +23,7 @@ import FriendlyID from 'app/components/modules/friendlyID';
 import GetIndex from 'app/components/modules/getIndex';
 import { ModalDataIndex } from 'pages/admin/credentials';
 import Loading from 'app/components/layout/loading';
+import { AnimatePresence } from 'framer-motion';
 
 export const BanUsersContext = createContext({
 	bannedUsers: [],
@@ -157,7 +158,9 @@ export default function CredentialsDetailsModal(props) {
 									<MoveUsersContext.Provider value={moved}>
 										<BanUsersContext.Provider value={banned}>
 											<h2>Użytkownicy aktywni</h2>
-											<ActiveCredentialsUserTable credId={readyData._id} />
+											<AnimatePresence>
+												<ActiveCredentialsUserTable credId={readyData._id} />
+											</AnimatePresence>
 
 											<div>
 												<BadgeArrayItems
@@ -178,7 +181,6 @@ export default function CredentialsDetailsModal(props) {
 																},
 															})
 															.then((ans) => {
-																alert('POPRAWNIE PRZENIESIONO');
 																let arr = [];
 
 																setCredentialsData((item) => {
@@ -231,7 +233,6 @@ export default function CredentialsDetailsModal(props) {
 																},
 															})
 															.then((ans) => {
-																alert('POPRAWNIE ZBANOWANO');
 																console.log(ans.data.data.users, ans.data.data.usersHistory);
 																const content = ans.data.data;
 																setBannedUsers([]);
@@ -263,7 +264,6 @@ export default function CredentialsDetailsModal(props) {
 											currentUsers={readyData.usersLen}
 											maxUsers={readyData.usersMaxLen}
 											cb={(val) => {
-												alert('POPRAWNIE ODBLOKOWANO');
 												axiosInstance
 													.put('/api/creds/putUnbanCredentialsUser', {
 														params: {
