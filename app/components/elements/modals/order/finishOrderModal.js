@@ -45,14 +45,16 @@ export default function FinishOrderModal(props) {
 	}
 
 	useEffect(() => {
-		console.log('++++>', 5 < 5);
 		getData();
 	}, []);
 
 	const schema = yup
 		.object()
 		.shape({
-			EMAIL: yup.string().email('To nie jest prawidłowy adres email').required('To pole jest obowiązkowe'),
+			EMAIL: yup
+				.string()
+				.email('To nie jest prawidłowy adres email')
+				.required('To pole jest obowiązkowe'),
 		})
 		.required();
 	return (
@@ -64,7 +66,17 @@ export default function FinishOrderModal(props) {
 				validationSchema={schema}
 				onSubmit={(values, action) => {
 					const stringToHash =
-						'Damian#3' + ';' + values.KWOTA + ';' + values.NAZWA_USLUGI + ';' + values.ADRES_WWW + ';' + values.ID_ZAMOWIENIA + ';' + values.SEKRET;
+						'Damian#3' +
+						';' +
+						values.KWOTA +
+						';' +
+						values.NAZWA_USLUGI +
+						';' +
+						values.ADRES_WWW +
+						';' +
+						values.ID_ZAMOWIENIA +
+						';' +
+						values.SEKRET;
 					const hash = createHash('sha256').update(stringToHash).digest('hex');
 					values['HASH'] = hash;
 					const params = queryString.stringify(values);
@@ -87,14 +99,25 @@ export default function FinishOrderModal(props) {
 								<Loading />
 							) : userDetails.email ? (
 								<>
-									<Alert variant="success">Zamówienie zostanie wysłane na adres: {userDetails.email}</Alert>
+									<Alert variant="success">
+										Zamówienie zostanie wysłane na adres: {userDetails.email}
+									</Alert>
 								</>
 							) : (
 								<>
-									<Alert variant="info">Do twojego konta nie został przypisany adres e-mail. Uzupełnij go żeby kontynuować</Alert>
+									<Alert variant="info">
+										Do twojego konta nie został przypisany adres e-mail. Uzupełnij go żeby
+										kontynuować
+									</Alert>
 									<Form.Group className="mb-3">
 										<Form.Label htmlFor="EMAIL">Email</Form.Label>
-										<Form.Control type="text" name="EMAIL" value={values.EMAIL} onChange={handleChange} isInvalid={!!errors.EMAIL} />
+										<Form.Control
+											type="text"
+											name="EMAIL"
+											value={values.EMAIL}
+											onChange={handleChange}
+											isInvalid={!!errors.EMAIL}
+										/>
 										<Form.Control.Feedback type="invalid">{errors?.EMAIL}</Form.Control.Feedback>
 									</Form.Group>
 								</>
@@ -118,7 +141,12 @@ export default function FinishOrderModal(props) {
 				)}
 			</Formik>
 			<form id="order" action="https://platnosc.hotpay.pl/" method="post">
-				<input required name="SEKRET" value="SW9sclhZdFdGTjhoZXFxMWQ4TkdYbjE0VFFNSVVraDVpbm9zcUx3UkQ2cz0," type="hidden" />
+				<input
+					required
+					name="SEKRET"
+					value="SW9sclhZdFdGTjhoZXFxMWQ4TkdYbjE0VFFNSVVraDVpbm9zcUx3UkQ2cz0,"
+					type="hidden"
+				/>
 				<input required name="KWOTA" value="1" type="hidden" />
 				<input required name="NAZWA_USLUGI" value="BROKIEB.PL SKLEP" type="hidden" />
 				<input required name="ADRES_WWW" value="http://localhost:3000" type="hidden" />

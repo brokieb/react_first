@@ -21,10 +21,8 @@ export default async function handler(req, res) {
 					],
 				});
 				return res.status(200).json(sibs);
-				break;
 			default:
 				return res.status(200).json(cred);
-				break;
 		}
 	}
 }

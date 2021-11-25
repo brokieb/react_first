@@ -1,6 +1,6 @@
+import { useEffect, useState, createContext, useMemo } from 'react';
 import ProductsList from 'app/components/common/admin/productsList';
 import axiosInstance from 'app/lib/axiosInstance';
-import { useEffect, useState, createContext } from 'react';
 import Loading from 'app/components/layout/loading';
 
 export const ProductsDataContext = createContext({
@@ -17,17 +17,28 @@ export default function Home(props) {
 	useEffect(() => {
 		axiosInstance.get('/api/prods/getProducts').then((ans) => {
 			const data = ans.data;
+
 			setProductsData(data);
 			setLoadingData(false);
 		});
 	}, []);
+
+	function RenderProductsList() {
+		return <ProductsList products={ProductsData}></ProductsList>;
+	}
+
+	useEffect(() => {
+		RenderProductsList();
+	}, [ProductsData]);
 	return (
 		<>
 			{loadingData ? (
 				<Loading />
 			) : (
 				<div>
-					<ProductsList products={ProductsData}></ProductsList>
+					<ProductsDataContext.Provider value={products}>
+						<RenderProductsList />
+					</ProductsDataContext.Provider>
 				</div>
 			)}
 		</>

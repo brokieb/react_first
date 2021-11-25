@@ -1,12 +1,17 @@
-import { useRef, useState } from 'react';
-import { Button, Form, Modal, ListGroup, Tab } from 'react-bootstrap';
+import { useRef, useState, useContext } from 'react';
+import { Button, Form, Modal, ListGroup, Tab, Col, Row, Image } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import axiosInstance from 'app/lib/axiosInstance';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import { ProductsDataContext } from 'pages/admin/products-list';
 
-export default function EditProductForm(props) {
+export default function EditProductForm({ productData }) {
+	const [status, setStatus] = useState(0);
+	const { ProductsData, setProductsData } = useContext(ProductsDataContext);
+
 	const schema = yup
 		.object()
 		.shape({
@@ -16,7 +21,9 @@ export default function EditProductForm(props) {
 				.string()
 				.url('To nie jest poprawny adres URL')
 				.required('To pole jest obowiązkowe'),
-			price: yup.number('To nie jest poprawna kwota').required('To pole jest obowiązkowe'),
+			price: yup
+				.number('To nie jest poprawna kwota, używaj kropki')
+				.required('To pole jest obowiązkowe'),
 			shortDescription: yup.string().required('To pole jest obowiązkowe'),
 			description: yup.string().required('To pole jest obowiązkowe'),
 			maxUsers: yup.number('asd').required('asdasd'),
@@ -32,38 +39,56 @@ export default function EditProductForm(props) {
 	});
 
 	return (
-		<Formik
-			validationSchema={schema}
-			enableReinitialize
-			validateOnChange={true}
-			validateOnBlur={true}
-			onSubmit={(values) => {
-				axiosInstance.post('/api/prods/postNewProduct', {
-					params: {
-						title: values.title,
-						sku: values.sku,
-						imageUrl: values.imageUrl,
-						price: values.price,
-						shortDescription: values.shortDescription,
-						description: values.description,
-						maxUsers: values.maxUsers,
-					},
-				});
-			}}
-			initialValues={{
-				title: '',
-				sku: '',
-				imageUrl: '',
-				price: '',
-				shortDescription: '',
-				description: '',
-				maxUsers: '',
-			}}
-		>
-			{({ errors, values, touched, handleChange, handleSubmit, handleBlur, setFieldValue }) => (
-				<Form onSubmit={handleSubmit}>
-					EDIIIIIT
-					<Modal.Body>
+		<>
+			<Formik
+				validationSchema={schema}
+				enableReinitialize
+				validateOnChange={true}
+				validateOnBlur={true}
+				onSubmit={(values) => {
+					axiosInstance
+						.post('/api/prods/postEditProduct', {
+							params: {
+								id: productData._id,
+								title: values.title,
+								sku: values.sku,
+								imageUrl: values.imageUrl,
+								price: values.price,
+								shortDescription: values.shortDescription,
+								description: values.description,
+								maxUsers: values.maxUsers,
+							},
+						})
+						.then((ans) => {
+							setStatus(true);
+							setProductsData((item) => {
+								return item.map((item, index) => {
+									if (item._id == productData._id) {
+										item.title = values.title;
+										item.sku = values.sku;
+										item.imageUrl = values.imageUrl;
+										item.price = values.price;
+										item.shortDescription = values.shortDescription;
+										item.description = values.description;
+										item.settings.usersPerAccount = values.maxUsers;
+									}
+									return item;
+								});
+							});
+						});
+				}}
+				initialValues={{
+					title: productData.title,
+					sku: productData.SKU,
+					imageUrl: productData.imageUrl,
+					price: productData.price,
+					shortDescription: productData.shortDescription,
+					description: productData.description,
+					maxUsers: productData.settings.usersPerAccount,
+				}}
+			>
+				{({ errors, values, touched, handleChange, handleSubmit, handleBlur, setFieldValue }) => (
+					<Form onSubmit={handleSubmit} id="editProductForm">
 						<Form.Group>
 							<Form.Label className="mt-2 mb-0" htmlFor="title">
 								Tytuł
@@ -93,18 +118,25 @@ export default function EditProductForm(props) {
 							<Form.Control.Feedback type="invalid">{errors.sku}</Form.Control.Feedback>
 						</Form.Group>
 						<Form.Group>
-							<Form.Label className="mt-2 mb-0" htmlFor="imageUrl">
-								Zdjęcie
-							</Form.Label>
-							<Form.Control
-								value={values.imageUrl}
-								type="url"
-								id="imageUrl"
-								name="imageUrl"
-								isInvalid={!!errors.imageUrl}
-								onChange={handleChange}
-							/>
-							<Form.Control.Feedback type="invalid">{errors.imageUrl}</Form.Control.Feedback>
+							<Row className="mt-2">
+								<Col xs={12} sm={8}>
+									<Form.Label className="m-0" htmlFor="imageUrl">
+										Zdjęcie
+									</Form.Label>
+									<Form.Control
+										value={values.imageUrl}
+										type="url"
+										id="imageUrl"
+										name="imageUrl"
+										isInvalid={!!errors.imageUrl}
+										onChange={handleChange}
+									/>
+									<Form.Control.Feedback type="invalid">{errors.imageUrl}</Form.Control.Feedback>
+								</Col>
+								<Col xs={12} sm={4}>
+									<Image src={values.imageUrl} alt={values.title} thumbnail />
+								</Col>
+							</Row>
 						</Form.Group>
 						<Form.Group>
 							<Form.Label className="mt-2 mb-0" htmlFor="price">
@@ -166,17 +198,9 @@ export default function EditProductForm(props) {
 							></Form.Control>
 							<Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
 						</Form.Group>
-					</Modal.Body>
-					<Modal.Footer>
-						<Button variant="secondary" onClick={props.handleClose}>
-							Zamknij
-						</Button>
-						<Button type="submit" variant="success">
-							Zapisz
-						</Button>
-					</Modal.Footer>
-				</Form>
-			)}
-		</Formik>
+					</Form>
+				)}
+			</Formik>
+		</>
 	);
 }

@@ -11,7 +11,7 @@ export default function ActualSlotsInUse(props) {
 	const ans = [];
 	for (const i = 0; i < props.maxUsers; i++) {
 		if (i > 4) {
-			ans.push(<>...</>);
+			ans.push(<span key={i}>...</span>);
 			break;
 		} else {
 			ans.push(<FontAwesomeIcon key={i} icon={i < props.nowUsers ? faUser : farUser} />);

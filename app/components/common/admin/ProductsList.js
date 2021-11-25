@@ -6,11 +6,11 @@ import axiosInstance from 'app/lib/axiosInstance';
 import ProductCard from 'app/components/elements/cards/admin/productCard';
 import NewProductFormModal from 'app/components/elements/modals/admin/product/newProductFormModal';
 
-function ProductsList(props) {
+export default function ProductsList(props) {
 	const [show, setShow] = useState(false);
-
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
 	function addProductHandler(data) {
 		axiosInstance
 			.post('/api/prods/postNewProduct', {
@@ -23,7 +23,6 @@ function ProductsList(props) {
 			})
 			.then((res) => {
 				if (res.status == '201') {
-					console.log('poprawnie dodano :)', res);
 				} else {
 				}
 			});
@@ -33,12 +32,18 @@ function ProductsList(props) {
 			{props.products.map((product, index) => (
 				<ProductCard product={product} key={index} />
 			))}
-			<Card style={{ width: '18rem' }} className="m-2 d-flex justify-content-center align-items-center" onClick={handleShow}>
+			<Card
+				style={{ width: '18rem' }}
+				className="m-2 d-flex justify-content-center align-items-center"
+				onClick={handleShow}
+			>
 				<FontAwesomeIcon size="3x" icon={faPlusSquare} />
 			</Card>
-			<NewProductFormModal show={show} handleClose={handleClose} onAddProduct={addProductHandler}></NewProductFormModal>
+			<NewProductFormModal
+				show={show}
+				handleClose={handleClose}
+				onAddProduct={addProductHandler}
+			></NewProductFormModal>
 		</div>
 	);
 }
-
-export default ProductsList;

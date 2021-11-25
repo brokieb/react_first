@@ -15,7 +15,6 @@ export default function Home() {
 			})
 			.then((res) => {
 				if (res.status == '201') {
-					console.log('poprawnie dodano :)', res);
 					router.push('/auth/login');
 				} else {
 				}

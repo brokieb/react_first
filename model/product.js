@@ -20,6 +20,15 @@ const productSchema = new Schema(
 			type: Number,
 			required: true,
 		},
+		discount: {
+			discountValue: {
+				type: Number,
+				default: 0,
+			},
+			discountUntil: {
+				type: Date,
+			},
+		},
 		imageUrl: {
 			type: String,
 			required: true,
@@ -34,14 +43,6 @@ const productSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		credentials: [
-			{
-				credentialsId: {
-					type: Schema.Types.ObjectId,
-					ref: 'Credentials',
-				},
-			},
-		],
 	},
 	{ timestamps: true },
 );

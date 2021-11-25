@@ -9,7 +9,6 @@ export default function Home() {
 		let render = <></>;
 
 		range.forEach((item, k) => {
-			console.log(item, '@@@@@@@@@@@');
 			range.push(
 				<tr key={k}>
 					<td>{item}</td>

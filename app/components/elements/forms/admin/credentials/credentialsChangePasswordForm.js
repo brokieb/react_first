@@ -4,11 +4,13 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import dayjs from 'dayjs';
 import axiosInstance from 'app/lib/axiosInstance';
-import { CredentialsDataContext } from 'pages/admin/credentials/index';
-import GetIndex from 'app/components/modules/getIndex';
+import { CredentialsDataContext } from 'app/components/elements/tables/credentials/credentialsTableContent';
+import GetData from 'app/components/modules/getData';
+import PopAlert from 'app/components/modules/popAlert';
 export default function credentialsChangePasswordForm({ credId }) {
 	const [password, setPassword] = useState('');
 	const [passwordValid, setPasswordValid] = useState(false);
+	const [alertData, setAlertData] = useState({});
 
 	const [comment, setComment] = useState('');
 	const [commentValid, setCommentValid] = useState(false);
@@ -22,14 +24,20 @@ export default function credentialsChangePasswordForm({ credId }) {
 	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
 
 	useEffect(() => {
-		const index = GetIndex(credentialsData, credId);
-		console.log(dayjs(credentialsData[index].expiredIn).format('yyyy-MM-dd'), '@@@@@@@@@@');
-		if (credentialsData[index]) {
-			setReadyData(credentialsData[index]);
-			setPassword(credentialsData[index].password);
-			setComment(credentialsData[index].comment);
-			setExpiredIn(dayjs(credentialsData[index].expiredIn).format('YYYY-MM-DD'));
-		}
+		GetData(
+			credentialsData,
+			credId,
+			axiosInstance.get('/api/creds/getCredentials', {
+				params: {
+					_id: credId,
+				},
+			}),
+		).then((items) => {
+			setReadyData(items);
+			setPassword(items.password);
+			setComment(items.comment);
+			setExpiredIn(dayjs(items.expiredIn).format('YYYY-MM-DD'));
+		});
 	}, [credId]);
 
 	function genCredentialsHandler() {
@@ -49,7 +57,7 @@ export default function credentialsChangePasswordForm({ credId }) {
 		for (let i = 0; i < LEN_PW; i++) {
 			pw += CHARACTERS.charAt(Math.floor(Math.random() * CHA_LEN));
 		}
-		console.log(pw, 'WYGENEROWANE');
+
 		setPasswordValid(true);
 		setPassword(pw);
 	}
@@ -67,7 +75,6 @@ export default function credentialsChangePasswordForm({ credId }) {
 			validateOnChange={true}
 			validateOnBlur={true}
 			onSubmit={(values) => {
-				console.log('ZAAKCEPTOWAno form', values, readyData._id);
 				axiosInstance
 					.put('/api/creds/putEditCredentials', {
 						params: {
@@ -78,6 +85,14 @@ export default function credentialsChangePasswordForm({ credId }) {
 						},
 					})
 					.then((ans) => {
+						setAlertData({
+							variant: 'success',
+							title: 'Sukces',
+							body: 'Poprawnie zmieniono dane',
+							cb: () => {
+								setAlertData({});
+							},
+						});
 						const index = GetIndex(credentialsData, readyData._id);
 						setCredentialsData((item) => {
 							return item.map((item, index) => {
@@ -92,6 +107,16 @@ export default function credentialsChangePasswordForm({ credId }) {
 						setPasswordValid(false);
 						setCommentValid(false);
 						setExpiredInValid(false);
+					})
+					.catch((err) => {
+						setAlertData({
+							variant: 'danger',
+							title: 'Błąd',
+							body: 'Wystąpił błąd przy edytowaniu danego konta',
+							cb: () => {
+								setAlertData({});
+							},
+						});
 					});
 			}}
 			initialValues={{
@@ -105,7 +130,7 @@ export default function credentialsChangePasswordForm({ credId }) {
 				<Form id="credentialsChangePasswordForm" onSubmit={handleSubmit}>
 					<Modal.Body className="pt-0">
 						<Form.Group>
-							<InputGroup className="mb-3" htmlFor="password">
+							<InputGroup className="mb-3" htmlFor="password" hasValidation>
 								<Form.Control
 									value={password}
 									onChange={(e) => {
@@ -182,6 +207,7 @@ export default function credentialsChangePasswordForm({ credId }) {
 							<Form.Control.Feedback>DANE ZMIENIONE</Form.Control.Feedback>
 						</Form.Group>
 					</Modal.Body>
+					<PopAlert data={alertData} />
 				</Form>
 			)}
 		</Formik>

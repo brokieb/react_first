@@ -3,7 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTable } from 'react-table';
 import { useSession, signIn } from 'next-auth/react';
 import { useCookies } from 'react-cookie';
-import { faLock, faUnlock, faFolderOpen, faCalendarPlus, faUser, faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {
+	faLock,
+	faUnlock,
+	faFolderOpen,
+	faCalendarPlus,
+	faUser,
+	faCoffee,
+} from '@fortawesome/free-solid-svg-icons';
 import { faUser as farUser } from '@fortawesome/free-regular-svg-icons';
 import { Button, Table } from 'react-bootstrap';
 import axios from 'axios';
@@ -35,9 +42,11 @@ export default function CredentialsTableContent(props) {
 	);
 	const data = props.data;
 	const readyData = React.useMemo(() => data, []);
-	console.log(data);
 
-	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
+	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+		columns,
+		data,
+	});
 
 	return (
 		<>

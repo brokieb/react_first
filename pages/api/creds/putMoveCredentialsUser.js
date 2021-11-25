@@ -35,7 +35,6 @@ export default async function handler(req, res) {
 				.json({ mess: 'Poprawnie zaktualizowano objekt z danymi logowania :)', data: newAcc });
 		}
 	} catch (error) {
-		console.log(error);
 		return res.status(400).json({ err: error });
 	}
 }

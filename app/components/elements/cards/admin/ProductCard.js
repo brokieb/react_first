@@ -2,16 +2,13 @@ import { Card, Button, Form } from 'react-bootstrap';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import EditProductFormModal from 'app/components/elements/modals/admin/product/productDetailsModal';
 
-import EditProductFormModal from 'app/components/elements/modals/admin/product/editProductFormModal';
-
-function ProductCard(props) {
+export default function ProductCard(props) {
 	const [show, setShow] = useState(false);
-
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	function editProductHandler() {}
 	return (
 		<Card style={{ width: '18rem' }} className="m-2" key={props.product._id}>
 			<Link href={'/store/product/' + props.product._id}>
@@ -41,10 +38,8 @@ function ProductCard(props) {
 			<EditProductFormModal
 				show={show}
 				handleClose={handleClose}
-				onEditProduct={editProductHandler}
 				product={props.product}
 			></EditProductFormModal>
 		</Card>
 	);
 }
-export default ProductCard;

@@ -33,8 +33,7 @@ export default function Home() {
 							'Aktualny koszyk zawiera się z koszyka stworzonego przed zalogowaniem oraz tego dołączonego do twojego konta',
 						);
 					}
-					console.log(res.data);
-					console.log(res.data, '@@@');
+
 					if (res.data.main) {
 						const activeCart = res.data.main.cart;
 						if (activeCart) {

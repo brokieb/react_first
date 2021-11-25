@@ -21,7 +21,6 @@ export default async function handler(req, res) {
 			});
 			creds.usersHistory.push(
 				...usersToMove.map((item) => {
-					console.log(item, '@@@@@@@@@@@@@');
 					return {
 						orderId: item.orderId,
 						profileName: item.profileName,
@@ -34,7 +33,7 @@ export default async function handler(req, res) {
 			creds.usersLen = creds.usersLen - usersToMoveCount;
 
 			const old = await creds.save();
-			console.log('+++++++++++++++++++');
+
 			const response = await Credentials.findById(credId).populate([
 				'productId',
 				'users.orderId',
@@ -45,7 +44,6 @@ export default async function handler(req, res) {
 				.json({ mess: 'Poprawnie zaktualizowano objekt z danymi logowania :)', data: response });
 		}
 	} catch (error) {
-		console.log(error);
 		return res.status(400).json({ err: error });
 	}
 }

@@ -15,7 +15,6 @@ export default function UnbanUserFromCredentials(props) {
 			variant={unbannedUsers.includes(props.id) ? 'primary' : 'secondary'}
 			size="sm"
 			onClick={() => {
-				console.log('BANOWANIE !!!', { id: props.credId });
 				if (unbannedUsers.includes(props.id)) {
 					setUnbannedUsers((prevState) =>
 						prevState.filter((el) => {

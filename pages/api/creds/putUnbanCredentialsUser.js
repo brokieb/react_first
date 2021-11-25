@@ -21,7 +21,6 @@ export default async function handler(req, res) {
 			});
 			creds.users.push(
 				...usersToMove.map((item) => {
-					console.log(item, '@@@@@@@@@@@@@');
 					return {
 						orderId: item.orderId,
 						profileName: item.profileName,
@@ -40,7 +39,6 @@ export default async function handler(req, res) {
 			return res.status(200).json({ mess: 'Poprawnie odbanowano :)', data: response });
 		}
 	} catch (error) {
-		console.log(error);
 		return res.status(400).json({ err: error });
 	}
 }

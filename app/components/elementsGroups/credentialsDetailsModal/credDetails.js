@@ -1,5 +1,5 @@
 import { Button, Modal, Nav, Col, Tab, Row, ListGroup, CloseButton, Alert } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { faCopy, faSync } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axiosInstance from 'app/lib/axiosInstance';
@@ -11,18 +11,47 @@ import AddMonthHandlerButton from 'app/components/elements/buttons/admin/credent
 import ActiveCredentialsUserTable from 'app/components/elements/tables/credentials/activeCredentialsUserTable';
 import CopyString from 'app/components/modules/copyString';
 import dayjs from 'dayjs';
-export default function credDetails(props) {
+import { CredentialsDataContext } from 'app/components/elements/tables/credentials/credentialsTableContent';
+import PopAlert from 'app/components/modules/popAlert';
+export default function credDetails({ cred }) {
+	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
+	const [alertData, setAlertData] = useState({});
+	const product = cred;
 	return (
 		<>
-			{props.cred.users.length != props.cred.usersLen ? (
+			{product.users.length != product.usersLen ? (
 				<Alert variant="danger">
 					Ilość osób na koncie nie zgadza się z zadeklarowaną liczbą, na koncie jest:{' '}
-					<strong>{props.cred.users.length}</strong>, zadeklarowane:{' '}
-					<strong>{props.cred.usersLen}</strong>. W celu naprawienia tego błędu,{' '}
+					<strong>{product.users.length}</strong>, zadeklarowane:{' '}
+					<strong>{product.usersLen}</strong>. W celu naprawienia tego błędu,{' '}
 					<a
 						href="#"
 						onClick={() => {
-							console.log('REPAIR FORM credDetails.js');
+							axiosInstance
+								.put('/api/creds/putFixCredentialsUsersCounter', {
+									params: {
+										id: product._id,
+									},
+								})
+								.then((ans) => {
+									const readyData = ans.data;
+									setAlertData({
+										variant: 'success',
+										title: 'Sukces',
+										body: 'Konto zostało poprawnie naprawione',
+										cb: () => {
+											setAlertData({});
+										},
+									});
+									setCredentialsData((item) => {
+										return item.map((item, index) => {
+											if (item._id == readyData.data._id) {
+												item.usersLen = readyData.data.usersLen;
+											}
+											return item;
+										});
+									});
+								});
 						}}
 					>
 						KLIKNIJ TUTAJ
@@ -33,42 +62,46 @@ export default function credDetails(props) {
 				<></>
 			)}
 			<div className="d-flex justify-content-evenly">
-				<ToggleCredentialsActiveButton credId={props.cred._id} />
-				<AddMonthHandlerButton credId={props.cred._id} />
+				<ToggleCredentialsActiveButton credId={product._id} />
+				<AddMonthHandlerButton credId={product._id} />
 			</div>
 			<hr className="mx-5" />
 			<ul>
 				<li>
-					email: <strong>{props.cred.email}</strong>
-					<CopyString string={props.cred.email} />
+					email: <strong>{product.email}</strong>
+					<CopyString string={product.email} />
 				</li>
 				<li>
-					Hasło: <strong>{props.cred.password}</strong>
-					<CopyString string={props.cred.password} />
+					Hasło: <strong>{product.password}</strong>
+					<CopyString string={product.password} />
 				</li>
 				<li>
-					Aktywne do: <strong>{dayjs(props.cred.expiredIn).format('DD/MM/YYYY')}</strong>
+					Aktywne do: <strong>{dayjs(product.expiredIn).format('DD/MM/YYYY')}</strong>
 				</li>
 				<li>
 					Ostatnia aktualizacja:{' '}
-					<strong>{dayjs(props.cred.updatedAt).format('DD/MM/YYYY HH:mm:ss')}</strong>
+					<strong>{dayjs(product.updatedAt).format('DD/MM/YYYY HH:mm:ss')}</strong>
 				</li>
 				<li>
 					użytkownicy:{' '}
 					<strong>
-						{props.cred.usersLen}/{props.cred.usersMaxLen}
+						{product.usersLen}/{product.usersMaxLen}
 					</strong>
 				</li>
 			</ul>
 			<hr className="mx-5" />
-			<div className="border d-flex flex-row mx-3 p-2 gap-3">
-				<img src={props.cred.productId.imageUrl} style={{ height: '60px' }}></img>
-				<div>
-					<strong>{props.cred.productId.title}</strong>
-					<small className="ps-2">{props.cred.productId.SKU}</small>
-					<p>{props.cred.productId.price} zł</p>
+			{product.productId._id && (
+				<div className="border d-flex flex-row mx-3 p-2 gap-3">
+					<img src={product.productId.imageUrl} style={{ height: '60px' }}></img>
+					<div>
+						<strong>{product.productId.title}</strong>
+						<small className="ps-2">{product.productId.SKU}</small>
+						<p>{product.productId.price} zł</p>
+					</div>
 				</div>
-			</div>
+			)}
+
+			<PopAlert data={alertData} />
 		</>
 	);
 }

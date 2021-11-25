@@ -8,16 +8,14 @@ export default function TableRender({ columns, data }) {
 	const [dataState, setDataState] = useState(true);
 	const [isPresent, safeToRemove] = usePresence();
 
-	useEffect(() => {
-		!isPresent && setTimeout(safeToRemove, 1000);
-	}, [isPresent]);
+	// useEffect(() => {
+	// 	!isPresent && setTimeout(safeToRemove, 1000);
+	// }, [isPresent]);
 
 	useEffect(() => {
-		console.log('DANGE GŁEBOKIE', data.length);
 		if (data.length == 0) {
 			setTimeout(() => {
 				setDataState(false);
-				console.log('CHOWAMY!!!!');
 			}, 1000);
 		} else {
 			setDataState(true);
@@ -34,7 +32,6 @@ export default function TableRender({ columns, data }) {
 		columns,
 		data,
 	});
-	console.log(data, 'DAT!!!!');
 	return (
 		<>
 			{dataState ? (
@@ -42,9 +39,11 @@ export default function TableRender({ columns, data }) {
 					<thead>
 						{headerGroups.map((headerGroup) => (
 							<tr {...headerGroup.getHeaderGroupProps()}>
-								{headerGroup.headers.map((column) => (
-									<th {...column.getHeaderProps()}>{column.render('Header')}</th>
-								))}
+								{headerGroup.headers.map((column) => {
+									if (!column.hidden) {
+										return <th {...column.getHeaderProps()}>{column.render('Header')}</th>;
+									}
+								})}
 							</tr>
 						))}
 					</thead>
@@ -63,14 +62,16 @@ export default function TableRender({ columns, data }) {
 											// Loop over the rows cells
 											row.cells.map((cell) => {
 												// Apply the cell props
-												return (
-													<td {...cell.getCellProps()}>
-														{
-															// Render the cell contents
-															cell.render('Cell')
-														}
-													</td>
-												);
+												if (!cell.column.hidden) {
+													return (
+														<td {...cell.getCellProps()}>
+															{
+																// Render the cell contents
+																cell.render('Cell')
+															}
+														</td>
+													);
+												}
 											})
 										}
 									</motion.tr>

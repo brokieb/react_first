@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const readyData = req.body.params;
 		await dbConnect();
-		console.log(readyData);
+
 		const prod = new Product({
 			title: readyData.title,
 			SKU: readyData.sku,

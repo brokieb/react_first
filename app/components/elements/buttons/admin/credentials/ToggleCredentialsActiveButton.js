@@ -3,20 +3,28 @@ import { Button } from 'react-bootstrap';
 import { faLock, faUnlock, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axiosInstance from 'app/lib/axiosInstance';
-import { CredentialsDataContext } from 'pages/admin/credentials/index';
-import GetIndex from 'app/components/modules/getIndex';
+import { CredentialsDataContext } from 'app/components/elements/tables/credentials/credentialsTableContent';
+import GetData from 'app/components/modules/getData';
 export default function ToggleCredentialsActive({ credId }) {
-	const [index, setIndex] = useState('');
+	const [data, setData] = useState({});
 	const [loading, setLoading] = useState(true);
-	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
-	useEffect(() => {
-		setIndex(GetIndex(credentialsData, credId));
-		setLoading(false);
-	}, [credId]);
 
-	// useEffect(() => {
-	// 	setLoading(false);
-	// }, [credentialsData]);
+	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
+
+	useEffect(() => {
+		const ans = GetData(
+			credentialsData,
+			credId,
+			axiosInstance.get('/api/creds/getCredentials', {
+				params: {
+					_id: credId,
+				},
+			}),
+		).then((items) => {
+			setData(items);
+			setLoading(false);
+		});
+	}, [credId, credentialsData]);
 
 	async function lockerHandler(status, state) {
 		axiosInstance
@@ -44,7 +52,7 @@ export default function ToggleCredentialsActive({ credId }) {
 	}
 
 	function ButtonState() {
-		switch (credentialsData[index].active.toString()) {
+		switch (data.active.toString()) {
 			case 'false':
 				return (
 					<Button
@@ -72,7 +80,7 @@ export default function ToggleCredentialsActive({ credId }) {
 					</Button>
 				);
 			default:
-				return <>?-{credentialsData[index].active}-3</>;
+				return <>?-{data.active}-3</>;
 		}
 	}
 

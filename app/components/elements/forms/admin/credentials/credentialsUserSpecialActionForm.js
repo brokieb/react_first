@@ -22,16 +22,15 @@ export default function CredentialsUserSpecialActionForm({ sendEmail, moveUsers,
 				creds.data.map((el) => {
 					const days = dayjs(el.expiredIn);
 					const diff = dayjs(days).diff(dayjs(), 'day');
-					console.log(diff, 'DAYS');
-					// setSiblingsAccounts((oldArray) => [
-					// 	...oldArray,
-					// 	{
-					// 		_id: el._id,
-					// 		title: `[${el.usersLen}+${movedUsers.length}/${el.usersMaxLen}] ${el.email}, ${
-					// 			diff == 1 ? `${diff} dzień` : `${diff} dni`
-					// 		}`,
-					// 	},
-					// ]);
+					setSiblingsAccounts((oldArray) => [
+						...oldArray,
+						{
+							_id: el._id,
+							title: `[${el.usersLen}+${movedUsers.length}/${el.usersMaxLen}] ${el.email}, ${
+								diff == 1 ? `${diff} dzień` : `${diff} dni`
+							}`,
+						},
+					]);
 				});
 			});
 	}
@@ -51,12 +50,9 @@ export default function CredentialsUserSpecialActionForm({ sendEmail, moveUsers,
 		<Formik
 			validationSchema={schema}
 			onSubmit={(values) => {
-				console.log('BANABLE SUB');
 				cb(values);
 			}}
-			onValidate={() => {
-				console.log('VALDIA');
-			}}
+			onValidate={() => {}}
 			initialValues={{
 				sendEmail: true,
 				newCredId: moveUsers ? '' : '0',

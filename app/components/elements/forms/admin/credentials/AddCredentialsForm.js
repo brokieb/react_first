@@ -8,7 +8,6 @@ export default function AddCredentialsForm() {
 	const handleShowAddCredentialsModal = () => setShowAddCredentialsModal(true);
 
 	function addCredentialsHandler(data) {
-		console.log(data, '<111');
 		axiosInstance
 			.post('/api/creds/postNewCredentials', {
 				params: {
@@ -22,7 +21,6 @@ export default function AddCredentialsForm() {
 			})
 			.then((res) => {
 				if (res.status == '201') {
-					console.log('poprawnie dodano :)', res);
 				} else {
 				}
 			});

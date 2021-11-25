@@ -18,12 +18,13 @@ import ActiveCredentialsUserTable from 'app/components/elements/tables/credentia
 import BannedCredentialsUserTable from 'app/components/elements/tables/credentials/bannedCredentialsUserTable';
 import CredDetails from 'app/components/elementsGroups/credentialsDetailsModal/credDetails';
 import CredentialsUserSpecialActionForm from 'app/components/elements/forms/admin/credentials/credentialsUserSpecialActionForm';
-import { CredentialsDataContext } from 'pages/admin/credentials';
+import { CredentialsDataContext } from 'app/components/elements/tables/credentials/credentialsTableContent';
 import FriendlyID from 'app/components/modules/friendlyID';
-import GetIndex from 'app/components/modules/getIndex';
+import GetData from 'app/components/modules/getData';
 import { ModalDataIndex } from 'pages/admin/credentials';
 import Loading from 'app/components/layout/loading';
 import { AnimatePresence } from 'framer-motion';
+import PopAlert from 'app/components/modules/popAlert';
 
 export const BanUsersContext = createContext({
 	bannedUsers: [],
@@ -40,9 +41,10 @@ export const MoveUsersContext = createContext({
 	setMovedUsers: () => {},
 });
 
-export default function CredentialsDetailsModal(props) {
+export default function CredentialsDetailsModal({ credId, handleClose, show }) {
 	const [loadingData, setLoadingData] = useState(true);
 	const [readyData, setReadyData] = useState('');
+	const [alertData, setAlertData] = useState({});
 
 	const [bannedUsers, setBannedUsers] = useState([]);
 	const banned = useMemo(() => ({ bannedUsers, setBannedUsers }), [bannedUsers]);
@@ -54,15 +56,23 @@ export default function CredentialsDetailsModal(props) {
 	const moved = useMemo(() => ({ movedUsers, setMovedUsers }), [movedUsers]);
 
 	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
-	const { modalIndex, setModalIndex } = useContext(ModalDataIndex);
-	useEffect(() => {
-		const index = GetIndex(credentialsData, props.credId);
-		if (credentialsData[index]) {
-			setReadyData(credentialsData[index]);
-			setLoadingData(false);
-		}
-	}, [props.credId]);
 
+	useEffect(() => {
+		const ans = GetData(
+			credentialsData,
+			credId,
+			axiosInstance.get('/api/creds/getCredentials', {
+				params: {
+					_id: credId,
+				},
+			}),
+		).then((items) => {
+			setReadyData(items);
+			setLoadingData(false);
+		});
+	}, [credId, credentialsData]);
+
+	useEffect(() => {}, [credentialsData]);
 	function BadgeArrayItems({
 		items,
 		variant,
@@ -100,7 +110,7 @@ export default function CredentialsDetailsModal(props) {
 					</Button>
 				) : (
 					<CredentialsUserSpecialActionForm
-						id={props.credId}
+						id={credId}
 						sendEmail={sendEmail}
 						moveUsers={moveUsers}
 						cb={cb}
@@ -113,20 +123,10 @@ export default function CredentialsDetailsModal(props) {
 	}
 
 	return (
-		<Modal
-			onHide={props.handleClose}
-			onExited={() => {
-				setBannedUsers([]);
-				setMovedUsers([]);
-				setUnbannedUsers([]);
-				setModalIndex(null);
-			}}
-			show={props.show}
-			size="xl"
-		>
+		<Modal onHide={handleClose} show={show} size="xl">
 			<Modal.Header closeButton>
 				<Modal.Title>
-					Szczegóły konta <FriendlyID ID={props.credId} />
+					Szczegóły konta <FriendlyID ID={credId} />
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body className="pt-0">
@@ -182,7 +182,14 @@ export default function CredentialsDetailsModal(props) {
 															})
 															.then((ans) => {
 																let arr = [];
-
+																setAlertData({
+																	variant: 'success',
+																	title: 'Sukces',
+																	body: 'Poprawnie przeniesiono użytkowników',
+																	cb: () => {
+																		setAlertData({});
+																	},
+																});
 																setCredentialsData((item) => {
 																	return item.map((item, index) => {
 																		if (item._id == readyData._id) {
@@ -216,7 +223,14 @@ export default function CredentialsDetailsModal(props) {
 																});
 															})
 															.catch((err) => {
-																console.log(err, '!!!!!!!!!!!!!');
+																setAlertData({
+																	variant: 'danger',
+																	title: 'Błąd',
+																	body: 'Wystąpił błąd',
+																	cb: () => {
+																		setAlertData({});
+																	},
+																});
 															});
 													}}
 												/>
@@ -233,9 +247,16 @@ export default function CredentialsDetailsModal(props) {
 																},
 															})
 															.then((ans) => {
-																console.log(ans.data.data.users, ans.data.data.usersHistory);
 																const content = ans.data.data;
 																setBannedUsers([]);
+																setAlertData({
+																	variant: 'success',
+																	title: 'Sukces',
+																	body: 'Poprawnie zablokowano użytkowników',
+																	cb: () => {
+																		setAlertData({});
+																	},
+																});
 																setCredentialsData((item) => {
 																	return item.map((item, index) => {
 																		if (item._id == content._id) {
@@ -245,6 +266,16 @@ export default function CredentialsDetailsModal(props) {
 																		}
 																		return item;
 																	});
+																});
+															})
+															.catch((err) => {
+																setAlertData({
+																	variant: 'danger',
+																	title: 'Błąd',
+																	body: 'Nie udało się zablokować użytkowników',
+																	cb: () => {
+																		setAlertData({});
+																	},
 																});
 															});
 													}}
@@ -271,8 +302,16 @@ export default function CredentialsDetailsModal(props) {
 														},
 													})
 													.then((ans) => {
-														console.log(ans.data.data.users, ans.data.data.usersHistory);
 														const content = ans.data.data;
+														setUnbannedUsers([]);
+														setAlertData({
+															variant: 'success',
+															title: 'OK!',
+															body: 'Poprawnie odblokowano użytkowników',
+															cb: () => {
+																setAlertData({});
+															},
+														});
 														setCredentialsData((item) => {
 															return item.map((item, index) => {
 																if (item._id == content._id) {
@@ -283,8 +322,16 @@ export default function CredentialsDetailsModal(props) {
 																return item;
 															});
 														});
-														setUnbannedUsers([]);
-														console.log('POPRAWNIE ODBLOKOWANO!');
+													})
+													.catch((err) => {
+														setAlertData({
+															variant: 'danger',
+															title: 'Błąd',
+															body: 'Wystąpił błąd',
+															cb: () => {
+																setAlertData({});
+															},
+														});
 													});
 											}}
 										/>
@@ -296,13 +343,14 @@ export default function CredentialsDetailsModal(props) {
 				)}
 			</Modal.Body>
 			<Modal.Footer>
-				<Button variant="secondary" onClick={props.handleClose}>
+				<Button variant="secondary" onClick={handleClose}>
 					Zamknij
 				</Button>
 				<Button type="submit" variant="success" form="credentialsChangePasswordForm">
 					Zapisz
 				</Button>
 			</Modal.Footer>
+			<PopAlert data={alertData} />
 		</Modal>
 	);
 }

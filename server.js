@@ -11,17 +11,10 @@ const instance = axiosInstance.create({
 });
 
 cron.schedule('* * * * * *', function () {
-	console.log(process.env.ADDRESS);
 	axiosInstance
 		.get('/api/getProducts')
-		.then((ans) => {
-			console.log(ans.data);
-		})
-		.catch((err) => {
-			console.log(err, '____');
-		});
+		.then((ans) => {})
+		.catch((err) => {});
 });
 
-app.listen(port, () => {
-	console.log(`Cron server runing on port ${port}`);
-});
+app.listen(port, () => {});

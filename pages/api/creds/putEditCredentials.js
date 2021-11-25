@@ -10,7 +10,6 @@ export default async function handler(req, res) {
 			const creds = await Credentials.findById(readyData.id);
 
 			if (readyData.newStatus) {
-				console.log('AKTUALIZACJA', readyData.newStatus);
 				creds.active = readyData.newStatus;
 			}
 			if (readyData.expiredInAddDays) {

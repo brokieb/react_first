@@ -9,8 +9,10 @@ export default async function handler(req, res) {
 	if (req.method === 'PATCH') {
 		await dbConnect();
 
-		const orders = await Order.find({ $or: [{ orderStatus: 'PAID' }, { orderStatus: 'IN_PROGRESS' }] }).select('products updatedAt');
-		// console.log(orders, '________');
+		const orders = await Order.find({
+			$or: [{ orderStatus: 'PAID' }, { orderStatus: 'IN_PROGRESS' }],
+		}).select('products updatedAt');
+		//
 		for (const order of orders) {
 			order.orderStatus = 'IN_PROGRESS';
 			let noAccount = 0;
@@ -21,10 +23,13 @@ export default async function handler(req, res) {
 					await order.save();
 					const prod = await Product.findOne({ _id: product.productId }).select('settings');
 					const creds = await Credentials.findOne({
-						$and: [{ productId: product.productId }, { '$expr': { $lt: ['$usersLen', '$usersMaxLen'] } }, { active: true }],
+						$and: [
+							{ productId: product.productId },
+							{ '$expr': { $lt: ['$usersLen', '$usersMaxLen'] } },
+							{ active: true },
+						],
 					});
 					if (creds) {
-						console.log('ISTNIEJE ->> ', creds);
 						creds.users = [
 							...creds.users,
 							{
@@ -39,7 +44,6 @@ export default async function handler(req, res) {
 						await creds.save();
 					} else {
 						noAccount = noAccount + 1;
-						console.log('NIE MA WOLNEGO KONTA KONTA DLA ZAMOWIENIA ->> ', order._id);
 					}
 				}
 			}

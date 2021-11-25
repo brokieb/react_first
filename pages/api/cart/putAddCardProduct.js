@@ -8,16 +8,19 @@ export default async function handler(req, res) {
 		const session = await getSession({ req });
 		await dbConnect();
 		const readyData = req.body.params;
-		console.log(readyData);
-		await (session ? User.find({ _id: session.user.uid }) : readyData.cart ? Cart.find({ _id: readyData.cart }) : Cart.find({ _id: null }))
+
+		await (session
+			? User.find({ _id: session.user.uid })
+			: readyData.cart
+			? Cart.find({ _id: readyData.cart })
+			: Cart.find({ _id: null })
+		)
 			.then((user) => {
 				let qty = 1;
 				if (user.length) {
-					console.log('NIE PUSTO');
 					const oldCart = user[0].cart.items;
-					console.log(oldCart, '@_@_@');
+
 					if (oldCart) {
-						console.log('asdasdasdda');
 						oldCart.forEach((obj) => {
 							if (obj.productId.toString() === readyData.productId.toString()) {
 								qty = obj.quantity + 1;
@@ -52,7 +55,6 @@ export default async function handler(req, res) {
 						},
 					});
 					return cart.save();
-					console.log('PUSTO');
 				}
 			})
 			.then((data) => {

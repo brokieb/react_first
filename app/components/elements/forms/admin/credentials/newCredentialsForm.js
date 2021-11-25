@@ -70,7 +70,6 @@ export default function NewCredentialsForm(props) {
 			validateOnChange={true}
 			validateOnBlur={true}
 			onSubmit={(data) => {
-				console.log(data, 'odebrałem');
 				axiosInstance
 					.post('/api/creds/postNewCredentials', {
 						headers: {
@@ -88,9 +87,7 @@ export default function NewCredentialsForm(props) {
 					})
 					.then((res) => {
 						if (res.status == '200') {
-							console.log('poprawnie dodano :)', res);
 						} else {
-							console.log('blad');
 						}
 					});
 			}}
@@ -169,8 +166,6 @@ export default function NewCredentialsForm(props) {
 								onBlur={handleBlur}
 								value={values.productId}
 							>
-								<option value="1">W11111kt</option>
-								<option value="2">2222t</option>
 								{product.data.map((data, i) => (
 									<option key={i} value={data._id}>
 										{data.title}

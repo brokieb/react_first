@@ -2,26 +2,28 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ModalShow } from 'pages/admin/credentials';
-import { ModalDataIndex } from 'pages/admin/credentials';
-export default function CredentialsDetailsModalButton({ credId }) {
-	const [showModalInit, setShowModalInit] = useState(false);
-	const [reload, setReload] = useState(false);
+import CredentialsDetailsModal from 'app/components/elements/modals/admin/credentials/credentialsDetailsModal';
 
-	const { modalShow, setModalShow } = useContext(ModalShow);
-	const { modalIndex, setModalIndex } = useContext(ModalDataIndex);
+export default function CredentialsDetailsModalButton({ credId }) {
+	const [modalShow, setModalShow] = useState(false);
 	return (
 		<>
 			<Button
 				size="sm"
 				variant="primary"
 				onClick={() => {
-					setModalIndex(credId);
 					setModalShow(true);
 				}}
 			>
 				<FontAwesomeIcon icon={faFolderOpen} />
 			</Button>
+			<CredentialsDetailsModal
+				show={modalShow}
+				handleClose={() => {
+					setModalShow(false);
+				}}
+				credId={credId}
+			></CredentialsDetailsModal>
 		</>
 	);
 }

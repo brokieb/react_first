@@ -3,7 +3,7 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 export default function Home() {
 	const { data: session } = useSession();
-	console.log(session);
+
 	return (
 		<div>
 			<main>
@@ -12,7 +12,11 @@ export default function Home() {
 					{session && (
 						<>
 							{' '}
-							<p style={{ marginBottom: '10px' }}> Welcome, {session.user.name ?? session.user.email}</p> <br />
+							<p style={{ marginBottom: '10px' }}>
+								{' '}
+								Welcome, {session.user.name ?? session.user.email}
+							</p>{' '}
+							<br />
 							<img src={session.user.image} alt="" />
 						</>
 					)}
@@ -21,7 +25,10 @@ export default function Home() {
 							<p>Please Sign in</p>
 							<img src="https://cdn.dribbble.com/users/759083/screenshots/6915953/2.gif" alt="" />
 							<p>
-								GIF by <a href="https://dribbble.com/shots/6915953-Another-man-down/attachments/6915953-Another-man-down?mode=media">Another man</a>{' '}
+								GIF by{' '}
+								<a href="https://dribbble.com/shots/6915953-Another-man-down/attachments/6915953-Another-man-down?mode=media">
+									Another man
+								</a>{' '}
 							</p>
 						</>
 					)}
