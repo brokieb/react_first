@@ -10,26 +10,18 @@ export const ProductsDataContext = createContext({
 
 export default function Home(props) {
 	const [ProductsData, setProductsData] = useState([]);
-	const products = useMemo(() => ({ ProductsData, setProductsData }), [ProductsDataContext]);
+	const products = useMemo(() => ({ ProductsData, setProductsData }), [ProductsData]);
 
 	const [loadingData, setLoadingData] = useState(true);
 
 	useEffect(() => {
 		axiosInstance.get('/api/prods/getProducts').then((ans) => {
 			const data = ans.data;
-
 			setProductsData(data);
 			setLoadingData(false);
 		});
 	}, []);
 
-	function RenderProductsList() {
-		return <ProductsList products={ProductsData}></ProductsList>;
-	}
-
-	useEffect(() => {
-		RenderProductsList();
-	}, [ProductsData]);
 	return (
 		<>
 			{loadingData ? (
@@ -37,7 +29,7 @@ export default function Home(props) {
 			) : (
 				<div>
 					<ProductsDataContext.Provider value={products}>
-						<RenderProductsList />
+						<ProductsList products={ProductsData}></ProductsList>
 					</ProductsDataContext.Provider>
 				</div>
 			)}

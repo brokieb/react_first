@@ -18,6 +18,29 @@ const cartsSchema = new Schema(
 				},
 			],
 		},
+		discount: {
+			code: {
+				type: String,
+			},
+			expiredIn: {
+				type: Date,
+			},
+			discountValue: {
+				type: Number,
+			},
+			discountType: {
+				type: String,
+				enum: ['PERCENT', 'AMOUNT'],
+			},
+			discountId: {
+				type: Schema.Types.ObjectId,
+				ref: 'DiscountCode',
+			},
+		},
+		userId: {
+			type: Schema.Types.ObjectId,
+			ref: 'Users',
+		},
 	},
 	{ timestamps: true },
 );

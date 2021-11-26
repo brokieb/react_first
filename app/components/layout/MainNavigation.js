@@ -15,6 +15,7 @@ import {
 	faUserCircle,
 	faCreditCard,
 	faSignOutAlt,
+	faPercent,
 } from '@fortawesome/free-solid-svg-icons';
 import { useSession, signOut } from 'next-auth/react';
 import axiosInstance from 'app/lib/axiosInstance';
@@ -84,6 +85,14 @@ function MainNavigation() {
 										>
 											<FontAwesomeIcon style={{ width: '1.5em' }} icon={faSitemap} />
 											Produkty
+										</Dropdown.Item>
+										<Dropdown.Item
+											href="/admin/discounts"
+											className="d-flex flex-row gap-2 align-items-center"
+											onClick={redirect.bind(this)}
+										>
+											<FontAwesomeIcon style={{ width: '1.5em' }} icon={faPercent} />
+											Kody zniżkowe
 										</Dropdown.Item>
 										<Dropdown.Item
 											href="/admin/stats"

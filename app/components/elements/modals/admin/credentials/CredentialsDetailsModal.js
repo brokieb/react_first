@@ -47,13 +47,13 @@ export default function CredentialsDetailsModal({ credId, handleClose, show }) {
 	const [alertData, setAlertData] = useState({});
 
 	const [bannedUsers, setBannedUsers] = useState([]);
-	const banned = useMemo(() => ({ bannedUsers, setBannedUsers }), [bannedUsers]);
+	const banned = useMemo(() => ({ bannedUsers, setBannedUsers }), [BanUsersContext]);
 
 	const [unbannedUsers, setUnbannedUsers] = useState([]);
-	const unbanned = useMemo(() => ({ unbannedUsers, setUnbannedUsers }), [unbannedUsers]);
+	const unbanned = useMemo(() => ({ unbannedUsers, setUnbannedUsers }), [UnbanUsersContext]);
 
 	const [movedUsers, setMovedUsers] = useState([]);
-	const moved = useMemo(() => ({ movedUsers, setMovedUsers }), [movedUsers]);
+	const moved = useMemo(() => ({ movedUsers, setMovedUsers }), [MoveUsersContext]);
 
 	const { credentialsData, setCredentialsData } = useContext(CredentialsDataContext);
 
@@ -193,12 +193,6 @@ export default function CredentialsDetailsModal({ credId, handleClose, show }) {
 																setCredentialsData((item) => {
 																	return item.map((item, index) => {
 																		if (item._id == readyData._id) {
-																			console.log(
-																				'ZGADZA SIĘ!!!',
-																				item._id == readyData._id,
-																				item._id,
-																				readyData._id,
-																			);
 																			//stare konto
 																			item.users = item.users.filter((user) => {
 																				if (usrToMove.includes(user._id)) {

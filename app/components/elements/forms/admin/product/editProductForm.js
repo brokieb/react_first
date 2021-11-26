@@ -47,7 +47,7 @@ export default function EditProductForm({ productData }) {
 				validateOnBlur={true}
 				onSubmit={(values) => {
 					axiosInstance
-						.post('/api/prods/postEditProduct', {
+						.put('/api/prods/putEditProduct', {
 							params: {
 								id: productData._id,
 								title: values.title,
@@ -60,7 +60,6 @@ export default function EditProductForm({ productData }) {
 							},
 						})
 						.then((ans) => {
-							setStatus(true);
 							setProductsData((item) => {
 								return item.map((item, index) => {
 									if (item._id == productData._id) {

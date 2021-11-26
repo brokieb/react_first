@@ -22,10 +22,10 @@ export default function ProductsList(props) {
 				},
 			})
 			.then((res) => {
-				if (res.status == '201') {
-				} else {
+				if (res.status == '200') {
 				}
-			});
+			})
+			.catch((err) => {});
 	}
 	return (
 		<div className="d-flex flex-wrap justify-content-around">
