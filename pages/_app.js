@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'public/css/bootstrap.min.css';
 import { SSRProvider } from '@react-aria/ssr';
 import { useSession, SessionProvider } from 'next-auth/react';
 import { CookiesProvider } from 'react-cookie';

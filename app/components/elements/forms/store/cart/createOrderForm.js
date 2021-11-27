@@ -5,14 +5,20 @@ import { Formik } from 'formik';
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import axiosInstance from 'app/lib/axiosInstance';
-import { CredentialsDataContext } from 'app/components/elements/tables/credentials/credentialsTableContent';
 import GetData from 'app/components/modules/getData';
 import PopAlert from 'app/components/modules/popAlert';
 import Link from 'next/link';
+import { CartDataContext } from 'pages/store/cart/index';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { set } from 'app/features/counter/counterSlice';
 export default function CreateOrderForm({ credId }) {
-	const [acceptTerms, setAcceptTerms] = useState(false);
+	const { cartData, setCartData } = useContext(CartDataContext);
 	const [alertData, setAlertData] = useState({});
 	const { data: session, status } = useSession();
+	const router = useRouter();
+	const dispatch = useDispatch();
+
 	const schema = yup
 		.object()
 		.shape({
@@ -28,14 +34,21 @@ export default function CreateOrderForm({ credId }) {
 			validateOnBlur={true}
 			onSubmit={() => {
 				console.log('ZAAKCEPTOWQANO FORMULARZ');
-				// 	axiosInstance
-				// .post('/api/order/postNewOrder', {})
-				// .then((res) => {
-				// 	setCartData([]);
-				// 	setShowCreateOrderModal(<FinishOrderModal orderId={res.data._id} />);
-				// 	Router.push('/user/orders?' + res.data._id);
-				// })
-				// .catch((err) => {});
+				console.log(cartData._id, '!');
+				axiosInstance
+					.post('/api/order/postNewOrder', {
+						params: {
+							cartId: cartData._id,
+						},
+					})
+					.then((res) => {
+						console.log(res, '!!!');
+						dispatch(set(0));
+						router.push('/user/orders?' + res.data.id);
+					})
+					.catch((err) => {
+						console.error(err, '@@@');
+					});
 			}}
 			initialValues={{
 				acceptTerms: false,

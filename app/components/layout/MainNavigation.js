@@ -53,9 +53,9 @@ function MainNavigation() {
 
 		return (
 			<>
-				{session ? (
+				{session && (
 					<>
-						{session.user.permission == 2 ? (
+						{session.user.permission == 2 && (
 							<>
 								<Dropdown>
 									<Dropdown.Toggle align="end" variant="link" bsPrefix="p-0">
@@ -122,12 +122,8 @@ function MainNavigation() {
 									</Dropdown.Menu>
 								</Dropdown>
 							</>
-						) : (
-							<></>
 						)}
 					</>
-				) : (
-					<></>
 				)}
 
 				<Link href="/store/cart">
@@ -138,9 +134,7 @@ function MainNavigation() {
 							className="text-light"
 							size="lg"
 						/>
-						{count == 0 ? (
-							<></>
-						) : (
+						{count != 0 && (
 							<Badge
 								bg="warning"
 								text="dark"

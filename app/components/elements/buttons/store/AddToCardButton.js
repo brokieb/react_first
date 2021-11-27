@@ -24,35 +24,40 @@ export default function AddToCardButton(props) {
 				},
 			})
 			.then((res) => {
-				if (status === 'authenticated') {
-					const filteredArray = res.data.newCart.cart.items.filter((element) => {
-						return element.productId.toString() === props._id;
-					});
-					if (filteredArray[0].quantity === 1) {
-						setAlertData({
-							variant: 'success',
-							title: 'Sukces',
-							body: 'Poprawnie zaktualizowano koszyk!',
-							cb: () => {
-								setAlertData({});
-							},
-						});
-						dispatch(increment());
-					} else {
-						setAlertData({
-							variant: 'success',
-							title: 'Sukces',
-							body: 'Poprawnie dodano produkt do koszyka!',
-							cb: () => {
-								setAlertData({});
-							},
-						});
-					}
-				} else {
-					setCookie('cartId', res.data.newCart._id, { path: '/' });
-				}
+				console.log(res.data);
+				setAlertData({
+					variant: 'success',
+					title: 'Sukces',
+					body: 'Poprawnie dodano produkt do koszyka!',
+					cb: () => {
+						switch (res.data.status) {
+							case 'NEW_COOKIE_CART':
+								setCookie('cartId', res.data.items._id, { path: '/' });
+								dispatch(increment());
+								break;
+							case 'NEW_SESSION_CART':
+								dispatch(increment());
+								break;
+							case 'NEW_ITEM':
+								dispatch(increment());
+								break;
+							case 'EXISTING_ITEM':
+								break;
+						}
+						setAlertData({});
+					},
+				});
 			})
-			.catch((err) => {});
+			.catch((err) => {
+				setAlertData({
+					variant: 'danger',
+					title: 'Błąd',
+					body: 'Nie udało się dodać produktu do koszyka!',
+					cb: () => {
+						setAlertData({});
+					},
+				});
+			});
 	}
 
 	return (
