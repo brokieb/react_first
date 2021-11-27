@@ -29,13 +29,13 @@ export default function cartSummary({ cartData }) {
 					<small className="pe-2">
 						<s className="text-danger">{sum}</s>
 					</small>
-					<strong className="text-success">{newPrice} zł</strong>
+					<strong className="text-success">{Math.round(newPrice * 100) / 100} zł</strong>
 				</>
 			);
 		} else {
 			return (
 				<>
-					Pełna wartość zamówienia : <strong>{sum}</strong>
+					Pełna wartość zamówienia : <strong>{Math.round(sum * 100) / 100}</strong>
 				</>
 			);
 		}
@@ -47,7 +47,7 @@ export default function cartSummary({ cartData }) {
 			) : cartData.cart.items.length == 0 ? (
 				<p>Twój koszyk jest pusty :)</p>
 			) : (
-				<div className="w-50 d-flex flex-column gap-2">
+				<div className="d-flex flex-column gap-2">
 					<CartItemsTable items={cartData.cart.items} />
 					<div>
 						<ShowCartValue />

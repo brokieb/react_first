@@ -15,6 +15,7 @@ import { faUser as farUser } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import Table from 'app/components/elements/tables/tableInstance/table';
+import ProductDiscountPrice from 'app/components/common/store/ProductDiscountPrice';
 export default function CredentialsTableContent({ items }) {
 	const [loadingData, setLoadingData] = useState(true);
 	const [cartData, setCartData] = useState(items);
@@ -22,9 +23,10 @@ export default function CredentialsTableContent({ items }) {
 	useEffect(() => {
 		let render = [];
 		cartData.forEach((item, index) => {
-			console.log(item, '<<<<');
-			if (item.productId.discount && item.productId.discount.discountUntil > dayjs()) {
-				item.productId.price = item.productId.price - item.productId.discount.discountValue;
+			if (item.productId.discount && item.productId.discount.discountUntil > dayjs().format()) {
+				
+				item.productId.price = <ProductDiscountPrice price={item.productId.price } discount={item.productId.discount.discountValue} /> ;
+				
 			}
 			render[index] = {
 				title: item.productId.title,

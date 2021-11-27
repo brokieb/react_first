@@ -7,6 +7,7 @@ export default function Home() {
 				<li>Api do allegro</li>
 				<li>Włącz/wyłącz sklep</li>
 				<li>Toggle automat</li>
+				<li>Zaokrąglenie cen</li>
 			</ul>
 		</>
 	);

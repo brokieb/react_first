@@ -15,15 +15,13 @@ export default function Home(props) {
 			},
 		});
 
-		setReadyData(
-			data.data.map((item, index) => {
-				return <OrderHistoryCard key={index} order={item}></OrderHistoryCard>;
-			}),
-		);
+		setReadyData(data.data);
 		setLoading(false);
 	}
 	useEffect(() => {
 		getData();
 	}, []);
-	return loading ? <Loading /> : <div className="w-50 d-flex flex-column gap-2">{readyData}</div>;
+	return loading ? <Loading /> : <div className="w-50 d-flex flex-column gap-2">{readyData.map((item, index) => {
+		return <OrderHistoryCard key={index} order={item}></OrderHistoryCard>;
+	})}</div>;
 }
