@@ -5,41 +5,31 @@ import DiscountCodeForm from 'app/components/elements/forms/admin/discounts/disc
 import Link from 'next/link';
 import { useState } from 'react';
 export default function cartSummary({ cartData }) {
-	function ShowCartValue() {
+	function CartValue() {
 		let sum = 0;
 
 		for (const arg of cartData.cart.items) {
 			sum += arg.productId.price * arg.quantity;
 		}
-
+		let discSum = 0;
 		if (cartData.discount) {
-			let newPrice = 0;
-			const discValue = cartData.discount.discountValue;
 			switch (cartData.discount.discountType) {
 				case 'PERCENT':
-					newPrice = sum / (discValue / 100 + 1);
+					discSum = sum / (cartData.discount.discountValue / 100 + 1);
 					break;
 				case 'AMOUNT':
-					newPrice = sum - 0.5;
+					discSum = sum - cartData.discount.discountValue;
 					break;
 			}
-			return (
-				<>
-					Pełna wartość zamówienia :{' '}
-					<small className="pe-2">
-						<s className="text-danger">{sum}</s>
-					</small>
-					<strong className="text-success">{Math.round(newPrice * 100) / 100} zł</strong>
-				</>
-			);
-		} else {
-			return (
-				<>
-					Pełna wartość zamówienia : <strong>{Math.round(sum * 100) / 100}</strong>
-				</>
-			);
 		}
+
+		return {
+			old: sum.toFixed(2),
+			new: (discSum == 0 ? sum : discSum).toFixed(2),
+		};
 	}
+	console.log(0 - 2, '###');
+	console.log(cartData);
 	return (
 		<div>
 			{!cartData ? (
@@ -49,8 +39,11 @@ export default function cartSummary({ cartData }) {
 			) : (
 				<div className="d-flex flex-column gap-2">
 					<CartItemsTable items={cartData.cart.items} />
+
 					<div>
-						<ShowCartValue />
+						Pełna wartość zamówienia{' '}
+						{cartData.discount && <s className="text-danger">{CartValue().old}</s>}{' '}
+						<strong className="text-success">{CartValue().new}</strong>
 					</div>
 					<div>
 						<DiscountCodeForm cart={cartData} />

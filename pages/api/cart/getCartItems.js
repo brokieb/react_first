@@ -4,7 +4,7 @@ import Product from 'model/product';
 import dbConnect from 'app/lib/dbConnect';
 import { getSession } from 'next-auth/react';
 import { faBreadSlice } from '@fortawesome/free-solid-svg-icons';
-
+import dayjs from 'dayjs';
 export default async function handler(req, res) {
 	const session = await getSession({ req });
 	await dbConnect();
@@ -25,6 +25,19 @@ export default async function handler(req, res) {
 				carts.push(cookieCart);
 			}
 		}
+
+		carts.forEach((cart) => {
+			//obliczanie zniżki jeżeli istnieje
+			cart.cart.items.forEach((product) => {
+				if (dayjs(product.productId.discount.discountUntil).format() > dayjs().format()) {
+					(product.productId.oldPrice = product.productId.price),
+						(product.productId.price = (
+							product.productId.price - product.productId.discount.discountValue
+						).toFixed(2));
+				}
+			});
+		});
+
 		switch (carts.length) {
 			case 0:
 				return res.status(200).json({ status: 'NO_CART' });

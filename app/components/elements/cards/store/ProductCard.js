@@ -3,9 +3,9 @@ import Link from 'next/link';
 import AddToCardButton from 'app/components/elements/buttons/store/addToCardButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPercent } from '@fortawesome/free-solid-svg-icons';
-import ProductDiscountPrice from 'app/components/common/store/ProductDiscountPrice';
+import ProductDiscountPrice from 'app/components/elementsGroups/store/ProductDiscountPrice';
 
-function ProductCard({product}) {
+function ProductCard({ product }) {
 	return (
 		<Card style={{ width: '18rem' }} className="m-2" key={product._id}>
 			{Object.keys(product.discount).length > 1 && (
@@ -35,14 +35,10 @@ function ProductCard({product}) {
 					<div className="gap-2 d-flex">
 						<AddToCardButton _id={product._id} />
 					</div>
-					{Object.keys(product.discount).length > 1 ? (
-						<div>
-							<s className="m-0 text-danger">{product.price} zł</s>
-							<h4 className="m-0 text-success"><ProductDiscountPrice price={product.price} discount={product.discount.discountValue}/> zł</h4>
-						</div>
-					) : (
-						<h4 className="m-0 cursor-pointer">{product.price} zł</h4>
-					)}
+					<div>
+						{product.oldPrice && <s className="m-0 text-danger">{product.oldPrice} zł</s>}
+						<h4 className="m-0 text-primary">{product.price} zł</h4>
+					</div>
 				</div>
 			</Card.Body>
 		</Card>

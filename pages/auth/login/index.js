@@ -9,7 +9,9 @@ export default function SignIn({ providers }) {
 	return (
 		<>
 			<LoginForm>
-				<Button onClick={() => signIn('github')}>Zaloguj się przez Github</Button>
+				<Button onClick={() => signIn('github', { callbackUrl: '/' })}>
+					Zaloguj się przez Github
+				</Button>
 				<Link href="/auth/register">
 					<Button>Załóż konto email</Button>
 				</Link>

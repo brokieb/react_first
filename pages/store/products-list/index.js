@@ -1,4 +1,4 @@
-import ProductsList from 'app/components/common/store/productsList';
+import ProductsList from 'app/components/elementsGroups/store/productsList';
 import axiosInstance from 'app/lib/axiosInstance';
 import Loading from 'app/components/layout/loading';
 import { useState, useEffect } from 'react';

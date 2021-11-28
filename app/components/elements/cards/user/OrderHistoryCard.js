@@ -28,7 +28,7 @@ export default function Home(props) {
 					<>
 						<ul>{Items}</ul>
 						<hr />
-						Wartość zamówienia: {order.totalValue}
+						Wartość zamówienia: {order.totalValue.toFixed(2)} zł
 						<div className="py-2">
 							<Button
 								variant="info"
@@ -107,7 +107,15 @@ export default function Home(props) {
 			</Card.Header>
 			<Card.Body>
 				{genCard()}
-				{modal ? <FinishOrderModal show={ShowFinishOrderModal} handleClose={() => setShowFinishOrderModal(false)} orderId={order._id} /> : <></>}
+				{modal ? (
+					<FinishOrderModal
+						show={ShowFinishOrderModal}
+						handleClose={() => setShowFinishOrderModal(false)}
+						orderId={order._id}
+					/>
+				) : (
+					<></>
+				)}
 			</Card.Body>
 		</Card>
 	);

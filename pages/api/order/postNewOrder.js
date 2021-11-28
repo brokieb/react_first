@@ -2,7 +2,7 @@ import Cart from 'model/carts';
 import Order from 'model/orders';
 import dbConnect from 'app/lib/dbConnect';
 import { getSession } from 'next-auth/react';
-
+import dayjs from 'dayjs';
 export default async function handler(req, res) {
 	const session = await getSession({ req });
 	if (req.method === 'POST') {
@@ -13,6 +13,9 @@ export default async function handler(req, res) {
 			'userId',
 		]);
 		let totalValue = 0;
+		console.log(cartData.discount.discountType, '<<<<<');
+
+		console.log(totalValue - 2, '_____');
 		const order = new Order({
 			user: {
 				name: session.user.name,
@@ -20,6 +23,11 @@ export default async function handler(req, res) {
 				userId: session.user.uid,
 			},
 			products: cartData.cart.items.map((item) => {
+				if (dayjs(item.productId.discount.discountUntil).format() > dayjs().format()) {
+					item.productId.price = (
+						item.productId.price - item.productId.discount.discountValue
+					).toFixed(2);
+				}
 				totalValue += item.productId.price * item.quantity;
 				return {
 					productId: item.productId._id,
@@ -29,10 +37,22 @@ export default async function handler(req, res) {
 					productValue: item.productId.price * item.quantity,
 				};
 			}),
-			totalValue: totalValue,
+			get totalValue() {
+				let discSum = 0;
+				switch (cartData.discount.discountType) {
+					case 'PERCENT':
+						discSum = totalValue / (cartData.discount.discountValue / 100 + 1);
+						break;
+					case 'AMOUNT':
+						discSum = totalValue - cartData.discount.discountValue;
+						break;
+				}
+				return discSum;
+			},
 			orderSource: 'STORE',
 			orderStatus: 'NEW',
 		});
+
 		const newOrder = await order.save();
 		await cartData.deleteOne();
 		return res.status(200).json({ mess: 'Poprawnie utworzono zamówienie', id: newOrder._id });

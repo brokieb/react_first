@@ -34,6 +34,7 @@ function MainNavigation() {
 		const [cookies, setCookie] = useCookies(['cart']);
 		const count = useSelector((state) => state.counter.value);
 		const dispatch = useDispatch();
+		const admin = 2;
 		axiosInstance
 			.get('/api/cart/getCartItems', {
 				params: {

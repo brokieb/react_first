@@ -1,10 +1,12 @@
 import OrderHistoryCard from 'app/components/elements/cards/user/orderHistoryCard';
 import axiosInstance from 'app/lib/axiosInstance';
-
+import { Alert } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Loading from 'app/components/layout/loading';
+import OrderList from 'app/components/elementsGroups/user/orderList';
+import OrdersTableComponent from 'app/components/elements/tables/user/ordersTable';
 export default function Home(props) {
-	const [readyData, setReadyData] = useState(false);
+	const [readyData, setReadyData] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	async function getData() {
@@ -18,10 +20,26 @@ export default function Home(props) {
 		setReadyData(data.data);
 		setLoading(false);
 	}
+
 	useEffect(() => {
 		getData();
 	}, []);
-	return loading ? <Loading /> : <div className="w-50 d-flex flex-column gap-2">{readyData.map((item, index) => {
-		return <OrderHistoryCard key={index} order={item}></OrderHistoryCard>;
-	})}</div>;
+	return (
+		<div className="w-100">
+			<Alert variant="danger">
+				<Alert.Heading>Nieopłacone zamówienia</Alert.Heading>
+				<p>
+					Wszystkie nieopłacone zamówienia będą usuwane po trzech dniach od złożenia, jeżeli masz
+					problem z dokonaniem płatności bardzo proszę o kontakt na chacie
+				</p>
+			</Alert>
+			{loading ? (
+				<Loading />
+			) : (
+				<div>
+					<OrdersTableComponent items={readyData} />
+				</div>
+			)}
+		</div>
+	);
 }
