@@ -14,7 +14,7 @@ export default function ProductDetailsModal(props) {
 	const product = props.product;
 	useEffect(() => {
 		axiosInstance
-			.get('/api/creds/getCredentials', {
+			.get('/api/prods/getCredentials', {
 				params: {
 					_id: product._id,
 				},

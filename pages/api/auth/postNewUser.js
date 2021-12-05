@@ -6,12 +6,12 @@ export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const readyData = req.body.params;
 		const saltRounds = 10;
-
 		await dbConnect();
 
 		bcrypt
 			.hash(readyData.password, saltRounds)
 			.then((readyPassword) => {
+				console.log(readyPassword, '<<<<<<!!!!');
 				return new User({
 					name: readyData.name,
 					email: readyData.email,

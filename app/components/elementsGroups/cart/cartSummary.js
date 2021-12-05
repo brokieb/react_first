@@ -28,8 +28,7 @@ export default function cartSummary({ cartData }) {
 			new: (discSum == 0 ? sum : discSum).toFixed(2),
 		};
 	}
-	console.log(0 - 2, '###');
-	console.log(cartData);
+
 	return (
 		<div>
 			{!cartData ? (
@@ -38,7 +37,7 @@ export default function cartSummary({ cartData }) {
 				<p>Twój koszyk jest pusty :)</p>
 			) : (
 				<div className="d-flex flex-column gap-2">
-					<CartItemsTable items={cartData.cart.items} />
+					<CartItemsTable/>
 
 					<div>
 						Pełna wartość zamówienia{' '}

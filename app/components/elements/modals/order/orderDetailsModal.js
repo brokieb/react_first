@@ -1,5 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-import { Button, Modal, Form, ListGroup, Tab, Row, Col } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Form,
+  ListGroup,
+  Tab,
+  Row,
+  Col,
+  Alert,
+} from "react-bootstrap";
 import EditProductForm from "app/components/elements/forms/admin/product/editProductForm";
 import FriendlyID from "app/components/modules/friendlyID";
 import DeleteProductButton from "app/components/elements/buttons/admin/product/deleteProductButton";
@@ -12,6 +21,20 @@ import OrderItemsTable from "app/components/elements/tables/orders/orderItemsTab
 import ChangeOrderStatusForm from "app/components/elements/forms/admin/orders/ChangeOrderStatusForm";
 export default function OrderDetailsModal(props) {
   const orderDetails = props.orderData;
+  function orderStatus(status) {
+    switch (status) {
+      case "NEW":
+        return "Twoje zamówienie zostało zarejestrowane w naszym systemie ale nie zostało jeszcze opłacone";
+      case "IN_PROGRESS":
+        return "Aktualnie jesteśmy na etapie realizacji twojego zamówienia, bardzo proszę o cierpliwe oczekiwanie ";
+      case "FINISHED":
+        return "GOTOWE";
+      case "PAID":
+        return "Zamówienie jest opłacone i do 5 minut nasz system pobierze twoje zamówienie do realizacji";
+      case "NOT-PAID":
+        return "Został rozpoczęty proces płatności, ale nie otrzymaliśmy jeszcze potwierdzenia twojej płatności. Jeżeli płatność została dokonana a i tak widzisz ten komunikat, proszę o kontakt poprzez chat.";
+    }
+  }
   return (
     <Modal show={props.show} onHide={props.handleClose} size="xl">
       <Modal.Header closeButton>
@@ -25,39 +48,15 @@ export default function OrderDetailsModal(props) {
             <OrderItemsTable orderItems={orderDetails.products} />
           </Col>
           <Col>
-            <div className="d-flex justify-content-around">
-              <Button>Opłać</Button>
-              <Button>Anuluj</Button>
-              <Button>C</Button>
-            </div>
-            <hr className="m-4" />
-            <div>
-              <h3>Zmiana statusu</h3>
-              <ChangeOrderStatusForm order={orderDetails} />
-            </div>
-            <hr className="m-4" />
             <h3>Szczegóły</h3>
+            <Alert>{orderStatus(orderDetails.orderStatus)}</Alert>
             <ul>
               <li>
                 ID zamówienia: <strong>{orderDetails._id}</strong>
               </li>
-              <li>
-                ID użytkownika: <strong>{orderDetails.user.userId}</strong>
-              </li>
-              <li>
-                email:{" "}
-                <strong>
-                  {orderDetails.user.email ? orderDetails.user.email : "brak"}
-                </strong>
-              </li>
-              <li>
-                login: <strong>{orderDetails.user.name}</strong>
-              </li>
+
               <li>
                 wartość zamówienia: <strong>{orderDetails.totalValue}</strong>
-              </li>
-              <li>
-                Źródło zamówienia: <strong>{orderDetails.orderSource}</strong>
               </li>
               <li>
                 Status zamówienia: <strong>{orderDetails.orderStatus}</strong>
@@ -75,9 +74,6 @@ export default function OrderDetailsModal(props) {
       <Modal.Footer>
         <Button variant="secondary" onClick={props.handleClose}>
           Zamknij
-        </Button>
-        <Button type="submit" variant="success" form="ChangeOrderStatusForm">
-          Zapisz
         </Button>
       </Modal.Footer>
     </Modal>

@@ -23,6 +23,7 @@ export default function CredentialsTableContent({ items }) {
 
 	useEffect(() => {
 		let render = [];
+
 		items.forEach((item, index) => {
 			render[index] = {
 				id: <FriendlyID ID={item._id} />,

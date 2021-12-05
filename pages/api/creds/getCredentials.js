@@ -5,6 +5,7 @@ import dbConnect from 'app/lib/dbConnect';
 export default async function handler(req, res) {
 	if (req.method === 'GET') {
 		await dbConnect();
+		console.log(req.query._id, '###');
 		const cred = await (req.query._id
 			? Credentials.findById(req.query._id)
 			: Credentials.find()

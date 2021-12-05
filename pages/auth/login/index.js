@@ -1,36 +1,32 @@
-import { getProviders, signIn } from 'next-auth/react';
-import LoginForm from 'app/components/elements/forms/auth/loginForm';
-import { useRouter } from 'next/router';
-import Button from 'react-bootstrap/Button';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-
-export default function SignIn({ providers }) {
-	return (
-		<>
-			<LoginForm>
-				<Button onClick={() => signIn('github', { callbackUrl: '/' })}>
-					Zaloguj się przez Github
-				</Button>
-				<Link href="/auth/register">
-					<Button>Załóż konto email</Button>
-				</Link>
-				{/* {Object.values(providers).map((provider) => (
-					<div key={provider.name}>
-						<Button onClick={() => signIn(provider.id)}>
-							Sign in {provider.id}with {provider.name}
-						</Button>
-					</div>
-				))} */}
-			</LoginForm>
-		</>
-	);
+import { getProviders, signIn } from "next-auth/react";
+import LoginForm from "app/components/elements/forms/auth/loginForm";
+import { useRouter } from "next/router";
+import Button from "react-bootstrap/Button";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useEffect } from "react";
+import axiosInstance from "app/lib/axiosInstance";
+import { getCsrfToken } from "next-auth/react";
+export default function SignIn(props) {
+  useEffect(() => {
+    props.setTitle("Logowanie");
+  }, [props]);
+  return (
+    <div>
+      <LoginForm csrfToken={props.csrfToken} />
+      <Button onClick={() => signIn("github", { callbackUrl: "/" })}>
+        Zaloguj się przez Github
+      </Button>
+      <Link href="/auth/register">
+        <Button>Załóż konto email</Button>
+      </Link>
+    </div>
+  );
 }
 
-// This is the recommended way for Next.js 9.3 or newer
 export async function getServerSideProps(context) {
-	const providers = await getProviders();
-	return {
-		props: { providers },
-	};
+  const csrfToken = await getCsrfToken(context);
+  return {
+    props: { csrfToken },
+  };
 }

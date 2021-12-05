@@ -33,8 +33,6 @@ export default function CreateOrderForm({ credId }) {
 			validateOnChange={true}
 			validateOnBlur={true}
 			onSubmit={() => {
-				console.log('ZAAKCEPTOWQANO FORMULARZ');
-				console.log(cartData._id, '!');
 				axiosInstance
 					.post('/api/order/postNewOrder', {
 						params: {
@@ -42,13 +40,10 @@ export default function CreateOrderForm({ credId }) {
 						},
 					})
 					.then((res) => {
-						console.log(res, '!!!');
 						dispatch(set(0));
 						router.push('/user/orders?' + res.data.id);
 					})
-					.catch((err) => {
-						console.error(err, '@@@');
-					});
+					.catch((err) => {});
 			}}
 			initialValues={{
 				acceptTerms: false,

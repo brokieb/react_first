@@ -18,7 +18,6 @@ export default async function handler(req, res) {
 		let qty = 1;
 
 		if (cartData) {
-			console.log('KARTA ISTNIEJE!!');
 			const oldCart = cartData.cart.items;
 			for (const obj of oldCart) {
 				if (obj.productId.toString() === readyData.productId.toString()) {
