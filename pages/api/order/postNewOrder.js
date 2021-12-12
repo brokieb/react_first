@@ -12,7 +12,6 @@ export default async function handler(req, res) {
       "cart.items.productId",
       "userId",
     ]);
-    console.log(session, "@@@");
     let totalValue = 0;
     const order = new Order({
       user: {

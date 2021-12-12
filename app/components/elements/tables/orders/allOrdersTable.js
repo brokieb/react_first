@@ -15,7 +15,6 @@ export default function AllOrdersTable() {
   const [loadingData, setLoadingData] = useState(true);
   const [orderData, setOrderData] = useState([]);
   const { orders, setOrders } = useContext(OrdersContext);
-  console.log(orders, "####");
   useEffect(() => {
     let render = [];
     orders.forEach((item, index) => {

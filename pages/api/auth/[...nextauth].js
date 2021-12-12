@@ -32,7 +32,6 @@ export default async function auth(req, res) {
               user.password
             );
             if (checkPw) {
-              console.log(user);
               return {
                 name: user.name,
                 email: user.email,

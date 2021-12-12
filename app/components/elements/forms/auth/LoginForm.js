@@ -29,7 +29,6 @@ export default function LoginForm({ csrfToken }) {
       <Formik
         validationSchema={schema}
         onSubmit={(values) => {
-          console.log(values);
           axiosInstance
             .post("/api/auth/callback/credentials", values)
             .then((item) => {

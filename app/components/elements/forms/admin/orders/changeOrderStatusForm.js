@@ -26,7 +26,6 @@ export default function ChangeOrderStatusForm({ order }) {
       validateOnChange={true}
       validateOnBlur={true}
       onSubmit={(values) => {
-        console.log(values, "<<<");
         axiosInstance
           .patch("/api/admin/patchUpdateOrderStatus", {
             orderStatus: values.orderStatus,

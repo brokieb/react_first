@@ -24,7 +24,6 @@ export default function Home(props) {
         },
       })
       .then((res) => {
-        console.log(res.data.main, "<#####");
         setCartData(res.data.main);
         setLoading(false);
       })

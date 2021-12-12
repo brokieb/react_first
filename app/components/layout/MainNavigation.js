@@ -61,9 +61,9 @@ function MainNavigation() {
 
     return (
       <>
-        {session && (
+        {admin == 2 && (
           <>
-            {session.user.permission == 2 && (
+            {admin == 2 && (
               <>
                 <Dropdown>
                   <Dropdown.Toggle align="end" variant="link" bsPrefix="p-0">
@@ -117,6 +117,17 @@ function MainNavigation() {
                         icon={faPercent}
                       />
                       Kody zniżkowe
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      href="/admin/auctions"
+                      className="d-flex flex-row gap-2 align-items-center"
+                      onClick={redirect.bind(this)}
+                    >
+                      <FontAwesomeIcon
+                        style={{ width: "1.5em" }}
+                        icon={faPercent}
+                      />
+                      Aukcje allegro
                     </Dropdown.Item>
                     <Dropdown.Item
                       href="/admin/stats"

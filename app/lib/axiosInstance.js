@@ -1,12 +1,33 @@
-const axios = require('axios');
-const axiosInstance = axios.create({
-	baseURL: process.env.ADDRESS,
-	// timeout: 1000,
-	headers: {
-		'Content-Type': 'application/json',
-		// 'Accept': 'application/vnd.GitHub.v3+json',
-		//'Authorization': 'token <your-token-here> -- https://docs.GitHub.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token'
-	},
+const axios = require("axios");
+
+export default axios.create({
+  baseURL: process.env.ADDRESS,
+  // timeout: 1000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-export default axiosInstance;
+export const allegroAxios = axios.create({
+  baseURL: "https://api.allegro.pl.allegrosandbox.pl",
+  // timeout: 1000,
+  headers: {
+    Accept: "application/vnd.allegro.public.v1+json",
+    "Content-Type": "application/vnd.allegro.public.v1+json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET,PATCH,DELETE,POST,PUT",
+    "Access-Control-Allow-Headers": "*",
+  },
+});
+
+export const allegroAxiosAuth = axios.create({
+  baseURL: "https://allegro.pl.allegrosandbox.pl",
+  // timeout: 1000,
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Headers":
+      "Origin, X-Requested-With, Content-Type, Accept",
+  },
+});

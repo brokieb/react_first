@@ -19,7 +19,6 @@ export default function Home(props) {
 
   useEffect(() => {
     axiosInstance.get("/api/order/getAdminOrders").then((ans) => {
-      console.log(ans, "----");
       setOrders(ans.data);
       setLoading(false);
     });
