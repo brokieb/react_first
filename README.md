@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project of shop for selling online acco
 Create ENV file with given variables: 
 
 ```bash
-MONGO_DB=mong
+MONGO_DB=
 GITHUB_ID=
 GITHUB_SECRET=
 ALLEGRO_ID=
