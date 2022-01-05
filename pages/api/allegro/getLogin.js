@@ -44,9 +44,9 @@ export default async function handler(req, res) {
           return res.status(401).json(loginLinkParams);
         });
     } else {
-      return res.status(400).json(loginLinkParams);
+      return res.status(401).json(loginLinkParams);
     }
   } else {
-    return res.status(402).json({ err: "WRONG METHOD" });
+    return res.status(405).json("HTTP request not allowed");
   }
 }

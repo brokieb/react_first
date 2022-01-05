@@ -3,12 +3,13 @@ import { SSRProvider } from "@react-aria/ssr";
 import { useSession, SessionProvider } from "next-auth/react";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import store from "app/lib/reduxStore";
 import "app/styles/index.scss";
 import MainNavigation from "app/components/layout/mainNavigation";
 import AuthProvider from "app/lib/AuthProvider";
 import Layout from "app/components/layout/layout";
+import { useRouter } from "next/router";
 import NextHead from "next/head";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -32,7 +33,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       setLoading(false);
     });
   }, []);
-
   return (
     <SSRProvider>
       <CookiesProvider>
@@ -44,13 +44,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <MainNavigation />
             <Layout>
               <AuthProvider>
-                {pageProps.error ? (
-                  <>BŁĄD</>
-                ) : loading ? (
-                  <>
-                    DIS
-                    <Loading />
-                  </>
+                {loading ? (
+                  <Loading />
                 ) : (
                   <Component {...pageProps} setTitle={setTitle} />
                 )}

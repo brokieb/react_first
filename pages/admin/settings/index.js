@@ -1,14 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ShopSettingsForm from "app/components/elements/forms/admin/settings/shopSettingsForm";
 import axiosInstance from "app/lib/axiosInstance";
 import { Alert, Button } from "react-bootstrap";
 import AllegroLoginButton from "app/components/elements/buttons/admin/settings/allegroLoginButton";
-import Cors from "cors";
-
+import SingleSystemStatus from "app/components/layout/singleSystemStatus";
 export default function Home(props) {
+  const [smtpStatus, setSmtpStatus] = useState(0)
+  const [allegroStatus, setAllegroStatus] = useState(0)
   useEffect(() => {
     props.setTitle("[A] - Ustawienia serwisu");
-  }, [props]);
+    axiosInstance.post("/api/email/postEmail", {
+      to: 'test@o2.pl',
+      template: 'welcome',
+      test: 'true'
+    }).then(item => {
+      setSmtpStatus(2);
+    }).catch((err) => {
+      setSmtpStatus(1);
+    })
+
+    const access = axiosInstance
+      .get("/api/allegro/getLogin")
+      .then((item) => {
+        setAllegroStatus(2);
+      }).catch(err => {
+        setAllegroStatus(1)
+      })
+
+
+
+  }, []);
 
   return (
     <div className="w-50">
@@ -23,7 +44,12 @@ export default function Home(props) {
         <hr />
         <p className="mb-0">Bądz czujny wprowadzając zmiany!</p>
       </Alert>
-      <AllegroLoginButton/>
+      <div className='d-flex flex-column  align-items-start my-3'>
+        <SingleSystemStatus status={smtpStatus} title="SMTP services" />
+        <SingleSystemStatus status={allegroStatus} title="Allegro connect" />
+        <SingleSystemStatus status={2} title="Shop live" />
+      </div>
+      <AllegroLoginButton />
       <ShopSettingsForm settings={props.settings} />
       <hr />
       <ul>

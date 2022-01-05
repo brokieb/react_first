@@ -20,9 +20,9 @@ export default function AllegroLoginButton({ envs }) {
       .get("/api/allegro/getLogin")
       .then((item) => {
         if (item.status == 200) {
-          setLoading(false);
           setLogin(true);
           setData(item.data);
+          setLoading(false);
         }
       })
       .catch((err) => {
@@ -33,10 +33,11 @@ export default function AllegroLoginButton({ envs }) {
           })
           .join("&");
 
-        setLoading(false);
         setLogin(false);
         setQueryString(readyObj);
+        setLoading(false);
       });
+    console.log("URUCHAMIAM TEN KOD!")
   }, []);
 
   return loading ? (
