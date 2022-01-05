@@ -10,9 +10,29 @@ import MainNavigation from "app/components/layout/mainNavigation";
 import AuthProvider from "app/lib/AuthProvider";
 import Layout from "app/components/layout/layout";
 import NextHead from "next/head";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Loading from "app/components/layout/loading";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [title, setTitle] = useState("Ładowanie...");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log("CZY TO DZIAŁA?");
+    router.events.on("routeChangeStart", () => {
+      setLoading(true);
+      setTitle("Ładowanie...");
+    });
+  }, []);
+
+  useEffect(() => {
+    router.events.on("routeChangeComplete", () => {
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <SSRProvider>
       <CookiesProvider>
@@ -24,7 +44,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <MainNavigation />
             <Layout>
               <AuthProvider>
-                <Component {...pageProps} setTitle={setTitle} />
+                {pageProps.error ? (
+                  <>BŁĄD</>
+                ) : loading ? (
+                  <>
+                    DIS
+                    <Loading />
+                  </>
+                ) : (
+                  <Component {...pageProps} setTitle={setTitle} />
+                )}
               </AuthProvider>
             </Layout>
           </SessionProvider>

@@ -22,14 +22,23 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps() {
-  const data = await axiosInstance.get("/api/prods/getProducts", {
-    params: {
-      _id: null,
-    },
-  });
-  return {
-    props: {
-      products: data.data,
-    },
-  };
+  try {
+    const data = await axiosInstance.get("/api/prods/getProducts", {
+      params: {
+        _id: null,
+      },
+    });
+    return {
+      props: {
+        products: data.data,
+      },
+    };
+  } catch (err) {
+    console.log("WYSTĄPIŁ BŁĄDDDD");
+    return {
+      props: {
+        error: "DIS!",
+      },
+    };
+  }
 }

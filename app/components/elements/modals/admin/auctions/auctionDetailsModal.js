@@ -42,9 +42,6 @@ export default function AuctionDetailsModal({ auction, handleClose, show }) {
     CredentialsDataContext
   );
 
-  useEffect(() => {
-    console.log(auction, "@@@@ ODPALANKOOOO!!!!!!   ! ");
-  }, []);
   //   useEffect(() => {
   //     const ans = GetData(
   //       credentialsData,

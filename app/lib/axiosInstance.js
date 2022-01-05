@@ -31,3 +31,8 @@ export const allegroAxiosAuth = axios.create({
       "Origin, X-Requested-With, Content-Type, Accept",
   },
 });
+
+export const hotpayAxios = axios.create({
+  baseURL: "https://platnosc.hotpay.pl",
+  // timeout: 1000,
+});

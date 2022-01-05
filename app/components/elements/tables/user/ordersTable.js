@@ -33,7 +33,7 @@ export default function OrdersTableComponent({ items }) {
           <div className="d-flex gap-2">
             <OrderDetailsToggleModalButton orderData={item} />
             {["NEW", "NOT-PAID"].includes(item.orderStatus) && (
-              <PayForOrderButton />
+              <PayForOrderButton orderId={item._id} />
             )}
           </div>
         ),
