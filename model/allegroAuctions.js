@@ -1,5 +1,3 @@
-import { TripleDES } from "crypto-js";
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -15,6 +13,10 @@ const auctionSchema = new Schema(
     source: {
       type: String,
       default: "LOCAL",
+    },
+    productId: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
     },
     category: {
       id: {

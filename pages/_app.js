@@ -11,8 +11,6 @@ import AuthProvider from "app/lib/AuthProvider";
 import Layout from "app/components/layout/layout";
 import { useRouter } from "next/router";
 import NextHead from "next/head";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import Loading from "app/components/layout/loading";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
@@ -26,13 +24,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       setLoading(true);
       setTitle("Ładowanie...");
     });
-  }, []);
-
-  useEffect(() => {
     router.events.on("routeChangeComplete", () => {
       setLoading(false);
     });
   }, []);
+
   return (
     <SSRProvider>
       <CookiesProvider>

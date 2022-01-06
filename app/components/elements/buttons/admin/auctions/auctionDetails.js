@@ -7,6 +7,7 @@ import AuctionDetailsModal from "app/components/elements/modals/admin/auctions/a
 export default function AuctionDetails({ auction }) {
   const [modalShow, setModalShow] = useState(false);
   const [initElement, setInitElement] = useState(false);
+  console.log(auction, "@");
   return (
     <>
       <Button

@@ -60,7 +60,7 @@ export default function AuctionDetailsModal({ auction, handleClose, show }) {
   return (
     <Modal onHide={handleClose} show={show} size="xl">
       <Modal.Header closeButton>
-        <Modal.Title>Szczegóły aukcj {auction.id}</Modal.Title>
+        <Modal.Title>Szczegóły aukcji {auction.id}</Modal.Title>
       </Modal.Header>
       <Modal.Body className="pt-0">
         <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
