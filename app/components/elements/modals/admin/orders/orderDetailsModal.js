@@ -22,7 +22,10 @@ export default function OrderDetailsModal(props) {
       <Modal.Body>
         <Row>
           <Col>
-            <OrderItemsTable orderItems={orderDetails.products} />
+            <OrderItemsTable
+              orderId={orderDetails._id}
+              orderItems={orderDetails.products}
+            />
           </Col>
           <Col>
             <div className="d-flex justify-content-around">

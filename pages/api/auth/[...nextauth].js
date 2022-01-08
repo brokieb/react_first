@@ -1,12 +1,10 @@
-import NextAuth, { signIn } from "next-auth";
+import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import FacebookProvider from "next-auth/providers/facebook";
 import bcrypt from "bcrypt";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
 import clientPromise from "app/lib/mongodb";
-import dbConnect from "app/lib/dbConnect";
 import User from "model/users";
 
 export default async function auth(req, res) {
@@ -45,23 +43,29 @@ export default async function auth(req, res) {
       }),
       // ...add more providers here
     ],
+    secret: "INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw",
     session: {
       jwt: true,
+      maxAge: 30 * 24 * 60 * 60,
     },
     jwt: {
       signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
     },
     callbacks: {
-      async session({ session, token }) {
-        const user = await User.findOne(
-          token.sub ? { _id: token.sub } : { email: token.email }
-        );
-
-        session.user.permission = user.permission ? user.permission : 0;
-        session.user.uid = user._id;
-        //dołączenie do obiektu sesji id użytkownika i uprawnienia z bazy
-
-        return Promise.resolve(session);
+      jwt: async ({ token, user }) => {
+        user &&
+          (token.user = {
+            permission: user.permission,
+            uid: user.id,
+            image: user.image,
+            email: user.email,
+            name: user.name,
+          });
+        return token;
+      },
+      session: async ({ session, token }) => {
+        session.user = token.user;
+        return session;
       },
     },
   });

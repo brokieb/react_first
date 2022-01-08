@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import { useSession } from "next-auth/react";
 import { Formik } from "formik";

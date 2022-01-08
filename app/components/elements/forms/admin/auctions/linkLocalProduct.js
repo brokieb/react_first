@@ -49,9 +49,7 @@ export default function LinkLocalProduct({ auctionId, setLocalDetails }) {
               ...oldState,
             };
           });
-        } catch (err) {
-          console.log(err);
-        }
+        } catch (err) {}
       }}
       initialValues={{
         productId: "",

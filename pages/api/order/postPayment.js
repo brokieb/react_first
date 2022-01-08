@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { createHash } from "crypto";
 export default async function handler(req, res) {
   const session = await getSession({ req });
-  if (req.method === "POST") {
+  if (req.method === "POST" && session) {
     await dbConnect();
     const readyData = req.body;
 
@@ -39,7 +39,7 @@ export default async function handler(req, res) {
       ID_ZAMOWIENIA +
       ";" +
       SEKRET;
-    console.log(HASH_BEF);
+
     const HASH = createHash("sha256").update(HASH_BEF).digest("hex");
 
     const token = await hotpayAxios.post("/", null, {
@@ -61,6 +61,6 @@ export default async function handler(req, res) {
       link: token.data.URL,
     });
   } else {
-    return res.status(402).json({ mess: "Bład typu" });
+    return res.status(405).json({ mess: "WRONG METHOD OR SESSION ERROR" });
   }
 }

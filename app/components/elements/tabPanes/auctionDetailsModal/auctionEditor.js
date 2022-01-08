@@ -14,7 +14,6 @@ export default function Auction({ auction }) {
         },
       })
       .then((ans) => {
-        console.log(ans.data, "<_");
         setAuctionDetails(ans.data);
         setLoading(false);
       });

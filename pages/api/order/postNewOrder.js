@@ -92,6 +92,6 @@ export default async function handler(req, res) {
       }
     }
   } else {
-    return res.status(402).json({ mess: "Bład typu", code: "WRONG_METHOD" });
+    return res.status(405).json({ mess: "Bład typu", code: "WRONG_METHOD" });
   }
 }

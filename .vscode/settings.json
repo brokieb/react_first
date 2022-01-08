@@ -1,6 +1,6 @@
 {
-	"window.zoomLevel": -1,
-	"files.exclude": {
-		"node_modules": true
-	}
+  "window.zoomLevel": -1,
+  "files.exclude": {
+    "node_modules": true
+  }
 }

@@ -44,7 +44,7 @@ export default function CloneAuction({ auction }) {
                     _id: data._id,
                   },
                 });
-                console.log("_______________");
+
                 const sendedOffer = await axiosInstance.post(
                   "/api/allegro/postOffer",
                   {

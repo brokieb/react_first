@@ -3,64 +3,79 @@ import Credentials from "model/credentials";
 import Product from "model/product";
 import dbConnect from "app/lib/dbConnect";
 import { getSession } from "next-auth/react";
-
+import dayjs from "dayjs";
 export default async function handler(req, res) {
-  // const session = await getSession({ req });
   if (req.method === "PATCH") {
-    await dbConnect();
+    const session = await getSession({ req });
+    if (session && session.user.permission == 2) {
+      // Signed in
+      await dbConnect();
 
-    const orders = await Order.find({
-      $or: [{ orderStatus: "PAID" }, { orderStatus: "IN_PROGRESS" }],
-    }).select("products updatedAt");
-    //
-    for (const order of orders) {
-      order.orderStatus = "IN_PROGRESS";
+      const orders = await Order.find({
+        $or: [{ orderStatus: "PAID" }, { orderStatus: "IN_PROGRESS" }],
+      }).select("products updatedAt");
+      //
       let noAccount = 0;
-      for (const product of order.products) {
-        //WSZYSTKIE PRODUKTY KTÓRE SĄ DO ZREALIZOWANIA
-        if (
-          product.productStatus == "NEW" ||
-          product.productStatus == "IN_PROGRESS"
-        ) {
-          product.productStatus = "IN_PROGRESS";
-          await order.save();
-          const prod = await Product.findOne({ _id: product.productId }).select(
-            "settings"
-          );
-          const creds = await Credentials.findOne({
-            $and: [
-              { productId: product.productId },
-              { $expr: { $lt: ["$usersLen", "$usersMaxLen"] } },
-              { active: true },
-            ],
-          });
-          if (creds) {
-            console.log(product, "<<<");
-            creds.users = [
-              ...creds.users,
-              {
-                orderId: order._id,
-                profileName: null,
-                expiredIn: "2002-12-09",
-              },
-            ];
-            creds.usersLen = creds.usersLen + 1;
-            product.productStatus = "FINISHED";
+      let finished = 0;
+      for (const order of orders) {
+        order.orderStatus = "IN_PROGRESS";
+        for (const product of order.products) {
+          //WSZYSTKIE PRODUKTY KTÓRE SĄ DO ZREALIZOWANIA
+          if (
+            product.productStatus == "NEW" ||
+            product.productStatus == "IN_PROGRESS"
+          ) {
+            product.productStatus = "IN_PROGRESS";
             await order.save();
-            await creds.save();
-          } else {
-            noAccount = noAccount + 1;
+            const prod = await Product.findOne({
+              _id: product.productId,
+            }).select("settings");
+            const creds = await Credentials.findOne({
+              $and: [
+                { productId: product.productId },
+                { $expr: { $lt: ["$usersLen", "$usersMaxLen"] } },
+                { active: true },
+              ],
+            });
+            if (creds) {
+              creds.users = [
+                ...creds.users,
+                {
+                  orderId: order._id,
+                  profileName: null,
+                  expiredIn: dayjs().add(product.productQty, "month").format(),
+                },
+              ];
+              creds.usersLen = creds.usersLen + 1;
+              product.productStatus = "FINISHED";
+              await order.save();
+              await creds.save();
+              finished = finished + 1;
+            } else {
+              noAccount = noAccount + 1;
+            }
           }
         }
+        if (noAccount == 0) {
+          order.orderStatus = "FINISHED";
+          await order.save();
+        }
       }
-      if (noAccount == 0) {
-        order.orderStatus = "FINISHED";
-        await order.save();
-      }
-    }
 
-    return res.status(200).json({ ans: "asd" });
+      if (finished == noAccount) {
+        return res
+          .status(200)
+          .json({ ans: "Zrealizowano wszystkie zamówienia " });
+      } else {
+        return res
+          .status(200)
+          .json({ ans: "Niektóre zamówienia nie zostały zrealizowane!! " });
+      }
+    } else {
+      // Not Signed in
+      res.status(401).json({ err: "NOT AUTHORIZED" });
+    }
   } else {
-    return res.status(402).json({ mess: "niedozwolone" });
+    return res.status(405).json({ mess: "WRONG METHOD" });
   }
 }

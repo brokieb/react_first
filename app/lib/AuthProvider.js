@@ -1,38 +1,32 @@
-import React from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import Loading from 'app/components/layout/loading';
-function AuthProvider({ children }) {
-	const { data: session, status, token } = useSession();
-	const isUser = !!session?.user;
-	const router = useRouter();
-	const role = 'admin';
-	let allowed = true;
+import React, { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import Loading from "app/components/layout/loading";
 
-	if (router.pathname.startsWith('/auth') && session) {
-		allowed = false;
-	} else if (router.pathname.startsWith('/admin') && role != 'admin') {
-		allowed = false;
-	} else if (router.pathname.startsWith('/user') && !session) {
-		allowed = false;
-	}
+export default function AuthProvider({ children }) {
+  const { data: session, status, token } = useSession();
+  const [allowed, setAllowed] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const perm = session && session.user ? session.user.permission : 0;
 
-	if (allowed) {
-		return children;
-	} else {
-		return <Loading />;
-	}
+  useEffect(() => {
+    setLoading(true);
+    if (router.pathname.startsWith("/admin") && perm < 2) {
+      setAllowed(false);
+    } else {
+      setAllowed(true);
+    }
+    setLoading(false);
+    if (!allowed && !loading) {
+      router.push("/");
+    }
+  }, [session, router]);
+
+  return loading ? (
+    <Loading />
+  ) : (
+    <>{allowed ? children : <>Brak uprawnień</>}</>
+  );
 }
-export async function getServerSideProps(context) {
-	const session = await getSession({ req: context.req });
-	if (!session) {
-		return {
-			redirect: {
-				destination: '/',
-				permanent: false,
-			},
-		};
-	}
-}
-
-export default AuthProvider;

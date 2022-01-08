@@ -1,6 +1,6 @@
 import "public/css/bootstrap.min.css";
 import { SSRProvider } from "@react-aria/ssr";
-import { useSession, SessionProvider } from "next-auth/react";
+import { useSession, SessionProvider, getSession } from "next-auth/react";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import { useState, useEffect } from "react";
@@ -12,6 +12,8 @@ import Layout from "app/components/layout/layout";
 import { useRouter } from "next/router";
 import NextHead from "next/head";
 import Loading from "app/components/layout/loading";
+import TawkTo from "tawkto-react";
+import axiosInstance from "app/lib/axiosInstance";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [title, setTitle] = useState("Ładowanie...");
@@ -19,13 +21,23 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("CZY TO DZIAŁA?");
     router.events.on("routeChangeStart", () => {
       setLoading(true);
       setTitle("Ładowanie...");
     });
     router.events.on("routeChangeComplete", () => {
       setLoading(false);
+    });
+    var tawk = new TawkTo("61d74e90b84f7301d329babe", "1fooglpce");
+
+    tawk.onStatusChange((status) => {
+      tawk.setAttributes(
+        {
+          name: session.user ? session.user.name : "none",
+          email: session.user.email ? session.user.email : "none",
+        },
+        function (error) {}
+      );
     });
   }, []);
 
@@ -55,7 +67,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession({ req: context.req });
+  const session = await getSession({ req });
   if (!session) {
     return {
       redirect: {

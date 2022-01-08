@@ -1,0 +1,59 @@
+include ../layout/header.pug
+.u-row-container(style='padding: 0px;background-color: transparent')
+  .u-row(style='Margin: 0 auto;min-width: 320px;max-width: 550px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;')
+    div(style='border-collapse: collapse;display: table;width: 100%;background-color: transparent;')
+      .u-col.u-col-100(style='max-width: 320px;min-width: 550px;display: table-cell;vertical-align: top;')
+        div(style='width: 100% !important;')
+          table(style='font-family:arial,helvetica,sans-serif;' role='presentation' cellpadding='0' cellspacing='0' width='100%' border='0')
+            tbody
+              tr
+                td(style='overflow-wrap:break-word;word-break:break-word;padding:30px 10px 10px;font-family:arial,helvetica,sans-serif;' align='left')
+                  h1(style='margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: arial,helvetica,sans-serif; font-size: 26px;')
+                    | Twoja subskrypcja traci ważność!
+          table(style='font-family:arial,helvetica,sans-serif;' role='presentation' cellpadding='0' cellspacing='0' width='100%' border='0')
+            tbody
+              tr
+                td(style='overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;' align='left')
+                  table(height='0px' align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #f1f1f1;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%')
+                    tbody
+                      tr(style='vertical-align: top')
+                        td(style='word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%')
+                          span &nbsp;
+.u-row-container(style='padding: 0px;background-color: transparent')
+  .u-row(style='Margin: 0 auto;min-width: 320px;max-width: 550px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;')
+    div(style='border-collapse: collapse;display: table;width: 100%;background-color: transparent;')
+      .u-col.u-col-100(style='max-width: 320px;min-width: 550px;display: table-cell;vertical-align: top;')
+        div(style='width: 100% !important;')
+          table(style='font-family:arial,helvetica,sans-serif;' role='presentation' cellpadding='0' cellspacing='0' width='100%' border='0')
+            tbody
+              tr
+                td(style='overflow-wrap:break-word;word-break:break-word;padding:10px 15px;font-family:arial,helvetica,sans-serif;' align='left')
+                  div(style='line-height: 140%; text-align: left; word-wrap: break-word;')
+                    p(style='font-size: 14px; line-height: 140%;')
+                      span(style='font-size: 16px; line-height: 22.4px;')
+                        strong Cześć #{name},
+                    p(style='font-size: 14px; line-height: 140%;')
+                      br
+                      span(style='font-size: 16px; line-height: 22.4px;') Twoje konto traci ważność
+                    p(style='font-size: 14px; line-height: 140%;')
+                      br
+                      | Twój zakupiony profil do 3 dni straci ważność, a hasło do niego zostanie zmienione. Jeżeli nie chcesz utracić swojego profilu i historii obejrzanych seriali opłać profil na kolejny miesiąc, wykonując poniższe kroki: 
+                      ul 
+                       li Wejdź na stronę podaną 
+                        a(href="http://playerek.pl/sklep")
+                        | i dodaj produkt do koszyka 
+                       li Przy realizacji zamówienia uzupełnij pole "PRZEDŁUŻAM KONTO" wpisując swój login z allegro, w tym przypadku #{login}
+                       li Po opłaceniu zamówienia otrzymasz wiadomość email z potwierdzeniem przedłużenia konta. Jeżeli otrzymasz jednak wiadomość o zakupie nowego profilu proszę o niezwłoczną wiadomość na chacie lub mailowo - w przeciwnym wypadku stare konto zostanie zablokowane do 3 dni 
+                    p(style='font-size: 14px; line-height: 140%;')
+                      br
+                      | Jeżeli nie chcesz przedłużać swojego konta, nic więcej nie musisz robić. Konto zablokuje się automatycznie po wyznaczonym terminie.
+                    p(style='font-size: 14px; line-height: 140%;')
+                      br
+                      | Wiadomość dotyczy konta : #{credentialsEmail}
+                    p(style='font-size: 14px; line-height: 140%;')
+                      br
+                      span(style='font-size: 16px; line-height: 22.4px;') Automat
+                      br
+                      strong Playerek
+                      br
+include ../layout/footer.pug

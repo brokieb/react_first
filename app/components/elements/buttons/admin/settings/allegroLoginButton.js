@@ -37,7 +37,6 @@ export default function AllegroLoginButton({ envs }) {
         setQueryString(readyObj);
         setLoading(false);
       });
-    console.log("URUCHAMIAM TEN KOD!")
   }, []);
 
   return loading ? (

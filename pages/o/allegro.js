@@ -19,12 +19,10 @@ export default function Home(props) {
     }
   }, [ready]);
 
-  console.log("!!!!!!!!!!!!");
   useEffect(() => {
     const getData = props.query;
-    console.log("@@@@@@@@");
+
     if (getData.code) {
-      console.log(getData, "##########");
       axiosInstance
         .put("/api/allegro/putAuthToken", {
           accessCode: getData.code,

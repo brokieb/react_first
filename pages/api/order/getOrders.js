@@ -12,6 +12,6 @@ export default async function handler(req, res) {
     });
     return res.status(200).json(order);
   } else {
-    return res.status(402).json({ mess: "niedozwolone" });
+    return res.status(405).json({ mess: "niedozwolone" });
   }
 }

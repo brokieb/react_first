@@ -1,17 +1,37 @@
 import { useEffect, useState } from "react";
-import { Button, Modal, Form, Image, Row, Col, Ratio } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Form,
+  Image,
+  Row,
+  Col,
+  Ratio,
+  ButtonGroup,
+} from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
 import axiosInstance from "app/lib/axiosInstance";
 import dayjs from "dayjs";
+import { isLocalURL } from "next/dist/shared/lib/router/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAlignLeft,
+  faGrimace,
+  faImage,
+  faMinus,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import SingleImageAuctionCard from "app/components/elements/cards/admin/auctions/singleImageAuctionCard";
+import AuctionDescriptionCardButtons from "app/components/elementsGroups/auction/auctionDescriptionCardButtons";
 export default function AuctionEditorForm({ auctionDetails }) {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  const [active, setActive] = useState(true);
-  const [product, setProducts] = useState({ data: [] });
-  const [prodId, setProdId] = useState("");
-  const [usersMaxLen, setUsersMaxLen] = useState("");
-
+  const [descriptionSection, setDescriptionSection] = useState([]);
+  const [images, setImages] = useState([]);
+  useEffect(() => {
+    setDescriptionSection(auctionDetails.description.sections);
+    setImages(auctionDetails.images);
+  }, []);
+  useEffect(() => {}, [descriptionSection]);
   const schema = yup
     .object()
     .shape({
@@ -26,10 +46,8 @@ export default function AuctionEditorForm({ auctionDetails }) {
   return (
     <>
       <Formik
-        validationSchema={schema}
-        onSubmit={(data) => {
-          console.log(data, "DATA AKCEPTIRE");
-        }}
+        // validationSchema={schema}
+        onSubmit={(data) => {}}
         initialValues={{
           category: auctionDetails.category.id,
           images: auctionDetails.images,
@@ -104,58 +122,78 @@ export default function AuctionEditorForm({ auctionDetails }) {
                 {errors.sellingPrice}
               </Form.Control.Feedback>
             </Form.Group>
-            <div className="d-flex flex-row gap-2 pt-2 flex-wrap justify-content-around">
-              {values.images.map((item, index) => {
-                return (
-                  <span key={index}>
-                    <Image
-                      src={item.url}
-                      thumbnail
-                      style={{ height: "150px" }}
-                    />
-                    {/* <Col>
-                  <Form.Group>
-                  <Form.Label className="mt-2 mb-0" htmlFor="sellingPrice">
-                  Zdjęcie {index}
-                  </Form.Label>
-                  <Form.Control
-                  value={item.url}
-                  onChange={handleChange}
-                  type="text"
-                  name="images[]"
-                  id={index}
-                  isInvalid={!!errors.images}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                    {errors.images}
-                    </Form.Control.Feedback>
-                    </Form.Group>
-                  </Col> */}
-                  </span>
-                );
-              })}
-              <span
-                className="img-thumbnail d-flex justify-content-center align-items-center"
-                style={{ width: "250px", height: "150px" }}
-              >
-                +
-              </span>
-              <span
-                className="img-thumbnail d-flex justify-content-center align-items-center"
-                style={{ width: "250px", height: "150px" }}
-              >
-                +
-              </span>
-              <span
-                className="img-thumbnail d-flex justify-content-center align-items-center"
-                style={{ width: "250px", height: "150px" }}
-              >
-                +
-              </span>
-            </div>
+            <Button type="submit">akceptire</Button>
           </Form>
         )}
       </Formik>
+      <div className="d-flex flex-row gap-2 pt-2 flex-wrap justify-content-around">
+        {images.map((item, index) => {
+          return (
+            <span key={index}>
+              <SingleImageAuctionCard
+                url={item.url}
+                allImages={images}
+                setImages={setImages}
+                key={index}
+              />
+            </span>
+          );
+        })}
+        <SingleImageAuctionCard
+          url={null}
+          upload={true}
+          allImages={images}
+          setImages={setImages}
+        />
+      </div>
+
+      <hr />
+      <div>
+        {descriptionSection.map((singleSection, sectionKey) => {
+          return (
+            <Row
+              className="border border-2 mx-1 my-3 position-relative "
+              style={{ minHeight: "100px" }}
+              key={sectionKey}
+            >
+              <div className="position-absolute top-0 end-0 w-auto gap-2 d-flex p-2">
+                <AuctionDescriptionCardButtons
+                  sectionState={setDescriptionSection}
+                  sectionKey={sectionKey}
+                />
+              </div>
+              {singleSection.items.length > 0 ? (
+                singleSection.items.map((items, key) => {
+                  return (
+                    <Col
+                      className="d-flex m-5 justify-content-center align-items-center"
+                      key={key}
+                    >
+                      {items.type == "TEXT" ? (
+                        <>
+                          <textarea defaultValue={items.content} />
+                        </>
+                      ) : (
+                        (items.type = "IMAGE" && (
+                          <SingleImageAuctionCard
+                            url={items.url}
+                            allImages={images}
+                            setImages={setImages}
+                          />
+                        ))
+                      )}
+                    </Col>
+                  );
+                })
+              ) : (
+                <Col className="d-flex m-5 justify-content-center align-items-center">
+                  Wybierz element z prawego menu
+                </Col>
+              )}
+            </Row>
+          );
+        })}
+      </div>
     </>
   );
 }

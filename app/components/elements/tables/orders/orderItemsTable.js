@@ -18,23 +18,35 @@ import FriendlyID from "app/components/modules/friendlyID";
 import { faTrash, faShare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ToggleOrderDetailsModalButton from "app/components/elements/buttons/admin/orders/toggleOrderDetailsModalButton";
-
-export default function OrderItemsTable({ orderItems }) {
+import axiosInstance from "app/lib/axiosInstance";
+export default function OrderItemsTable({ orderItems, orderId }) {
   const [loadingData, setLoadingData] = useState(true);
   const [orderData, setOrderData] = useState([]);
 
-  useEffect(() => {
+  useEffect(async () => {
     let render = [];
-    orderItems.forEach((orderItems, index) => {
-      render[index] = {
-        productId: <FriendlyID ID={orderItems.productId} />,
-        productTitle: orderItems.productTitle,
-        productQty: orderItems.productQty,
-        productPrice: orderItems.productPrice,
-        productValue: orderItems.productValue,
-        productStatus: orderItems.productStatus,
-      };
-    });
+
+    await Promise.all(
+      orderItems.map(async (orderItems, index) => {
+        const matchedProduct = await axiosInstance.get(
+          "/api/creds/getCredentials",
+          {
+            params: {
+              productId: orderItems.productId,
+              orderId: orderId,
+            },
+          }
+        );
+        render[index] = {
+          productId: <FriendlyID ID={orderItems.productId} />,
+          productTitle: orderItems.productTitle,
+          productQty: orderItems.productQty,
+          productPrice: orderItems.productPrice,
+          productValue: matchedProduct.data[0].email,
+          productStatus: orderItems.productStatus,
+        };
+      })
+    );
     setOrderData(render);
     setLoadingData(false);
   }, [orderItems]);

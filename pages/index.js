@@ -15,7 +15,16 @@ export default function Home(props) {
       <p>asdaasda</p>
       <p>asdaasda</p>
       <p>asdaasda</p>
-      <Link href="/auth/login">TEST A</Link>
+      <p
+        onClick={() => {
+          axiosInstance
+            .get("/api/dis")
+            .then((item) => {})
+            .catch((err) => {});
+        }}
+      >
+        AAAAAAAAAAAAAAAAA
+      </p>
       <ProductsList products={props.products}></ProductsList>
     </div>
   );
@@ -34,7 +43,6 @@ export async function getServerSideProps() {
       },
     };
   } catch (err) {
-    console.log("WYSTĄPIŁ BŁĄDDDD");
     return {
       props: {
         error: "DIS!",

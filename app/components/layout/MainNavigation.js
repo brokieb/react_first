@@ -61,115 +61,107 @@ function MainNavigation() {
 
     return (
       <>
-        {admin == 2 && (
+        {session && session.user.permission == 2 && (
           <>
-            {admin == 2 && (
-              <>
-                <Dropdown>
-                  <Dropdown.Toggle align="end" variant="link" bsPrefix="p-0">
-                    <FontAwesomeIcon
-                      icon={faRocket}
-                      className="text-light"
-                      size="lg"
-                    />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu align="end">
-                    <Dropdown.Item
-                      href="/admin/all-orders"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faCashRegister}
-                      />
-                      Zamówienia
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="/admin/credentials"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faUsersCog}
-                      />
-                      Konta
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="/admin/products-list"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faSitemap}
-                      />
-                      Produkty
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="/admin/discounts"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faPercent}
-                      />
-                      Kody zniżkowe
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="/admin/auctions"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faPercent}
-                      />
-                      Aukcje allegro
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="/admin/stats"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faChartLine}
-                      />
-                      Statystyki
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="/admin/logs"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faFileAlt}
-                      />
-                      Logi
-                    </Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item
-                      href="/admin/settings"
-                      className="d-flex flex-row gap-2 align-items-center"
-                      onClick={redirect.bind(this)}
-                    >
-                      <FontAwesomeIcon
-                        style={{ width: "1.5em" }}
-                        icon={faCog}
-                      />
-                      Ustawienia sklepu
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </>
-            )}
+            <Dropdown>
+              <Dropdown.Toggle align="end" variant="link" bsPrefix="p-0">
+                <FontAwesomeIcon
+                  icon={faRocket}
+                  className="text-light"
+                  size="lg"
+                />
+              </Dropdown.Toggle>
+              <Dropdown.Menu align="end">
+                <Dropdown.Item
+                  href="/admin/all-orders"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon
+                    style={{ width: "1.5em" }}
+                    icon={faCashRegister}
+                  />
+                  Zamówienia
+                </Dropdown.Item>
+                <Dropdown.Item
+                  href="/admin/credentials"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon
+                    style={{ width: "1.5em" }}
+                    icon={faUsersCog}
+                  />
+                  Konta
+                </Dropdown.Item>
+                <Dropdown.Item
+                  href="/admin/products-list"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon
+                    style={{ width: "1.5em" }}
+                    icon={faSitemap}
+                  />
+                  Produkty
+                </Dropdown.Item>
+                <Dropdown.Item
+                  href="/admin/discounts"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon
+                    style={{ width: "1.5em" }}
+                    icon={faPercent}
+                  />
+                  Kody zniżkowe
+                </Dropdown.Item>
+                <Dropdown.Item
+                  href="/admin/auctions"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon
+                    style={{ width: "1.5em" }}
+                    icon={faPercent}
+                  />
+                  Aukcje allegro
+                </Dropdown.Item>
+                <Dropdown.Item
+                  href="/admin/stats"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon
+                    style={{ width: "1.5em" }}
+                    icon={faChartLine}
+                  />
+                  Statystyki
+                </Dropdown.Item>
+                <Dropdown.Item
+                  href="/admin/logs"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon
+                    style={{ width: "1.5em" }}
+                    icon={faFileAlt}
+                  />
+                  Logi
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item
+                  href="/admin/settings"
+                  className="d-flex flex-row gap-2 align-items-center"
+                  onClick={redirect.bind(this)}
+                >
+                  <FontAwesomeIcon style={{ width: "1.5em" }} icon={faCog} />
+                  Ustawienia sklepu
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </>
         )}
-
         <Link href="/store/cart">
           <Button variant="link" className="position-relative ps-0">
             <FontAwesomeIcon

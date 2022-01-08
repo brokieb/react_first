@@ -21,13 +21,10 @@ export default function FinishPaymentModal(props) {
       })
       .then((item) => {
         setPaymentLink(item.data.link);
-        console.log(item);
+
         setLoadingData(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(props);
+      .catch((err) => {});
   }, []);
   return (
     <Modal onHide={props.handleClose} show={props.show} size="lg">

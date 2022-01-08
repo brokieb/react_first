@@ -54,7 +54,6 @@ export default function ToggleCredentialsActive({ credId }) {
   }
 
   function ButtonState() {
-    console.log(data.active, "<<<<<<<<<<");
     switch (data.active.toString()) {
       case "false":
         return (

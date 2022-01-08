@@ -24,5 +24,5 @@ export default async function handler(req, res) {
     }
   );
 
-  return res.status(402).json({ err: "WRONG METHOD" });
+  return res.status(405).json({ err: "WRONG METHOD" });
 }

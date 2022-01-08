@@ -31,7 +31,6 @@ export default async function handler(req, res) {
       });
       return res.status(200).json(req.query._id ? ans[0] : ans);
     } catch (err) {
-      console.log(err);
       res.status(503);
     }
   } else {

@@ -25,13 +25,10 @@ export default function Home(props) {
     axiosInstance
       .get("/api/allegro/getOffers")
       .then((item) => {
-        console.log(item.data, "####");
         setAuctionsData(item.data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err, "##");
-      });
+      .catch((err) => {});
 
     const access = axiosInstance
       .get("/api/allegro/getLogin")
