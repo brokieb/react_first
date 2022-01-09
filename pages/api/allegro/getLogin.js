@@ -28,6 +28,9 @@ export default async function handler(req, res) {
             "qqqq",
           ]),
         },
+        headers: {
+          cookie: req.headers.cookie,
+        },
       });
       if (dayjs(tokenData.data.allegroExpiredIn.value) > dayjs()) {
         const ans = await allegroAxios

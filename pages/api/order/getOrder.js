@@ -5,13 +5,16 @@ import { getSession } from "next-auth/react";
 export default async function handler(req, res) {
   if (req.method === "GET") {
     const session = await getSession({ req });
+    console.log(session, "DIS");
     if (session && session.user.permission == 2) {
       // Signed in
       const session = await getSession({ req });
       const readyData = req.query;
       await dbConnect();
 
-      const order = await Order.findById(readyData.orderId);
+      const order = await Order.findOne({
+        $and: [{ "user.userId": session.user.uid }, { _id: readyData.orderId }],
+      });
       return res.status(200).json(order);
     } else {
       // Not Signed in

@@ -15,6 +15,9 @@ export default async function handler(req, res) {
       params: {
         orderId: readyData.orderId,
       },
+      headers: {
+        cookie: req.headers.cookie,
+      },
     });
     const KWOTA = order.data.totalValue;
     const ID_ZAMOWIENIA = order.data._id;
