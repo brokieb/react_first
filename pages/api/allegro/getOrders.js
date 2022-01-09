@@ -20,12 +20,18 @@ export default async function handler(req, res) {
         params: {
           code: "allegroAccessToken",
         },
+        headers: {
+          cookie: req.headers.cookie,
+        },
       });
 
       const localOrders = await axiosInstance.get("/api/order/getAdminOrders", {
         params: {
           limit: 1,
           orderSource: "ALLEGRO",
+        },
+        headers: {
+          cookie: req.headers.cookie,
         },
       });
       let allegroOrders = [];
@@ -98,6 +104,9 @@ export default async function handler(req, res) {
                   orderSource: "ALLEGRO",
                   orderStatus: "PAID",
                   foreignId: allegroOrder.id,
+                },
+                headers: {
+                  cookie: req.headers.cookie,
                 },
               }
             );

@@ -54,6 +54,7 @@ export default function Details({ auction }) {
 
       setLocalDetailsLoader(false);
     });
+    console.log(auction, "AUKCJA");
   }, []);
   return (
     <>
@@ -97,7 +98,7 @@ export default function Details({ auction }) {
             <li>
               Kategoria <strong>{categories}</strong>
             </li>
-            {auction.delivery.shippingRates && (
+            {auction.delivery && auction.delivery.shippingRates && (
               <li>
                 Dostawa <strong>{auction.delivery.shippingRates.id}</strong>
               </li>

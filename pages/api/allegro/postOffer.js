@@ -17,6 +17,9 @@ export default async function handler(req, res) {
           params: {
             code: "allegroAccessToken",
           },
+          headers: {
+            cookie: req.headers.cookie,
+          },
         });
         const ans = await allegroAxios({
           method: "POST",
