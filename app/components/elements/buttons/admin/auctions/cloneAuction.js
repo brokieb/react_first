@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import axiosInstance from "/app/lib/axiosInstance";
-import { AuctionsContext } from "/pages/admin/auctions/index";
+import axiosInstance from "app/lib/axiosInstance";
+import { AuctionsContext } from "pages/admin/auctions/index";
 import { Button } from "react-bootstrap";
-import PopAlert from "/app/components/modules/popAlert";
-import GetData from "/app/components/modules/getData";
-import Loading from "/app/components/layout/loading";
+import PopAlert from "app/components/modules/popAlert";
+import GetData from "app/components/modules/getData";
+import Loading from "app/components/layout/loading";
 export default function CloneAuction({ auction }) {
   const [remote, setRemote] = useState(true);
   const [loading, setLoading] = useState(true);

@@ -1,6 +1,6 @@
-import Credentials from "/model/credentials";
-import Product from "/model/product";
-import dbConnect from "/app/lib/dbConnect";
+import Credentials from "model/credentials";
+import Product from "model/product";
+import dbConnect from "app/lib/dbConnect";
 import mongoose from "mongoose";
 import { getSession } from "next-auth/react";
 

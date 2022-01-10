@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import { Button, Form, Modal, ListGroup, Tab } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+
 import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 
 export default function NewProductForm(props) {
   const schema = yup
@@ -29,9 +29,7 @@ export default function NewProductForm(props) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm({});
 
   return (
     <Formik

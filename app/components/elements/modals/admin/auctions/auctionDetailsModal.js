@@ -16,10 +16,10 @@ import React, {
   useMemo,
   useContext,
 } from "react";
-import { CredentialsDataContext } from "/app/components/elements/tables/credentials/credentialsTableContent";
-import PopAlert from "/app/components/modules/popAlert";
-import Details from "/app/components/elements/tabPanes/auctionDetailsModal/details";
-import AuctionEditor from "/app/components/elements/tabPanes/auctionDetailsModal/auctionEditor";
+import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
+import PopAlert from "app/components/modules/popAlert";
+import Details from "app/components/elements/tabPanes/auctionDetailsModal/details";
+import AuctionEditor from "app/components/elements/tabPanes/auctionDetailsModal/auctionEditor";
 export default function AuctionDetailsModal({ auction, handleClose, show }) {
   const [loadingData, setLoadingData] = useState(true);
   const [readyData, setReadyData] = useState("");

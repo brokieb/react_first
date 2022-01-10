@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import dayjs from "dayjs";
-import Table from "/app/components/elements/tables/tableInstance/table";
-import MoveUserToAnotherCredentials from "/app/components/elements/buttons/admin/credentials/moveUserToAnotherCredentials";
-import BanUserFromCredentials from "/app/components/elements/buttons/admin/credentials/banUserFromCredentials";
-import { CredentialsDataContext } from "/app/components/elements/tables/credentials/credentialsTableContent";
-import GetData from "/app/components/modules/getData";
-import FriendlyID from "/app/components/modules/friendlyID";
-import AccountExpiredIn from "/app/components/common/credentialsTableElements/accountExpiredIn";
-import UnbanUserFromCredentials from "/app/components/elements/buttons/admin/credentials/unbanUserFromCredentials";
+import Table from "app/components/elements/tables/tableInstance/table";
+import MoveUserToAnotherCredentials from "app/components/elements/buttons/admin/credentials/moveUserToAnotherCredentials";
+import BanUserFromCredentials from "app/components/elements/buttons/admin/credentials/banUserFromCredentials";
+import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
+import GetData from "app/components/modules/getData";
+import FriendlyID from "app/components/modules/friendlyID";
+import AccountExpiredIn from "app/components/common/credentialsTableElements/accountExpiredIn";
+import UnbanUserFromCredentials from "app/components/elements/buttons/admin/credentials/unbanUserFromCredentials";
 
 export default function ActiveCredentialsUserTable({ credId }) {
   const [loadingData, setLoadingData] = useState(true);

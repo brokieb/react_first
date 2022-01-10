@@ -1,8 +1,8 @@
-import Product from "/model/product";
-import Credentials from "/model/credentials";
-import dbConnect from "/app/lib/dbConnect";
-import users from "/model/users";
-import carts from "/model/carts";
+import Product from "model/product";
+import Credentials from "model/credentials";
+import dbConnect from "app/lib/dbConnect";
+import users from "model/users";
+import carts from "model/carts";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {

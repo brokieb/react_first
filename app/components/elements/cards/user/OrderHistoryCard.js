@@ -1,7 +1,7 @@
 import { Card, Button, ProgressBar, Toast } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import FinishOrderModal from "/app/components/elements/modals/order/finishOrderModal";
+import FinishOrderModal from "app/components/elements/modals/order/finishOrderModal";
 export default function Home(props) {
   const [modal, setModal] = useState(false);
   const [ShowFinishOrderModal, setShowFinishOrderModal] = useState(false);

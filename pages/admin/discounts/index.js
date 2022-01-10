@@ -1,8 +1,8 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
-import AddDiscountOpenModalFormButton from "/app/components/elements/buttons/admin/discount/addDiscountOpenModalFormButton";
-import axiosInstance from "/app/lib/axiosInstance";
-import Loading from "/app/components/layout/loading";
-import AllDiscountsTable from "/app/components/elements/tables/discounts/allDiscountsTable";
+import AddDiscountOpenModalFormButton from "app/components/elements/buttons/admin/discount/addDiscountOpenModalFormButton";
+import axiosInstance from "app/lib/axiosInstance";
+import Loading from "app/components/layout/loading";
+import AllDiscountsTable from "app/components/elements/tables/discounts/allDiscountsTable";
 
 export default function Home(props) {
   const [discountsData, setDiscountsData] = useState([]);

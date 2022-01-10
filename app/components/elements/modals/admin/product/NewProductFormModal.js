@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+
 import * as yup from "yup";
-import NewProductForm from "/app/components/elements/forms/admin/product/newProductForm";
+import NewProductForm from "app/components/elements/forms/admin/product/newProductForm";
 
 export default function NewProductFormModal(props) {
   const schema = yup
@@ -25,9 +25,7 @@ export default function NewProductFormModal(props) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm({});
 
   const onSubmit = (data) => {
     props.onAddProduct(data);

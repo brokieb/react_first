@@ -1,15 +1,15 @@
 import { useRef, useState, useContext } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+
 import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
-import PopAlert from "/app/components/modules/popAlert";
-import { CredentialsDataContext } from "/app/components/elements/tables/credentials/credentialsTableContent";
+import PopAlert from "app/components/modules/popAlert";
+import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
 
 export default function DiscountProductForm({ productData }) {
   const [alertData, setAlertData] = useState({});
@@ -27,9 +27,7 @@ export default function DiscountProductForm({ productData }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm({});
 
   return (
     <Formik

@@ -1,10 +1,10 @@
 import { Formik } from "formik";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import axiosInstance from "/app/lib/axiosInstance";
-import Loading from "/app/components/layout/loading";
-import UnlinkLocalProduct from "/app/components/elements/buttons/admin/auctions/unlinkLocalProduct";
-import LinkLocalProduct from "/app/components/elements/forms/admin/auctions/linkLocalProduct";
+import axiosInstance from "app/lib/axiosInstance";
+import Loading from "app/components/layout/loading";
+import UnlinkLocalProduct from "app/components/elements/buttons/admin/auctions/unlinkLocalProduct";
+import LinkLocalProduct from "app/components/elements/forms/admin/auctions/linkLocalProduct";
 export default function Details({ auction }) {
   const [disabledState, setDisabledState] = useState(true);
   const [categories, setCategories] = useState("ładowanie...");

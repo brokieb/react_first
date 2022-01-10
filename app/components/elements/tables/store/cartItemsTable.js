@@ -12,10 +12,10 @@ import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import dayjs from "dayjs";
 import { Button } from "react-bootstrap";
-import Table from "/app/components/elements/tables/tableInstance/table";
-import ProductDiscountPrice from "/app/components/elementsGroups/store/ProductDiscountPrice";
-import ChangeCartSingleItemButton from "/app/components/elements/buttons/store/changeCartSingleItemButton";
-import { CartDataContext } from "/pages/store/cart/index";
+import Table from "app/components/elements/tables/tableInstance/table";
+import ProductDiscountPrice from "app/components/elementsGroups/store/ProductDiscountPrice";
+import ChangeCartSingleItemButton from "app/components/elements/buttons/store/changeCartSingleItemButton";
+import { CartDataContext } from "pages/store/cart/index";
 export default function CredentialsTableContent({ items }) {
   const [loadingData, setLoadingData] = useState(true);
   const [tableData, setTableData] = useState([]);

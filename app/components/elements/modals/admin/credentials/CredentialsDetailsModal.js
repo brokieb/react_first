@@ -18,19 +18,19 @@ import React, {
 } from "react";
 import { faCopy, faSync } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axiosInstance from "/app/lib/axiosInstance";
-import CredentialsChangePasswordForm from "/app/components/elements/forms/admin/credentials/credentialsChangePasswordForm";
-import ActiveCredentialsUserTable from "/app/components/elements/tables/credentials/activeCredentialsUserTable";
-import BannedCredentialsUserTable from "/app/components/elements/tables/credentials/bannedCredentialsUserTable";
-import CredDetails from "/app/components/elementsGroups/credentialsDetailsModal/credDetails";
-import CredentialsUserSpecialActionForm from "/app/components/elements/forms/admin/credentials/credentialsUserSpecialActionForm";
-import { CredentialsDataContext } from "/app/components/elements/tables/credentials/credentialsTableContent";
-import FriendlyID from "/app/components/modules/friendlyID";
-import GetData from "/app/components/modules/getData";
-import { ModalDataIndex } from "/pages/admin/credentials";
-import Loading from "/app/components/layout/loading";
+import axiosInstance from "app/lib/axiosInstance";
+import CredentialsChangePasswordForm from "app/components/elements/forms/admin/credentials/credentialsChangePasswordForm";
+import ActiveCredentialsUserTable from "app/components/elements/tables/credentials/activeCredentialsUserTable";
+import BannedCredentialsUserTable from "app/components/elements/tables/credentials/bannedCredentialsUserTable";
+import CredDetails from "app/components/elementsGroups/credentialsDetailsModal/credDetails";
+import CredentialsUserSpecialActionForm from "app/components/elements/forms/admin/credentials/credentialsUserSpecialActionForm";
+import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
+import FriendlyID from "app/components/modules/friendlyID";
+import GetData from "app/components/modules/getData";
+import { ModalDataIndex } from "pages/admin/credentials";
+import Loading from "app/components/layout/loading";
 import { AnimatePresence } from "framer-motion";
-import PopAlert from "/app/components/modules/popAlert";
+import PopAlert from "app/components/modules/popAlert";
 
 export const BanUsersContext = createContext({
   bannedUsers: [],

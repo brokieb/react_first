@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
-import ShopSettingsForm from "/app/components/elements/forms/admin/settings/shopSettingsForm";
-import axiosInstance from "/app/lib/axiosInstance";
+import ShopSettingsForm from "app/components/elements/forms/admin/settings/shopSettingsForm";
+import axiosInstance from "app/lib/axiosInstance";
 import { Alert, Button } from "react-bootstrap";
-import AllegroLoginButton from "/app/components/elements/buttons/admin/settings/allegroLoginButton";
-import SingleSystemStatus from "/app/components/layout/singleSystemStatus";
+import AllegroLoginButton from "app/components/elements/buttons/admin/settings/allegroLoginButton";
+import SingleSystemStatus from "app/components/layout/singleSystemStatus";
+import Loading from "app/components/layout/loading";
 export default function Home(props) {
   const [smtpStatus, setSmtpStatus] = useState(0);
   const [allegroStatus, setAllegroStatus] = useState(0);
+  const [settings, setSettings] = useState("");
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     props.setTitle("[A] - Ustawienia serwisu");
+
+    axiosInstance.get("/api/settings/getSettings").then((setting) => {
+      setSettings(setting.data);
+      setLoading(false);
+    });
 
     axiosInstance
       .post("/api/email/postEmail", null, {
@@ -54,7 +62,7 @@ export default function Home(props) {
         <SingleSystemStatus status={2} title="Shop live" />
       </div>
       <AllegroLoginButton />
-      <ShopSettingsForm settings={props.settings} />
+      {loading ? <Loading /> : <ShopSettingsForm settings={settings} />}
       <hr />
       <ul>
         <li>zmiana currency</li>
@@ -65,15 +73,4 @@ export default function Home(props) {
       </ul>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const settings = await axiosInstance.get("/api/settings/getSettings");
-  const ENV_ALLEGRO_ID = process.env.ALLEGRO_ID;
-  const ENV_ADDRESS = process.env.ADDRESS;
-  return {
-    props: {
-      settings: settings.data,
-    },
-  };
 }

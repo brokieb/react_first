@@ -2,14 +2,29 @@ import { useSession, signIn } from "next-auth/react";
 import { Image, Button, Card, ListGroup } from "react-bootstrap";
 import { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import { getSession } from "next-auth/react";
 import dayjs from "dayjs";
-import RemoveUserButton from "/app/components/elements/buttons/user/removeUserButton";
+import RemoveUserButton from "app/components/elements/buttons/user/removeUserButton";
+import Loading from "app/components/layout/loading";
 export default function Home(props) {
+  const { data: session, status } = useSession();
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     props.setTitle("Profil");
-  }, [props]);
+
+    axiosInstance({
+      url: "api/user/getUser",
+      method: "GET",
+      data: {
+        uid: session.user.uid,
+      },
+    }).then((user) => {
+      setUser(user.data);
+      setLoading(false);
+    });
+  }, []);
   function getPermissionString(perm) {
     switch (perm) {
       case 2:
@@ -20,7 +35,9 @@ export default function Home(props) {
         return "Klient";
     }
   }
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="w-100 d-flex gap-5 flex-column">
       <h1 className="text-center">
         Witaj {props.user.name ?? props.user.email}!
@@ -73,28 +90,4 @@ export default function Home(props) {
       </Row>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const session = await getSession({ req: context.req });
-  if (session) {
-    const data = await axiosInstance({
-      url: "api/user/getUser",
-      method: "GET",
-      data: {
-        uid: session.user.uid,
-      },
-    });
-    return {
-      props: {
-        user: data.data,
-      },
-    };
-  } else {
-    return {
-      props: {
-        user: null,
-      },
-    };
-  }
 }

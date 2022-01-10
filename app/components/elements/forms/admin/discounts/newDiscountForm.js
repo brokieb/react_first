@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import * as yup from "yup";
+import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import dayjs from "dayjs";
-import PopAlert from "/app/components/modules/popAlert";
+import PopAlert from "app/components/modules/popAlert";
 export default function NewDiscountForm(props) {
   const [alertData, setAlertData] = useState({});
-  //   const schema = yup
-  //     .object()
-  //     .shape({
-  //       discountCode: yup.string().required("To pole jest obowiązkowe"),
-  //       discountCodeQty: yup.number().required("To pole jest obowiązkowe"),
-  //       discountValue: yup.number().required("To pole jest obowiązkowe"),
-  //       discontType: yup.string().required("To pole jest obowiązkowe"),
-  //       discountLimits: yup.string().required("To pole jest obowiązkowe"),
-  //       expiredIn: yup.date().required("To pole jest obowiązkowe"),
-  //     })
-  //     .required();
+  const schema = yup
+    .object()
+    .shape({
+      discountCode: yup.string().required("To pole jest obowiązkowe"),
+      discountCodeQty: yup.number().required("To pole jest obowiązkowe"),
+      discountValue: yup.number().required("To pole jest obowiązkowe"),
+      discontType: yup.string().required("To pole jest obowiązkowe"),
+      discountLimits: yup.string().required("To pole jest obowiązkowe"),
+      expiredIn: yup.date().required("To pole jest obowiązkowe"),
+    })
+    .required();
 
   return (
     <>
       <Formik
-        // validationSchema={schema}
+        validationSchema={schema}
         enableReinitialize
         validateOnChange={true}
         validateOnBlur={true}

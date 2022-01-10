@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import axiosInstance, { allegroAxiosAuth } from "/app/lib/axiosInstance";
-import Loading from "/app/components/layout/loading";
-import PopAlert from "/app/components/modules/popAlert";
+import axiosInstance, { allegroAxiosAuth } from "app/lib/axiosInstance";
+import Loading from "app/components/layout/loading";
+import PopAlert from "app/components/modules/popAlert";
 export default function Home(props) {
   const [ready, setReady] = useState(false);
   const [alertData, setAlertData] = useState({});
@@ -20,7 +20,7 @@ export default function Home(props) {
   }, [ready]);
 
   useEffect(() => {
-    const getData = props.query;
+    const getData = router.query;
 
     if (getData.code) {
       axiosInstance
@@ -54,22 +54,8 @@ export default function Home(props) {
 
   return (
     <>
-      h3h3h3h3h33hh3
       <Loading />
       <PopAlert data={alertData} />
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      query: context.query,
-      envs: {
-        allegro_id: process.env.ALLEGRO_ID,
-        allegro_secret: process.env.ALLEGRO_SECRET,
-        address: process.env.ADDRESS,
-      },
-    },
-  };
 }

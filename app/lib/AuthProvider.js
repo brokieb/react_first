@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Loading from "/app/components/layout/loading";
+import Loading from "app/components/layout/loading";
 
 export default function AuthProvider({ children }) {
   const { data: session, status, token } = useSession();

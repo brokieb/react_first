@@ -1,6 +1,6 @@
-import Product from "/model/product";
-import Credentials from "/model/credentials";
-import dbConnect from "/app/lib/dbConnect";
+import Product from "model/product";
+import Credentials from "model/credentials";
+import dbConnect from "app/lib/dbConnect";
 import dayjs from "dayjs";
 export default async function handler(req, res) {
   if (req.method === "GET") {

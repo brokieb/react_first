@@ -1,6 +1,6 @@
-import axiosInstance from "/app/lib/axiosInstance";
-import AuctionEditorForm from "/app/components/elements/forms/admin/auctions/auctionEditorForm";
-import Loading from "/app/components/layout/loading";
+import axiosInstance from "app/lib/axiosInstance";
+import AuctionEditorForm from "app/components/elements/forms/admin/auctions/auctionEditorForm";
+import Loading from "app/components/layout/loading";
 import { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

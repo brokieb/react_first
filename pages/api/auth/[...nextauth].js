@@ -4,8 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
-import clientPromise from "/app/lib/mongodb";
-import User from "/model/users";
+import clientPromise from "app/lib/mongodb";
+import User from "model/users";
 
 export default async function auth(req, res) {
   return await NextAuth(req, res, {
@@ -46,24 +46,26 @@ export default async function auth(req, res) {
     secret: "INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw",
     session: {
       jwt: true,
-      maxAge: 30 * 24 * 60 * 60,
     },
     jwt: {
       signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
     },
     callbacks: {
       jwt: async ({ token, user }) => {
+        console.log("!!!!");
+        console.log(token, user, "@@");
         user &&
           (token.user = {
             permission: user.permission,
             uid: user.id,
-            image: user.image,
             email: user.email,
             name: user.name,
           });
         return token;
       },
       session: async ({ session, token }) => {
+        console.log("???????????????");
+        console.log("ustaw", token.user);
         session.user = token.user;
         return session;
       },

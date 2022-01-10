@@ -1,9 +1,9 @@
-import Cart from "/model/carts";
-import Order from "/model/orders";
-import dbConnect from "/app/lib/dbConnect";
+import Cart from "model/carts";
+import Order from "model/orders";
+import dbConnect from "app/lib/dbConnect";
 import { getSession } from "next-auth/react";
 import dayjs from "dayjs";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 export default async function handler(req, res) {
   const session = await getSession({ req });
   if (req.method === "POST") {

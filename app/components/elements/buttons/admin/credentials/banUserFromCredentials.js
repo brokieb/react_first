@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import { Button } from "react-bootstrap";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { RowDetails } from "/app/components/elements/tables/tableInstance/tr";
+import { RowDetails } from "app/components/elements/tables/tableInstance/tr";
 
-import AccountExpiredIn from "/app/components/common/credentialsTableElements/accountExpiredIn";
-import { BanUsersContext } from "/app/components/elements/modals/admin/credentials/credentialsDetailsModal";
+import AccountExpiredIn from "app/components/common/credentialsTableElements/accountExpiredIn";
+import { BanUsersContext } from "app/components/elements/modals/admin/credentials/credentialsDetailsModal";
 
 export default function BanUserFromCredentials(props) {
   const { bannedUsers, setBannedUsers } = useContext(BanUsersContext);

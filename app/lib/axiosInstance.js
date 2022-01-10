@@ -1,7 +1,6 @@
 const axios = require("axios");
 
 export default axios.create({
-  baseURL: process.env.ADDRESS,
   // timeout: 1000,
   headers: {
     "Content-Type": "application/json",

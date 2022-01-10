@@ -1,8 +1,8 @@
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import { useState, useEffect, createContext, useMemo } from "react";
 import { useCookies } from "react-cookie";
-import Loading from "/app/components/layout/loading";
-import CartSummary from "/app/components/elementsGroups/cart/cartSummary";
+import Loading from "app/components/layout/loading";
+import CartSummary from "app/components/elementsGroups/cart/cartSummary";
 
 export const CartDataContext = createContext({
   cartData: [],
@@ -26,9 +26,6 @@ export default function Home(props) {
       .then((res) => {
         setCartData(res.data.main);
         setLoading(false);
-      })
-      .catch((err) => {
-        throw "Błąd ->" + err;
       });
   }, []);
 

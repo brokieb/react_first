@@ -1,9 +1,9 @@
 import Card from "react-bootstrap/Card";
 import Link from "next/link";
-import AddToCardButton from "/app/components/elements/buttons/store/addToCardButton";
+import AddToCardButton from "app/components/elements/buttons/store/addToCardButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPercent } from "@fortawesome/free-solid-svg-icons";
-import ProductDiscountPrice from "/app/components/elementsGroups/store/ProductDiscountPrice";
+import ProductDiscountPrice from "app/components/elementsGroups/store/ProductDiscountPrice";
 
 function ProductCard({ product }) {
   return (

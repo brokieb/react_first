@@ -1,7 +1,7 @@
 import axiosInstance, {
   allegroAxiosAuth,
   allegroAxios,
-} from "/app/lib/axiosInstance";
+} from "app/lib/axiosInstance";
 
 export default async function handler(req, res) {
   const tokenData = await axiosInstance.get("/api/settings/getSettings", {

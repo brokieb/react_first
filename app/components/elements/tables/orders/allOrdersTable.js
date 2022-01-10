@@ -6,11 +6,11 @@ import React, {
   createContext,
 } from "react";
 import dayjs from "dayjs";
-import Table from "/app/components/elements/tables/tableInstance/table";
-import { OrdersContext } from "/pages/admin/all-orders";
-import CopyString from "/app/components/modules/copyString";
-import FriendlyID from "/app/components/modules/friendlyID";
-import ToggleOrderDetailsModalButton from "/app/components/elements/buttons/admin/orders/toggleOrderDetailsModalButton";
+import Table from "app/components/elements/tables/tableInstance/table";
+import { OrdersContext } from "pages/admin/all-orders";
+import CopyString from "app/components/modules/copyString";
+import FriendlyID from "app/components/modules/friendlyID";
+import ToggleOrderDetailsModalButton from "app/components/elements/buttons/admin/orders/toggleOrderDetailsModalButton";
 export default function AllOrdersTable() {
   const [loadingData, setLoadingData] = useState(true);
   const [orderData, setOrderData] = useState([]);

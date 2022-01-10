@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import dayjs from "dayjs";
 import { isLocalURL } from "next/dist/shared/lib/router/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,8 +22,8 @@ import {
   faMinus,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import SingleImageAuctionCard from "/app/components/elements/cards/admin/auctions/singleImageAuctionCard";
-import AuctionDescriptionCardButtons from "/app/components/elementsGroups/auction/auctionDescriptionCardButtons";
+import SingleImageAuctionCard from "app/components/elements/cards/admin/auctions/singleImageAuctionCard";
+import AuctionDescriptionCardButtons from "app/components/elementsGroups/auction/auctionDescriptionCardButtons";
 export default function AuctionEditorForm({ auctionDetails }) {
   const [descriptionSection, setDescriptionSection] = useState([]);
   const [images, setImages] = useState([]);

@@ -12,16 +12,16 @@ import {
 import React, { useState, useEffect, useContext } from "react";
 import { faCopy, faSync } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import CredentialsChangePasswordForm, {
   genCredentialsHandler,
-} from "/app/components/elements/forms/admin/credentials/credentialsChangePasswordForm";
-import ToggleCredentialsActiveButton from "/app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
-import AddMonthHandlerButton from "/app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
-import CopyString from "/app/components/modules/copyString";
+} from "app/components/elements/forms/admin/credentials/credentialsChangePasswordForm";
+import ToggleCredentialsActiveButton from "app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
+import AddMonthHandlerButton from "app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
+import CopyString from "app/components/modules/copyString";
 import dayjs from "dayjs";
-import { CredentialsDataContext } from "/app/components/elements/tables/credentials/credentialsTableContent";
-import PopAlert from "/app/components/modules/popAlert";
+import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
+import PopAlert from "app/components/modules/popAlert";
 export default function credDetails({ cred }) {
   const { credentialsData, setCredentialsData } = useContext(
     CredentialsDataContext

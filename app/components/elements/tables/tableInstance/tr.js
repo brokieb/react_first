@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
-// import { DIS } from '/app/components/elements/tables/tableInstance/table';
+// import { DIS } from 'app/components/elements/tables/tableInstance/table';
 
 export const RowDetails = createContext({
   rowContext: {},

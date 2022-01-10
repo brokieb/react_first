@@ -1,4 +1,4 @@
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import Email from "email-templates";
 import { useState } from "react";
 export default function smtpTest() {

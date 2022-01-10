@@ -1,10 +1,10 @@
-import OrderHistoryCard from "/app/components/elements/cards/user/orderHistoryCard";
-import axiosInstance from "/app/lib/axiosInstance";
+import OrderHistoryCard from "app/components/elements/cards/user/orderHistoryCard";
+import axiosInstance from "app/lib/axiosInstance";
 import { Alert } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import Loading from "/app/components/layout/loading";
-import OrderList from "/app/components/elementsGroups/user/orderList";
-import OrdersTableComponent from "/app/components/elements/tables/user/ordersTable";
+import Loading from "app/components/layout/loading";
+import OrderList from "app/components/elementsGroups/user/orderList";
+import OrdersTableComponent from "app/components/elements/tables/user/ordersTable";
 Home.title = "Historia zamóień";
 export default function Home(props) {
   useEffect(() => {

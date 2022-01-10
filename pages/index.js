@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Loading from "/app/components/layout/loading";
-import ProductsList from "/app/components/elementsGroups/store/productsList";
-import axiosInstance from "/app/lib/axiosInstance";
+import Loading from "app/components/layout/loading";
+import ProductsList from "app/components/elementsGroups/store/productsList";
+import axiosInstance from "app/lib/axiosInstance";
 export default function Home(props) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     props.setTitle("Strona główna");
-  }, [props]);
+    axiosInstance.get("/api/prods/getProducts").then((products) => {
+      setProducts(products.data);
+      setLoading(false);
+    });
+  }, []);
   return (
     <div>
       <title>DISA </title>
@@ -25,28 +31,7 @@ export default function Home(props) {
       >
         AAAAAAAAAAAAAAAAA
       </p>
-      <ProductsList products={props.products}></ProductsList>
+      {loading ? <Loading /> : <ProductsList products={products} />}
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  try {
-    const data = await axiosInstance.get("/api/prods/getProducts", {
-      params: {
-        _id: null,
-      },
-    });
-    return {
-      props: {
-        products: data.data,
-      },
-    };
-  } catch (err) {
-    return {
-      props: {
-        error: "DIS!",
-      },
-    };
-  }
 }

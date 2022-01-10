@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import axiosInstance from "/app/lib/axiosInstance";
+import axiosInstance from "app/lib/axiosInstance";
 import { Button } from "react-bootstrap";
 import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CredentialsDataContext } from "/app/components/elements/tables/credentials/credentialsTableContent";
+import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
 
-import AccountExpiredIn from "/app/components/common/credentialsTableElements/accountExpiredIn";
-import GetIndex from "/app/components/modules/getIndex";
+import AccountExpiredIn from "app/components/common/credentialsTableElements/accountExpiredIn";
+import GetIndex from "app/components/modules/getIndex";
 import { produceWithPatches } from "immer";
 
 export default function AddMonthHandlerButton(props) {

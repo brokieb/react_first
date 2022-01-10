@@ -1,6 +1,6 @@
-import Discount from "/model/discount";
-import Carts from "/model/carts";
-import dbConnect from "/app/lib/dbConnect";
+import Discount from "model/discount";
+import Carts from "model/carts";
+import dbConnect from "app/lib/dbConnect";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {

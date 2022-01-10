@@ -1,7 +1,7 @@
 import { useEffect, useState, createContext, useMemo } from "react";
-import ProductsList from "/app/components/elementsGroups/product/productsList";
-import axiosInstance from "/app/lib/axiosInstance";
-import Loading from "/app/components/layout/loading";
+import ProductsList from "app/components/elementsGroups/product/productsList";
+import axiosInstance from "app/lib/axiosInstance";
+import Loading from "app/components/layout/loading";
 
 export const ProductsDataContext = createContext({
   ProductsData: [],
