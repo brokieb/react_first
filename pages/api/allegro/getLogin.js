@@ -24,6 +24,9 @@ export default async function handler(req, res) {
         headers: {
           cookie: req.headers.cookie,
         },
+        headers: {
+          cookie: req.headers.cookie,
+        },
       });
 
       if (dayjs(tokenData.data.allegroExpiredIn.value) > dayjs()) {

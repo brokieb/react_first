@@ -54,6 +54,7 @@ export default function Details({ auction }) {
 
       setLocalDetailsLoader(false);
     });
+    console.log(auction, "AUKCJA");
   }, []);
   return (
     <>
