@@ -52,8 +52,6 @@ export default async function auth(req, res) {
     },
     callbacks: {
       jwt: async ({ token, user }) => {
-        console.log("!!!!");
-        console.log(token, user, "@@");
         user &&
           (token.user = {
             permission: user.permission,
@@ -63,10 +61,9 @@ export default async function auth(req, res) {
           });
         return token;
       },
-      session: async ({ session, token }) => {
-        console.log("???????????????");
-        console.log("ustaw", token.user);
-        session.user = token.user;
+      session: async ({ session, token, user }) => {
+        session.user.uid = user.id;
+        session.user.permission = user.permission ? user.permission : 0;
         return session;
       },
     },

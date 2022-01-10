@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     if (session && session.user.permission == 2) {
       // Signed in
       await dbConnect();
-      const readyData = req.body;
+      const readyData = req.body.data;
       for (const data of readyData) {
         // for (const data in datas) {
         //

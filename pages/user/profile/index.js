@@ -1,6 +1,6 @@
 import { useSession, signIn } from "next-auth/react";
 import { Image, Button, Card, ListGroup } from "react-bootstrap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import axiosInstance from "app/lib/axiosInstance";
 import { getSession } from "next-auth/react";
@@ -13,18 +13,16 @@ export default function Home(props) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     props.setTitle("Profil");
-
-    axiosInstance({
-      url: "api/user/getUser",
-      method: "GET",
-      data: {
-        uid: session.user.uid,
-      },
-    }).then((user) => {
-      setUser(user.data);
-      setLoading(false);
-    });
-  }, []);
+    if (session) {
+      axiosInstance({
+        url: "/api/user/getUser",
+        method: "GET",
+      }).then((user) => {
+        setUser(user.data);
+        setLoading(false);
+      });
+    }
+  }, [session]);
   function getPermissionString(perm) {
     switch (perm) {
       case 2:
@@ -39,14 +37,12 @@ export default function Home(props) {
     <Loading />
   ) : (
     <div className="w-100 d-flex gap-5 flex-column">
-      <h1 className="text-center">
-        Witaj {props.user.name ?? props.user.email}!
-      </h1>
+      <h1 className="text-center">Witaj {user.name ?? user.email}!</h1>
 
       <Row className="w-100 ">
         <Col className="d-flex justify-content-end">
           <Image
-            src={props.user.image}
+            src={user.image}
             roundedCircle
             className="square-image"
             style={{ width: "250px", height: "250px" }}
@@ -55,29 +51,22 @@ export default function Home(props) {
         <Col className="d-flex align-items-center">
           <ul>
             <li>
-              Login: <strong>{props.user.name}</strong>
+              Login: <strong>{user.name}</strong>
             </li>
             <li>
-              Email:{" "}
-              <strong>
-                {props.user.email ? props.user.email : "Nie podano"}
-              </strong>
+              Email: <strong>{user.email ? user.email : "Nie podano"}</strong>
             </li>
             <li>
               Dołączono:{" "}
-              <strong>
-                {dayjs(props.user.createdAt).format("DD/MM/YYYY")}
-              </strong>
+              <strong>{dayjs(user.createdAt).format("DD/MM/YYYY")}</strong>
             </li>
             <li>
               Ostatnia aktualizacja:{" "}
-              <strong>
-                {dayjs(props.user.updatedAt).format("DD/MM/YYYY")}
-              </strong>
+              <strong>{dayjs(user.updatedAt).format("DD/MM/YYYY")}</strong>
             </li>
             <li>
               Uprawnienia:{" "}
-              <strong>{getPermissionString(props.user.permission)}</strong>
+              <strong>{getPermissionString(user.permission)}</strong>
             </li>
           </ul>
         </Col>

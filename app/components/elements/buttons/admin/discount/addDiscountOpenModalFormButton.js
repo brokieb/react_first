@@ -13,7 +13,6 @@ export default function AddDiscountOpenModalFormButton() {
         Dodaj kod
       </Button>
       <AddDiscountModalForm
-        onAddCredentials={addCredentialsHandler}
         show={showAddCredentialsModal}
         handleClose={handleCloseAddCredentialsModal}
       ></AddDiscountModalForm>

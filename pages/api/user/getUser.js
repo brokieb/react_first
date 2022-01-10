@@ -8,8 +8,9 @@ export default async (req, res) => {
     const session = await getSession({ req });
     if (session && session.user.permission == 2) {
       // Signed in
+      console.l;
       await dbConnect();
-      const user = await User.findById(req.body.uid);
+      const user = await User.findById(session.user.uid);
       return res.status(200).json(user);
     } else {
       // Not Signed in

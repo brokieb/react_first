@@ -15,13 +15,13 @@ export default function Home(props) {
 
   useEffect(() => {
     if (ready) {
-      router.push("/admin/settings");
+      // router.push("/admin/settings");
     }
   }, [ready]);
 
   useEffect(() => {
     const getData = router.query;
-
+    console.log(getData);
     if (getData.code) {
       axiosInstance
         .put("/api/allegro/putAuthToken", {

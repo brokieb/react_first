@@ -25,7 +25,6 @@ export default function Home(props) {
     axiosInstance
       .get("/api/allegro/getOffers")
       .then((item) => {
-        console.log(item, "@@");
         setAuctionsData(item.data);
         setLoading(false);
       })

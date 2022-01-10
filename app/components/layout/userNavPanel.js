@@ -28,13 +28,14 @@ import axiosInstance from "app/lib/axiosInstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function UserNavPanel(props) {
   const { data: session, status } = useSession();
   const [cookies, setCookie] = useCookies(["cart"]);
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
-  console.log(session, "SESJA!");
+  const router = useRouter;
 
   useEffect(() => {
     axiosInstance
@@ -52,6 +53,11 @@ export default function UserNavPanel(props) {
         }
       });
   }, []);
+
+  function redirect(e) {
+    e.preventDefault();
+    router.push(e.target.getAttribute("href"));
+  }
 
   return (
     <>
@@ -108,15 +114,15 @@ export default function UserNavPanel(props) {
                   icon: faCog,
                   link: "/admin/settings",
                 },
-              ].map((item) => {
+              ].map((item, index) => {
                 if (item.divider) {
-                  return <Dropdown.Divider />;
+                  return <Dropdown.Divider key={index} />;
                 }
                 return (
                   <Dropdown.Item
                     href={item.link}
                     className="d-flex flex-row gap-2 align-items-center"
-                    onClick={redirect.bind(this)}
+                    key={index}
                   >
                     <FontAwesomeIcon
                       style={{ width: "1.5em" }}
@@ -188,15 +194,22 @@ export default function UserNavPanel(props) {
                     );
                   },
                 },
-              ].map((item) => {
+              ].map((item, key) => {
                 if (item.divider) {
-                  return <Dropdown.Divider />;
+                  return <Dropdown.Divider key={key} />;
                 }
                 return (
                   <Dropdown.Item
+                    key={key}
                     href={item.link}
                     className="d-flex flex-row gap-2 align-items-center"
-                    onClick={item.cb ? item.cb : redirect.bind(this)}
+                    onClick={
+                      item.cb
+                        ? item.cb
+                        : () => {
+                            redirect.bind(this);
+                          }
+                    }
                   >
                     <FontAwesomeIcon
                       style={{ width: "1.5em" }}

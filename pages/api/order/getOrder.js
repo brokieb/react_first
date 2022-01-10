@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 export default async function handler(req, res) {
   if (req.method === "GET") {
     const session = await getSession({ req });
-    console.log(session, "DIS");
+
     if (session && session.user.permission == 2) {
       // Signed in
       const session = await getSession({ req });

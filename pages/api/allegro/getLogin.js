@@ -11,9 +11,6 @@ export default async function handler(req, res) {
     const session = await getSession({ req });
     if (session && session.user.permission == 2) {
       await dbConnect();
-      // Signed in
-
-      const readyData = req.query;
 
       const loginLinkParams = {
         response_type: "code",
@@ -22,16 +19,13 @@ export default async function handler(req, res) {
       };
       const tokenData = await axiosInstance.get("/api/settings/getSettings", {
         params: {
-          codes: JSON.stringify([
-            "allegroExpiredIn",
-            "allegroAccessToken",
-            "qqqq",
-          ]),
+          codes: JSON.stringify(["allegroExpiredIn", "allegroAccessToken"]),
         },
         headers: {
           cookie: req.headers.cookie,
         },
       });
+
       if (dayjs(tokenData.data.allegroExpiredIn.value) > dayjs()) {
         const ans = await allegroAxios
           .get("/me", {

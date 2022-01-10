@@ -34,28 +34,39 @@ export default async function handler(req, res) {
           },
         })
           .then((ans) => {
-            const data = axiosInstance.put("/api/settings/putEditSettings", {
-              data: [
+            const data = axiosInstance
+              .put(
+                "/api/settings/putEditSettings",
                 {
-                  code: "allegroAccessToken",
-                  value: ans.data.access_token,
+                  data: [
+                    {
+                      code: "allegroAccessToken",
+                      value: ans.data.access_token,
+                    },
+                    {
+                      code: "allegroRefreshToken",
+                      value: ans.data.refresh_token,
+                    },
+                    {
+                      code: "allegroExpiredIn",
+                      value: dayjs()
+                        .add(ans.data.expires_in, "second")
+                        .format(),
+                    },
+                  ],
                 },
                 {
-                  code: "allegroRefreshToken",
-                  value: ans.data.refresh_token,
-                },
-                {
-                  code: "allegroExpiredIn",
-                  value: dayjs().add(ans.data.expires_in, "second").format(),
-                },
-              ],
-              headers: {
-                cookie: req.headers.cookie,
-              },
-            });
+                  headers: {
+                    cookie: req.headers.cookie,
+                  },
+                }
+              )
+              .catch((err) => {
+                // console.log(err, "ERR");
+              });
             return data;
           })
-          .finally(() => {
+          .finally((e) => {
             res.status(200).end();
           })
           .catch((err) => {

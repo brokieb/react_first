@@ -10,19 +10,22 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const perm = session && session.user ? session.user.permission : 0;
-
   useEffect(() => {
-    setLoading(true);
-    if (router.pathname.startsWith("/admin") && perm < 2) {
-      setAllowed(false);
+    if (status == "loading") {
+      setLoading(true);
     } else {
-      setAllowed(true);
+      if (router.pathname.startsWith("/admin") && perm < 2) {
+        setAllowed(false);
+      } else {
+        setAllowed(true);
+      }
+      setLoading(false);
     }
-    setLoading(false);
+
     if (!allowed && !loading) {
       router.push("/");
     }
-  }, [session, router]);
+  }, [session, router, status]);
 
   return loading ? (
     <Loading />
