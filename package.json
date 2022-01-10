@@ -61,6 +61,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.1.1",
     "html-webpack-plugin": "^5.5.0",
     "typescript": "^4.5.2"
   },
