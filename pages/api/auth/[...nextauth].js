@@ -4,8 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
-import clientPromise from "app/lib/mongodb";
-import User from "model/users";
+import clientPromise from "/app/lib/mongodb";
+import User from "/model/users";
 
 export default async function auth(req, res) {
   return await NextAuth(req, res, {

@@ -1,9 +1,9 @@
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "/app/lib/axiosInstance";
 import { Button, Form } from "react-bootstrap";
 
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
-import Loading from "app/components/layout/loading";
+import Loading from "/app/components/layout/loading";
 export default function LinkLocalProduct({ auctionId, setLocalDetails }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);

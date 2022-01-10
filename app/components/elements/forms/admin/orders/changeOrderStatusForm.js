@@ -4,9 +4,9 @@ import * as yup from "yup";
 import { Formik } from "formik";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import axiosInstance from "app/lib/axiosInstance";
-import PopAlert from "app/components/modules/popAlert";
-import { OrdersContext } from "pages/admin/all-orders";
+import axiosInstance from "/app/lib/axiosInstance";
+import PopAlert from "/app/components/modules/popAlert";
+import { OrdersContext } from "/pages/admin/all-orders";
 export default function ChangeOrderStatusForm({ order }) {
   const { data: session, status } = useSession();
   const { orders, setOrders } = useContext(OrdersContext);

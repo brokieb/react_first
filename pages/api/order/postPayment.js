@@ -1,8 +1,8 @@
-import Cart from "model/carts";
-import Order from "model/orders";
-import dbConnect from "app/lib/dbConnect";
+import Cart from "/model/carts";
+import Order from "/model/orders";
+import dbConnect from "/app/lib/dbConnect";
 import { getSession } from "next-auth/react";
-import axiosInstance, { hotpayAxios } from "app/lib/axiosInstance";
+import axiosInstance, { hotpayAxios } from "/app/lib/axiosInstance";
 import dayjs from "dayjs";
 import { createHash } from "crypto";
 export default async function handler(req, res) {
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     const SEKRET = process.env.HOTPAY_SECRET;
 
     const NAZWA_USLUGI = "BROKIEB.PL SKLEP";
-    const ADRES_WWW = "http://localhost:3000";
+    const ADRES_WWW = "http://localhost";
     const TYP = "INIT";
     const HASH_BEF =
       process.env.HOTPAY_PASSW +

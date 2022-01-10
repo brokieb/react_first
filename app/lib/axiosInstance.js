@@ -26,7 +26,7 @@ export const allegroAxiosAuth = axios.create({
   // timeout: 1000,
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
-    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Origin": "http://localhost",
     "Access-Control-Allow-Headers":
       "Origin, X-Requested-With, Content-Type, Accept",
   },

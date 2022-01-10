@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import axiosInstance, { allegroAxiosAuth } from "app/lib/axiosInstance";
-import Loading from "app/components/layout/loading";
-import PopAlert from "app/components/modules/popAlert";
+import axiosInstance, { allegroAxiosAuth } from "/app/lib/axiosInstance";
+import Loading from "/app/components/layout/loading";
+import PopAlert from "/app/components/modules/popAlert";
 export default function Home(props) {
   const [ready, setReady] = useState(false);
   const [alertData, setAlertData] = useState({});

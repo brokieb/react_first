@@ -1,5 +1,5 @@
-import NewClientForm from "app/components/elements/forms/auth/newClientForm";
-import axiosInstance from "app/lib/axiosInstance";
+import NewClientForm from "/app/components/elements/forms/auth/newClientForm";
+import axiosInstance from "/app/lib/axiosInstance";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 

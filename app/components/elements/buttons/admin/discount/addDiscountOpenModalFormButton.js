@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import AddDiscountModalForm from "app/components/elements/modals/admin/discount/addDiscountModalForm";
+import AddDiscountModalForm from "/app/components/elements/modals/admin/discount/addDiscountModalForm";
 import axios from "axios";
 export default function AddDiscountOpenModalFormButton() {
   const [showAddCredentialsModal, setShowAddCredentialsModal] = useState(false);

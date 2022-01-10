@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AuctionDetailsModal from "app/components/elements/modals/admin/auctions/auctionDetailsModal";
+import AuctionDetailsModal from "/app/components/elements/modals/admin/auctions/auctionDetailsModal";
 
 export default function AuctionDetails({ auction }) {
   const [modalShow, setModalShow] = useState(false);
@@ -27,7 +27,7 @@ export default function AuctionDetails({ auction }) {
             setModalShow(false);
           }}
           auction={auction}
-        ></AuctionDetailsModal>
+        />
       )}
     </>
   );

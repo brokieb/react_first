@@ -6,8 +6,8 @@ import {
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import axiosInstance from "app/lib/axiosInstance";
-import { CartDataContext } from "pages/store/cart/index";
+import axiosInstance from "/app/lib/axiosInstance";
+import { CartDataContext } from "/pages/store/cart/index";
 
 export default function changeCartSingleItemButton({ mode, id }) {
   const { cartData, setCartData } = useContext(CartDataContext);

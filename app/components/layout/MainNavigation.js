@@ -25,9 +25,9 @@ import {
   faPercent,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSession, signOut } from "next-auth/react";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "/app/lib/axiosInstance";
 import { useCookies } from "react-cookie";
-import { set } from "app/features/counter/counterSlice";
+import { set } from "/app/features/counter/counterSlice";
 
 function MainNavigation() {
   const router = useRouter();

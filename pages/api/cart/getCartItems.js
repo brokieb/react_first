@@ -1,9 +1,6 @@
-import User from "model/users";
-import Cart from "model/carts";
-import Product from "model/product";
-import dbConnect from "app/lib/dbConnect";
+import Cart from "/model/carts";
+import dbConnect from "/app/lib/dbConnect";
 import { getSession } from "next-auth/react";
-import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 export default async function handler(req, res) {
   const session = await getSession({ req });

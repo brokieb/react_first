@@ -7,7 +7,7 @@ import {
   MotionConfig,
   usePresence,
 } from "framer-motion";
-import Empty from "app/components/layout/empty";
+import Empty from "/app/components/layout/empty";
 export default function TableRender({ columns, data }) {
   const [dataState, setDataState] = useState(true);
   const [isPresent, safeToRemove] = usePresence();

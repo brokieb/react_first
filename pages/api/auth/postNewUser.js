@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import User from "model/users";
-import dbConnect from "app/lib/dbConnect";
+import User from "/model/users";
+import dbConnect from "/app/lib/dbConnect";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {

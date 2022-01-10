@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import OrderDetailsModal from "app/components/elements/modals/order/orderDetailsModal";
-import axiosInstance from "app/lib/axiosInstance";
-import FinishPaymentModal from "app/components/elements/modals/user/finishPayment";
+import OrderDetailsModal from "/app/components/elements/modals/order/orderDetailsModal";
+import axiosInstance from "/app/lib/axiosInstance";
+import FinishPaymentModal from "/app/components/elements/modals/user/finishPayment";
 
 export default function PayForOrderButton(props) {
   const [loading, setLoading] = useState(false);

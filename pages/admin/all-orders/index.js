@@ -1,7 +1,7 @@
 import react, { useEffect, useState, createContext, useMemo } from "react";
-import axiosInstance from "app/lib/axiosInstance";
-import AllOrdersTable from "app/components/elements/tables/orders/allOrdersTable";
-import Loading from "app/components/layout/loading";
+import axiosInstance from "/app/lib/axiosInstance";
+import AllOrdersTable from "/app/components/elements/tables/orders/allOrdersTable";
+import Loading from "/app/components/layout/loading";
 
 export const OrdersContext = createContext({
   Orders: [],

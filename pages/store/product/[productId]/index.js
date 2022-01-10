@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import ProductDetails from "app/components/elementsGroups/store/productDetails";
-import axiosInstance from "app/lib/axiosInstance";
+import ProductDetails from "/app/components/elementsGroups/store/productDetails";
+import axiosInstance from "/app/lib/axiosInstance";
 Home.title = "S";
 export default function Home(props) {
   useEffect(() => {

@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from "react";
 import { Button } from "react-bootstrap";
 import { faLock, faUnlock, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axiosInstance from "app/lib/axiosInstance";
-import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
-import GetData from "app/components/modules/getData";
+import axiosInstance from "/app/lib/axiosInstance";
+import { CredentialsDataContext } from "/app/components/elements/tables/credentials/credentialsTableContent";
+import GetData from "/app/components/modules/getData";
 export default function ToggleCredentialsActive({ credId }) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);

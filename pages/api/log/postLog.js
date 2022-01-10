@@ -1,5 +1,5 @@
-import Log from "model/log";
-import dbConnect from "app/lib/dbConnect";
+import Log from "/model/log";
+import dbConnect from "/app/lib/dbConnect";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {

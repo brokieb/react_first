@@ -1,7 +1,7 @@
-import Credentials from "model/credentials";
-import dbConnect from "app/lib/dbConnect";
+import Credentials from "/model/credentials";
+import dbConnect from "/app/lib/dbConnect";
 import dayjs from "dayjs";
-import users from "model/users";
+import users from "/model/users";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {

@@ -1,6 +1,6 @@
-import axiosInstance from "app/lib/axiosInstance";
-import AuctionEditorForm from "app/components/elements/forms/admin/auctions/auctionEditorForm";
-import Loading from "app/components/layout/loading";
+import axiosInstance from "/app/lib/axiosInstance";
+import AuctionEditorForm from "/app/components/elements/forms/admin/auctions/auctionEditorForm";
+import Loading from "/app/components/layout/loading";
 import { useState, useEffect } from "react";
 export default function Auction({ auction }) {
   const [auctionDetails, setAuctionDetails] = useState({});

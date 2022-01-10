@@ -6,8 +6,8 @@ import Button from "react-bootstrap/Button";
 import * as yup from "yup";
 import { useSession } from "next-auth/react";
 import { Formik } from "formik";
-import axiosInstance from "app/lib/axiosInstance";
-import PopAlert from "app/components/modules/popAlert";
+import axiosInstance from "/app/lib/axiosInstance";
+import PopAlert from "/app/components/modules/popAlert";
 
 export default function LoginForm({ csrfToken }) {
   const [alertData, setAlertData] = useState({});

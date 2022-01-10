@@ -1,5 +1,5 @@
-import Settings from "model/settings";
-import dbConnect from "app/lib/dbConnect";
+import Settings from "/model/settings";
+import dbConnect from "/app/lib/dbConnect";
 import { useState } from "react";
 import { getSession } from "next-auth/react";
 import { createHmac } from "crypto";

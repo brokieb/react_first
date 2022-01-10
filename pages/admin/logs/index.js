@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "/app/lib/axiosInstance";
 export default function Home(props) {
   useEffect(() => {
     props.setTitle("[A] - Logi systemowe");
