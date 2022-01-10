@@ -6,8 +6,8 @@ import React, {
   createContext,
 } from "react";
 import dayjs from "dayjs";
-import ToggleCredentialsActiveButton from "../../../../../app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
-import CredentialsDetailsModalButton from "../../../../../app/components/elements/buttons/admin/credentials/toggleCredentialsDetailsModalButton";
+import ToggleCredentialsActiveButton from "../../buttons/admin/credentials/toggleCredentialsActiveButton";
+import CredentialsDetailsModalButton from "../../buttons/admin/credentials/toggleCredentialsDetailsModalButton";
 import AddMonthHandlerButton from "../../../../../app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
 import Table from "../../../../../app/components/elements/tables/tableInstance/table";
 import ActualSlotsInUse from "../../../../../app/components/common/credentialsTableElements/actualSlotsInUse";

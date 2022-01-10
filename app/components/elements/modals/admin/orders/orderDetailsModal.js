@@ -1,15 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { Button, Modal, Form, ListGroup, Tab, Row, Col } from "react-bootstrap";
-import EditProductForm from "../../../../../../app/components/elements/forms/admin/product/editProductForm";
 import FriendlyID from "../../../../../../app/components/modules/friendlyID";
-import DeleteProductButton from "../../../../../../app/components/elements/buttons/admin/product/deleteProductButton";
-import ToggleActiveProduct from "../../../../../../app/components/elements/buttons/admin/product/toggleActiveProduct";
-import DiscountProductForm from "../../../../../../app/components/elements/forms/admin/product/discountProductForm";
-import axiosInstance from "../../../../../../app/lib/axiosInstance";
-import Loading from "../../../../../../app/components/layout/loading";
-import CredentialsTableContent from "../../../../../../app/components/elements/tables/credentials/credentialsTableContent";
 import OrderItemsTable from "../../../../../../app/components/elements/tables/orders/orderItemsTable";
-import ChangeOrderStatusForm from "../../../../../../app/components/elements/forms/admin/orders/ChangeOrderStatusForm";
+import ChangeOrderStatusForm from "../../../../../../app/components/elements/forms/admin/orders/changeOrderStatusForm";
 export default function OrderDetailsModal(props) {
   const orderDetails = props.orderData;
   return (

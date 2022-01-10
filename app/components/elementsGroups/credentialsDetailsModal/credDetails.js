@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import React, { useState, useEffect, useContext } from "react";
 import axiosInstance from "../../../../app/lib/axiosInstance";
-import ToggleCredentialsActiveButton from "../../../../app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
+import ToggleCredentialsActiveButton from "../../elements/buttons/admin/credentials/toggleCredentialsActiveButton";
 import AddMonthHandlerButton from "../../../../app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
 import CopyString from "../../../../app/components/modules/copyString";
 import dayjs from "dayjs";

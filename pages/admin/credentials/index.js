@@ -1,8 +1,6 @@
 import React, { createContext, useState, useMemo, useEffect } from "react";
-import { Button } from "react-bootstrap";
 import AddCredentialsForm from "../../../app/components/elements/forms/admin/credentials/addCredentialsForm";
 import CredentialsTable from "../../../app/components/elements/tables/credentials/credentialsTableContent";
-import CredentialsDetailsModal from "../../../app/components/elements/modals/admin/credentials/credentialsDetailsModal";
 import axiosInstance from "../../../app/lib/axiosInstance";
 import Loading from "../../../app/components/layout/loading";
 
