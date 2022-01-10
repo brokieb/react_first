@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { Formik } from "formik";
 import dayjs from "dayjs";
 import axiosInstance from "../../../../../../app/lib/axiosInstance";
-import { MoveUsersContext } from "../../../../../../app/components/elements/modals/admin/credentials/credentialsDetailsModal";
+import { MoveUsersContext } from "../../../modals/admin/credentials/credentialsDetailsModal";
 
 export default function CredentialsUserSpecialActionForm({
   sendEmail,

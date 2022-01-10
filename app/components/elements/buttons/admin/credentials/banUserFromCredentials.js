@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RowDetails } from "../../../../../../app/components/elements/tables/tableInstance/tr";
 
 import AccountExpiredIn from "../../../../../../app/components/common/credentialsTableElements/accountExpiredIn";
-import { BanUsersContext } from "../../../../../../app/components/elements/modals/admin/credentials/credentialsDetailsModal";
+import { BanUsersContext } from "../../../modals/admin/credentials/credentialsDetailsModal";
 
 export default function BanUserFromCredentials(props) {
   const { bannedUsers, setBannedUsers } = useContext(BanUsersContext);
