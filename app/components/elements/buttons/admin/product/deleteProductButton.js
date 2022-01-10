@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Button } from "react-bootstrap";
-import axiosInstance from "app/lib/axiosInstance";
-import SweetAlert from "react-bootstrap-sweetalert";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
-import { ProductsDataContext } from "pages/admin/products-list";
-import PopAlert from "app/components/modules/popAlert";
+import { ProductsDataContext } from "../../../../../../pages/admin/products-list";
+import PopAlert from "../../../../../../app/components/modules/popAlert";
 export default function DeleteProductButton({ prodId, onSuccess }) {
   const [alertData, setAlertData] = useState({});
   const { ProductsData, setProductsData } = useContext(ProductsDataContext);

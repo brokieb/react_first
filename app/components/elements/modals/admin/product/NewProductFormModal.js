@@ -3,7 +3,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
 import * as yup from "yup";
-import NewProductForm from "app/components/elements/forms/admin/product/newProductForm";
+import NewProductForm from "../../../../../../app/components/elements/forms/admin/product/newProductForm";
 
 export default function NewProductFormModal(props) {
   const schema = yup

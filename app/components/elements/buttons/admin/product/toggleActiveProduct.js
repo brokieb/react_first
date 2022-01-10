@@ -2,10 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import { Button } from "react-bootstrap";
 import { faLock, faUnlock, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axiosInstance from "app/lib/axiosInstance";
-import { ProductsDataContext } from "pages/admin/products-list/index";
-import GetData from "app/components/modules/getData";
-import PopAlert from "app/components/modules/popAlert";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
+import { ProductsDataContext } from "../../../../../../pages/admin/products-list/index";
+import GetData from "../../../../../../app/components/modules/getData";
+import PopAlert from "../../../../../../app/components/modules/popAlert";
 export default function ToggleActiveProduct({ prodId }) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);

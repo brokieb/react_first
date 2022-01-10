@@ -1,8 +1,5 @@
-import bcrypt from "bcrypt";
-import User from "model/users";
-import Auctions from "model/allegroAuctions";
-import dbConnect from "app/lib/dbConnect";
-import axiosInstance, { allegroAxios } from "app/lib/axiosInstance";
+import Auctions from "../../../model/allegroAuctions";
+import axiosInstance, { allegroAxios } from "../../../app/lib/axiosInstance";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {

@@ -1,9 +1,9 @@
 import react, { useEffect, useState, createContext, useMemo } from "react";
 import { Alert } from "react-bootstrap";
-import axiosInstance from "app/lib/axiosInstance";
-import AllOrdersTable from "app/components/elements/tables/orders/allOrdersTable";
-import Loading from "app/components/layout/loading";
-import AuctionsListTable from "app/components/elements/tables/auctions/auctionsListTable";
+import axiosInstance from "../../../app/lib/axiosInstance";
+import AllOrdersTable from "../../../app/components/elements/tables/orders/allOrdersTable";
+import Loading from "../../../app/components/layout/loading";
+import AuctionsListTable from "../../../app/components/elements/tables/auctions/auctionsListTable";
 
 export const AuctionsContext = createContext({
   auctionsData: [],

@@ -13,9 +13,9 @@ import { useForm } from "react-hook-form";
 
 import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
 import SweetAlert from "react-bootstrap-sweetalert";
-import { ProductsDataContext } from "pages/admin/products-list";
+import { ProductsDataContext } from "../../../../../../pages/admin/products-list";
 
 export default function EditProductForm({ productData }) {
   const [status, setStatus] = useState(0);

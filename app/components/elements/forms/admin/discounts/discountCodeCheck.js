@@ -4,10 +4,10 @@ import * as yup from "yup";
 import { Formik } from "formik";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import axiosInstance from "app/lib/axiosInstance";
-import { CartDataContext } from "pages/store/cart/index";
-import GetData from "app/components/modules/getData";
-import PopAlert from "app/components/modules/popAlert";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
+import { CartDataContext } from "../../../../../../pages/store/cart/index";
+import GetData from "../../../../../../app/components/modules/getData";
+import PopAlert from "../../../../../../app/components/modules/popAlert";
 export default function DiscountCodeForm({ cart }) {
   const { cartData, setCartData } = useContext(CartDataContext);
   const [alertData, setAlertData] = useState({});

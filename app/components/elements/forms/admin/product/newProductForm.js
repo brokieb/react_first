@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
 
 export default function NewProductForm(props) {
   const schema = yup

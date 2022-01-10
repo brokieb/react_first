@@ -1,4 +1,4 @@
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
 import { Button } from "react-bootstrap";
 export default function UnlinkLocalProduct({
   auctionId,

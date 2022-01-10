@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { Button, Modal, Form, ListGroup, Tab, Row, Col } from "react-bootstrap";
-import FriendlyID from "app/components/modules/friendlyID";
-import SettingsPane from "app/components/elements/tabPanes/productDetailsModal/settings";
-import ConnectedAccountsPane from "app/components/elements/tabPanes/productDetailsModal/connectedAccounts";
-import Auction from "app/components/elements/tabPanes/productDetailsModal/auction";
+import FriendlyID from "../../../../../../app/components/modules/friendlyID";
+import SettingsPane from "../../../../../../app/components/elements/tabPanes/productDetailsModal/settings";
+import ConnectedAccountsPane from "../../../../../../app/components/elements/tabPanes/productDetailsModal/connectedAccounts";
+import Auction from "../../../../../../app/components/elements/tabPanes/productDetailsModal/auction";
 export default function ProductDetailsModal(props) {
   const [credsData, setCredsData] = useState([]);
   const [loadingCredsTable, setLoadingCredsTable] = useState(true);

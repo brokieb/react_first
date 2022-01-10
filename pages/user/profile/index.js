@@ -2,11 +2,11 @@ import { useSession, signIn } from "next-auth/react";
 import { Image, Button, Card, ListGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import axiosInstance from "app/lib/axiosInstance";
 import { getSession } from "next-auth/react";
 import dayjs from "dayjs";
-import RemoveUserButton from "app/components/elements/buttons/user/removeUserButton";
-import Loading from "app/components/layout/loading";
+import axiosInstance from "../../../app/lib/axiosInstance";
+import RemoveUserButton from "../../../app/components/elements/buttons/user/removeUserButton";
+import Loading from "../../../app/components/layout/loading";
 export default function Home(props) {
   const { data: session, status } = useSession();
   const [user, setUser] = useState({});

@@ -1,5 +1,5 @@
 import { Image, Button } from "react-bootstrap";
-import ProductDiscountPrice from "app/components/elementsGroups/store/ProductDiscountPrice";
+import ProductDiscountPrice from "../../../../app/components/elementsGroups/store/ProductDiscountPrice";
 export default function ProductDetails({ product }) {
   return (
     <div className="row justify-content-between">

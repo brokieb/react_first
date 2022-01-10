@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import NewCredentialsFormModal from "app/components/elements/modals/admin/credentials/newCredentialsFormModal";
+import NewCredentialsFormModal from "../../../../../../app/components/elements/modals/admin/credentials/newCredentialsFormModal";
 import axios from "axios";
 export default function AddCredentialsForm() {
   const [showAddCredentialsModal, setShowAddCredentialsModal] = useState(false);

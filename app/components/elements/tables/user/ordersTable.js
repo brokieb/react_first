@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import dayjs from "dayjs";
-import Table from "app/components/elements/tables/tableInstance/table";
-import FriendlyID from "app/components/modules/friendlyID";
-import OrderDetailsToggleModalButton from "app/components/elements/buttons/store/orders/toggleOrderDetailsModalButton";
-import PayForOrderButton from "app/components/elements/buttons/store/orders/payForOrderButton";
+import Table from "../../../../../app/components/elements/tables/tableInstance/table";
+import FriendlyID from "../../../../../app/components/modules/friendlyID";
+import OrderDetailsToggleModalButton from "../../../../../app/components/elements/buttons/store/orders/toggleOrderDetailsModalButton";
+import PayForOrderButton from "../../../../../app/components/elements/buttons/store/orders/payForOrderButton";
 export default function OrdersTableComponent({ items }) {
   const [loadingData, setLoadingData] = useState(true);
   const [orderData, setOrderData] = useState(items);

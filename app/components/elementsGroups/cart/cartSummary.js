@@ -1,7 +1,7 @@
-import CartItemsTable from "app/components/elements/tables/store/cartItemsTable";
-import CreateOrderForm from "app/components/elements/forms/store/cart/createOrderForm";
+import CartItemsTable from "../../../../app/components/elements/tables/store/cartItemsTable";
+import CreateOrderForm from "../../../../app/components/elements/forms/store/cart/createOrderForm";
 import { Button, Form, Alert } from "react-bootstrap";
-import DiscountCodeForm from "app/components/elements/forms/admin/discounts/discountCodeCheck";
+import DiscountCodeForm from "../../../../app/components/elements/forms/admin/discounts/discountCodeCheck";
 import Link from "next/link";
 import { useState } from "react";
 export default function cartSummary({ cartData }) {

@@ -3,10 +3,10 @@ import { Button, Modal, Form, InputGroup } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
 import dayjs from "dayjs";
-import axiosInstance from "app/lib/axiosInstance";
-import { CredentialsDataContext } from "app/components/elements/tables/credentials/credentialsTableContent";
-import GetData from "app/components/modules/getData";
-import PopAlert from "app/components/modules/popAlert";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
+import { CredentialsDataContext } from "../../../../../../app/components/elements/tables/credentials/credentialsTableContent";
+import GetData from "../../../../../../app/components/modules/getData";
+import PopAlert from "../../../../../../app/components/modules/popAlert";
 export default function credentialsChangePasswordForm({ credId }) {
   const [password, setPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState(false);

@@ -1,6 +1,5 @@
-import Settings from "model/settings";
-import dbConnect from "app/lib/dbConnect";
-import { useState } from "react";
+import Settings from "../../../model/settings";
+import dbConnect from "../../../app/lib/dbConnect";
 import { getSession } from "next-auth/react";
 export default async function handler(req, res) {
   console.log(req.query, ":))))");

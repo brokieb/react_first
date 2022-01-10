@@ -1,5 +1,5 @@
-import Cart from "model/carts";
-import dbConnect from "app/lib/dbConnect";
+import Cart from "../../../model/carts";
+import dbConnect from "../../../app/lib/dbConnect";
 export default async function handler(req, res) {
   if (req.method === "PUT") {
     const readyData = req.body;

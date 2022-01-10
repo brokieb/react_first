@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import axiosInstance, {
   allegroAxiosAuth,
   allegroAxios,
-} from "app/lib/axiosInstance";
+} from "../../../../../../app/lib/axiosInstance";
 
 export default function AllegroLoginButton({ envs }) {
   const [loading, setLoading] = useState(true);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
 import dayjs from "dayjs";
 export default function NewCredentialsForm(props) {
   const [login, setLogin] = useState("");

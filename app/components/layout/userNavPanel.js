@@ -1,5 +1,5 @@
 import { useCookies } from "react-cookie";
-import { set } from "app/features/counter/counterSlice";
+import { set } from "../../../app/features/counter/counterSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
@@ -24,7 +24,7 @@ import {
   faPercent,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSession, signOut } from "next-auth/react";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../app/lib/axiosInstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import Link from "next/link";

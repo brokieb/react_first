@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Loading from "app/components/layout/loading";
-import ProductsList from "app/components/elementsGroups/store/productsList";
-import axiosInstance from "app/lib/axiosInstance";
+import Loading from "../app/components/layout/loading";
+import ProductsList from "../app/components/elementsGroups/store/productsList";
+import axiosInstance from "../app/lib/axiosInstance";
 export default function Home(props) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);

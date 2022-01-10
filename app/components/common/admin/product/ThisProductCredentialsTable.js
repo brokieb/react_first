@@ -6,9 +6,9 @@ import {
   faFolderOpen,
   faCalendarPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import CredentialsDetailsModal from "app/components/elements/modals/admin/credentials/credentialsDetailsModal";
+import CredentialsDetailsModal from "../../../../app/components/elements/modals/admin/credentials/credentialsDetailsModal";
 import { Button, Table } from "react-bootstrap";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../../app/lib/axiosInstance";
 
 export default function CredentialsTableContent(props) {
   const [loadingData, setLoadingData] = useState(true);

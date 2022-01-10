@@ -6,15 +6,15 @@ import React, {
   createContext,
 } from "react";
 import dayjs from "dayjs";
-import ToggleCredentialsActiveButton from "app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
-import CredentialsDetailsModalButton from "app/components/elements/buttons/admin/credentials/toggleCredentialsDetailsModalButton";
-import AddMonthHandlerButton from "app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
-import Table from "app/components/elements/tables/tableInstance/table";
-import ActualSlotsInUse from "app/components/common/credentialsTableElements/actualSlotsInUse";
-import AccountExpiredIn from "app/components/common/credentialsTableElements/accountExpiredIn";
-import CopyString from "app/components/modules/copyString";
-import FriendlyID from "app/components/modules/friendlyID";
-import ToggleOrderDetailsModalButton from "app/components/elements/buttons/admin/orders/toggleOrderDetailsModalButton";
+import ToggleCredentialsActiveButton from "../../../../../app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
+import CredentialsDetailsModalButton from "../../../../../app/components/elements/buttons/admin/credentials/toggleCredentialsDetailsModalButton";
+import AddMonthHandlerButton from "../../../../../app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
+import Table from "../../../../../app/components/elements/tables/tableInstance/table";
+import ActualSlotsInUse from "../../../../../app/components/common/credentialsTableElements/actualSlotsInUse";
+import AccountExpiredIn from "../../../../../app/components/common/credentialsTableElements/accountExpiredIn";
+import CopyString from "../../../../../app/components/modules/copyString";
+import FriendlyID from "../../../../../app/components/modules/friendlyID";
+import ToggleOrderDetailsModalButton from "../../../../../app/components/elements/buttons/admin/orders/toggleOrderDetailsModalButton";
 export const CredentialsDataContext = createContext({
   credentialsData: [],
   setCredentialsData: () => {},

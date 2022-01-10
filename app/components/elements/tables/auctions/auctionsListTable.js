@@ -6,16 +6,16 @@ import React, {
   createContext,
 } from "react";
 import dayjs from "dayjs";
-import ToggleCredentialsActiveButton from "app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
-import CredentialsDetailsModalButton from "app/components/elements/buttons/admin/credentials/toggleCredentialsDetailsModalButton";
-import AddMonthHandlerButton from "app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
-import Table from "app/components/elements/tables/tableInstance/table";
-import ActualSlotsInUse from "app/components/common/credentialsTableElements/actualSlotsInUse";
-import AccountExpiredIn from "app/components/common/credentialsTableElements/accountExpiredIn";
-import CopyString from "app/components/modules/copyString";
-import FriendlyID from "app/components/modules/friendlyID";
-import CloneAuction from "app/components/elements/buttons/admin/auctions/cloneAuction";
-import AuctionDetails from "app/components/elements/buttons/admin/auctions/auctionDetails";
+import ToggleCredentialsActiveButton from "../../../../../app/components/elements/buttons/admin/credentials/toggleCredentialsActiveButton";
+import CredentialsDetailsModalButton from "../../../../../app/components/elements/buttons/admin/credentials/toggleCredentialsDetailsModalButton";
+import AddMonthHandlerButton from "../../../../../app/components/elements/buttons/admin/credentials/credentialsAddMonthButton";
+import Table from "../../../../../app/components/elements/tables/tableInstance/table";
+import ActualSlotsInUse from "../../../../../app/components/common/credentialsTableElements/actualSlotsInUse";
+import AccountExpiredIn from "../../../../../app/components/common/credentialsTableElements/accountExpiredIn";
+import CopyString from "../../../../../app/components/modules/copyString";
+import FriendlyID from "../../../../../app/components/modules/friendlyID";
+import CloneAuction from "../../../../../app/components/elements/buttons/admin/auctions/cloneAuction";
+import AuctionDetails from "../../../../../app/components/elements/buttons/admin/auctions/auctionDetails";
 
 export default function AuctionsListTable({ items }) {
   const [loadingData, setLoadingData] = useState(true);

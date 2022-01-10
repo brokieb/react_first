@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ProductDetails from "app/components/elementsGroups/store/productDetails";
-import axiosInstance from "app/lib/axiosInstance";
-import Loading from "app/components/layout/loading";
+import ProductDetails from "../../../../app/components/elementsGroups/store/productDetails";
+import axiosInstance from "../../../../app/lib/axiosInstance";
+import Loading from "../../../../app/components/layout/loading";
 
 export default function Home({ setTitle }) {
   const router = useRouter();

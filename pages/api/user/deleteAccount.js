@@ -1,6 +1,6 @@
-import User from "model/users";
-import Product from "model/product";
-import dbConnect from "app/lib/dbConnect";
+import User from "../../../model/users";
+import Product from "../../../model/product";
+import dbConnect from "../../../app/lib/dbConnect";
 import { getSession } from "next-auth/react";
 
 export default async (req, res) => {

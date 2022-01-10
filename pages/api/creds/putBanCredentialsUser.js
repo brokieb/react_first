@@ -1,8 +1,6 @@
-import Credentials from "model/credentials";
-import dbConnect from "app/lib/dbConnect";
+import Credentials from "../../../model/credentials";
+import dbConnect from "../../../app/lib/dbConnect";
 import dayjs from "dayjs";
-import users from "model/users";
-import { cartItemsCounterSlice } from "app/features/counter/counterSlice";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {

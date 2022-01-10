@@ -2,9 +2,9 @@ import { Card } from "react-bootstrap";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import axiosInstance from "app/lib/axiosInstance";
-import ProductCard from "app/components/elements/cards/admin/productCard";
-import NewProductFormModal from "app/components/elements/modals/admin/product/newProductFormModal";
+import axiosInstance from "../../../../app/lib/axiosInstance";
+import ProductCard from "../../../../app/components/elements/cards/admin/productCard";
+import NewProductFormModal from "../../../../app/components/elements/modals/admin/product/newProductFormModal";
 
 export default function ProductsList(props) {
   const [show, setShow] = useState(false);

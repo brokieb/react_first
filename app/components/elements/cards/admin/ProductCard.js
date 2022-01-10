@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import EditProductFormModal from "app/components/elements/modals/admin/product/productDetailsModal";
+import EditProductFormModal from "../../../../../app/components/elements/modals/admin/product/productDetailsModal";
 
 export default function ProductCard({ product }) {
   const [show, setShow] = useState(false);

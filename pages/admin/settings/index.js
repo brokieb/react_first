@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import ShopSettingsForm from "app/components/elements/forms/admin/settings/shopSettingsForm";
-import axiosInstance from "app/lib/axiosInstance";
+import ShopSettingsForm from "../../../app/components/elements/forms/admin/settings/shopSettingsForm";
+import axiosInstance from "../../../app/lib/axiosInstance";
 import { Alert, Button } from "react-bootstrap";
-import AllegroLoginButton from "app/components/elements/buttons/admin/settings/allegroLoginButton";
-import SingleSystemStatus from "app/components/layout/singleSystemStatus";
-import Loading from "app/components/layout/loading";
+import AllegroLoginButton from "../../../app/components/elements/buttons/admin/settings/allegroLoginButton";
+import SingleSystemStatus from "../../../app/components/layout/singleSystemStatus";
+import Loading from "../../../app/components/layout/loading";
 export default function Home(props) {
   const [smtpStatus, setSmtpStatus] = useState(0);
   const [allegroStatus, setAllegroStatus] = useState(0);

@@ -1,12 +1,10 @@
-import User from "model/users";
-import Cart from "model/carts";
-import Product from "model/product";
-import dbConnect from "app/lib/dbConnect";
-import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
+import dbConnect from "../../../app/lib/dbConnect";
 import dayjs from "dayjs";
 const qs = require("qs");
 import { getSession } from "next-auth/react";
-import axiosInstance, { allegroAxiosAuth } from "app/lib/axiosInstance";
+import axiosInstance, {
+  allegroAxiosAuth,
+} from "../../../app/lib/axiosInstance";
 export default async function handler(req, res) {
   if (req.method === "PUT") {
     const session = await getSession({ req });

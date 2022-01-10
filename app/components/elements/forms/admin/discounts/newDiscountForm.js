@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../../../../app/lib/axiosInstance";
 import dayjs from "dayjs";
-import PopAlert from "app/components/modules/popAlert";
+import PopAlert from "../../../../../../app/components/modules/popAlert";
 export default function NewDiscountForm(props) {
   const [alertData, setAlertData] = useState({});
   const schema = yup

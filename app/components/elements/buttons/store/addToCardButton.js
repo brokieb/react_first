@@ -3,11 +3,11 @@ import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { increment } from "app/features/counter/counterSlice";
+import { increment } from "../../../../../app/features/counter/counterSlice";
 import { useCookies } from "react-cookie";
-import axiosInstance from "app/lib/axiosInstance";
+import axiosInstance from "../../../../../app/lib/axiosInstance";
 import { useSession } from "next-auth/react";
-import PopAlert from "app/components/modules/popAlert";
+import PopAlert from "../../../../../app/components/modules/popAlert";
 
 export default function AddToCardButton(props) {
   const dispatch = useDispatch();
