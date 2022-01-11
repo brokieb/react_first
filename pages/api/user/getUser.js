@@ -6,7 +6,7 @@ import { getSession } from "next-auth/react";
 export default async (req, res) => {
   if (req.method === "GET") {
     const session = await getSession({ req });
-    if (session && session.user.permission == 2) {
+    if (session) {
       // Signed in
       console.l;
       await dbConnect();

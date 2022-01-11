@@ -9,14 +9,17 @@ import TawkTo from "tawkto-react";
 import store from "../app/lib/reduxStore";
 import "../app/styles/index.scss";
 import "../public/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import MainNavigation from "../app/components/layout/mainNavigation";
 import AuthProvider from "../app/lib/AuthProvider";
 import Layout from "../app/components/layout/layout";
 import Loading from "../app/components/layout/loading";
-
+import Footer from "../app/components/layout/footer";
+import favicon from "../app/components/images/favicon.ico";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [title, setTitle] = useState("Ładowanie...");
   const [loading, setLoading] = useState(false);
+  const [expandedMenu, setExpandedMenu] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -46,18 +49,34 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <Provider store={store}>
           <SessionProvider session={session}>
             <NextHead>
-              <title>SKLEP - {title}</title>
+              <title>Plejerek - {title}</title>
+              <link rel="shortcut icon" href={favicon.src} />
             </NextHead>
-            <MainNavigation />
-            <Layout>
-              <AuthProvider>
-                {loading ? (
-                  <Loading />
-                ) : (
-                  <Component {...pageProps} setTitle={setTitle} />
-                )}
-              </AuthProvider>
-            </Layout>
+            <MainNavigation
+              expanded={expandedMenu}
+              setExpanded={setExpandedMenu}
+            />
+            <div
+              onClick={() => {
+                expandedMenu && setExpandedMenu(false);
+              }}
+              className="min-vh-100"
+            >
+              <Layout
+                onClick={() => {
+                  console.log("KLIKK");
+                }}
+              >
+                <AuthProvider>
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <Component {...pageProps} setTitle={setTitle} />
+                  )}
+                </AuthProvider>
+              </Layout>
+            </div>
+            <Footer />
           </SessionProvider>
         </Provider>
       </CookiesProvider>

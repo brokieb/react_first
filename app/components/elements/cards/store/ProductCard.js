@@ -21,10 +21,13 @@ function ProductCard({ product }) {
           variant="top"
           src={product.imageUrl}
           alt={product.imageUrl}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", height: "150px", objectFit: "cover" }}
         />
       </Link>
-      <Card.Body className="d-flex flex-column justify-content-between">
+      <Card.Body
+        className="d-flex flex-column justify-content-between"
+        style={{ height: "200px" }}
+      >
         <div>
           <Link href={"/store/product/" + product._id}>
             <a className="link-primary card-title h5">{product.title}</a>

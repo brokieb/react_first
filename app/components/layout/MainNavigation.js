@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   Container,
   Navbar,
@@ -10,14 +11,19 @@ import {
 } from "react-bootstrap";
 import UserNavPanel from "./userNavPanel";
 
-function MainNavigation() {
+function MainNavigation({ expanded, setExpanded }) {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg" expanded={expanded}>
       <Container>
         <Link href="/">
-          <Navbar.Brand href="/">Sklep</Navbar.Brand>
+          <Navbar.Brand href="/">Plejerek</Navbar.Brand>
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={() => {
+            expanded ? setExpanded(false) : setExpanded(true);
+          }}
+        />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Link href="/" replace>

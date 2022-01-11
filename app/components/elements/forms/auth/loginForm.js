@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import * as yup from "yup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react";
 import { Formik } from "formik";
 import axiosInstance from "../../../../lib/axiosInstance";
@@ -71,7 +73,9 @@ export default function LoginForm({ csrfToken }) {
           //
           <Form onSubmit={handleSubmit} action="/api/auth/callback/credentials">
             <Form.Group>
-              <Form.Label htmlFor="email">Email</Form.Label>
+              <Form.Label htmlFor="email" className="mt-2 mb-0">
+                Email
+              </Form.Label>
               <Form.Control
                 type="email"
                 id="email"
@@ -83,7 +87,9 @@ export default function LoginForm({ csrfToken }) {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor="password">Haslo</Form.Label>
+              <Form.Label htmlFor="password" className="mt-2 mb-0">
+                Haslo
+              </Form.Label>
               <Form.Control
                 type="password"
                 id="password"
@@ -94,11 +100,10 @@ export default function LoginForm({ csrfToken }) {
                 {errors.password}
               </Form.Control.Feedback>
             </Form.Group>
-            <div className="pt-2">
-              <Button variant="primary" type="submit">
-                Zaloguj się
-              </Button>
-            </div>
+            <Button className="d-flex align-items-center px-0 py-2 w-100 my-2">
+              <FontAwesomeIcon icon={faLock} className="mx-2 fs-4" />
+              Zaloguj się
+            </Button>
           </Form>
         )}
       </Formik>

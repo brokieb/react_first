@@ -45,7 +45,7 @@ export default function Home(props) {
             src={user.image}
             roundedCircle
             className="square-image"
-            style={{ width: "250px", height: "250px" }}
+            style={{ width: "200px", height: "200px" }}
           />
         </Col>
         <Col className="d-flex align-items-center">

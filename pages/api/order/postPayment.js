@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     const DANE_OSOBOWE = order.data.user.name;
     const SEKRET = process.env.HOTPAY_SECRET;
 
-    const NAZWA_USLUGI = "BROKIEB.PL SKLEP";
+    const NAZWA_USLUGI = "PLEJEREK.PL";
     const ADRES_WWW = "http://localhost";
     const TYP = "INIT";
     const HASH_BEF =

@@ -15,22 +15,13 @@ export default function Home(props) {
   }, []);
   return (
     <div>
-      <title>DISA </title>
-      strona główna
-      <h1>TEST a2 2 22</h1>
-      <p>asdaasda</p>
-      <p>asdaasda</p>
-      <p>asdaasda</p>
-      <p
-        onClick={() => {
-          axiosInstance
-            .get("/api/dis")
-            .then((item) => {})
-            .catch((err) => {});
-        }}
-      >
-        AAAAAAAAAAAAAAAAA
+      <h1>Witaj w moim sklepie!</h1>
+      <p>Wszystkie konta które można tutaj kupić są w 100% moją własnością.</p>
+      <p>
+        Czas realizacji zamówień to zwykle do 5 minut, jeżeli masz jakiekolwiek
+        pytania zapraszam do chatu który jest dostępny na dole strony
       </p>
+
       {loading ? <Loading /> : <ProductsList products={products} />}
     </div>
   );

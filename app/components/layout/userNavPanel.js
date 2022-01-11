@@ -8,6 +8,8 @@ import {
   Dropdown,
   Badge,
   Button,
+  OverlayTrigger,
+  Popover,
 } from "react-bootstrap";
 import {
   faRocket,
@@ -64,14 +66,14 @@ export default function UserNavPanel(props) {
       {session && session.user.permission == 2 && (
         <>
           <Dropdown>
-            <Dropdown.Toggle align="end" variant="link" bsPrefix="p-0">
+            <Dropdown.Toggle variant="link" bsPrefix="p-0">
               <FontAwesomeIcon
                 icon={faRocket}
                 className="text-light"
                 size="lg"
               />
             </Dropdown.Toggle>
-            <Dropdown.Menu align="end">
+            <Dropdown.Menu align={{ lg: "end" }}>
               {[
                 {
                   title: "Zamówienia",
@@ -137,7 +139,16 @@ export default function UserNavPanel(props) {
         </>
       )}
       <Link href="/store/cart">
-        <Button variant="link" className="position-relative ps-0">
+        <Button
+          variant="link"
+          className="position-relative ps-0"
+          onMouseEnter={() => {
+            console.log("NASUNIĘTO");
+          }}
+          onMouseLeave={() => {
+            console.log("NASUNIĘTO");
+          }}
+        >
           <FontAwesomeIcon
             style={{ width: "1.5em" }}
             icon={faShoppingCart}
@@ -179,7 +190,7 @@ export default function UserNavPanel(props) {
                 },
                 {
                   title: "Moje zamówienia",
-                  icon: faUserCircle,
+                  icon: faCreditCard,
                   link: "/user/orders",
                 },
                 { divider: true },
@@ -225,7 +236,9 @@ export default function UserNavPanel(props) {
       ) : (
         <>
           <Link href="/auth/login">
-            <Nav.Link href="/auth/login">Login</Nav.Link>
+            <Nav.Link href="/auth/login" className="text-light">
+              Login
+            </Nav.Link>
           </Link>
         </>
       )}

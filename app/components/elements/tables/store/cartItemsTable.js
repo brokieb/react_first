@@ -34,7 +34,7 @@ export default function CredentialsTableContent({ items }) {
         accessor: "title", // accessor is the "key" in the data
       },
       {
-        Header: "ilość miesięcy",
+        Header: "ilość",
         accessor: "quantity",
       },
       {

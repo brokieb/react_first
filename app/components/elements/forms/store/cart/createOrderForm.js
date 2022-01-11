@@ -77,7 +77,7 @@ export default function CreateOrderForm({ credId }) {
             </>
           ) : (
             <Link href="/auth/login">
-              <Button variant="primary">Zaloguj się</Button>
+              <Button variant="primary">Zaloguj się żeby kontynuować</Button>
             </Link>
           )}
           <Modal.Body className="pt-0"></Modal.Body>

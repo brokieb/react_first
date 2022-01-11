@@ -40,9 +40,9 @@ export default function TableRender({ columns, data }) {
     data,
   });
   return (
-    <>
+    <div className="position-relative  p-2" style={{ maxWidth: "95vw" }}>
       {dataState ? (
-        <Table striped bordered hover size="sm" {...getTableProps()}>
+        <Table responsive="md" striped bordered size="sm">
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -94,6 +94,6 @@ export default function TableRender({ columns, data }) {
       ) : (
         <Empty />
       )}
-    </>
+    </div>
   );
 }
