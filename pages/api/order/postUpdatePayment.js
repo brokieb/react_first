@@ -23,7 +23,6 @@ export default async (req, res) => {
       readyData.SEKRET;
     const hashed = createHash("sha256").update(toHash).digest("hex");
     if (hashed == readyData.HASH) {
-      console.log("DANE ZGADZAJĄ");
       const order = await orders.findByIdAndUpdate(readyData.ID_ZAMOWIENIA, {
         orderStatus: "PAID",
       });

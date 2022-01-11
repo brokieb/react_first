@@ -63,7 +63,7 @@ export default async function handler(req, res) {
         mess: "Poprawnie utworzono link do płatności",
         link: token.data.URL,
         datas: {
-          SEKRET: SEKRET,
+          SEKRET: SEKRET, 
           KWOTA: KWOTA,
           KWOTA: KWOTA,
           NAZWA_USLUGI: NAZWA_USLUGI,
