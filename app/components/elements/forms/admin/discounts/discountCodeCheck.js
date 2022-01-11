@@ -71,6 +71,7 @@ export default function DiscountCodeForm({ cart }) {
             }
           })
           .catch((err) => {
+            console.log(err, "!");
             setAlertData({
               variant: "danger",
               title: "success",

@@ -23,12 +23,12 @@ export default async function handler(req, res) {
     const ID_ZAMOWIENIA = order.data._id;
     const EMAIL = order.data.user.email
       ? order.data.user.email
-      : "brokieb@gmail.com";
+      : "help@plejerek.pl";
     const DANE_OSOBOWE = order.data.user.name;
     const SEKRET = process.env.HOTPAY_SECRET;
 
     const NAZWA_USLUGI = "PLEJEREK.PL";
-    const ADRES_WWW = "http://localhost";
+    const ADRES_WWW = process.env.ADDRESS;
     const TYP = "INIT";
     const HASH_BEF =
       process.env.HOTPAY_PASSW +
@@ -44,25 +44,28 @@ export default async function handler(req, res) {
       SEKRET;
 
     const HASH = createHash("sha256").update(HASH_BEF).digest("hex");
-
-    const token = await hotpayAxios.post("/", null, {
-      params: {
-        SEKRET: SEKRET,
-        KWOTA: KWOTA,
-        KWOTA: KWOTA,
-        NAZWA_USLUGI: NAZWA_USLUGI,
-        ADRES_WWW: ADRES_WWW,
-        ID_ZAMOWIENIA: ID_ZAMOWIENIA,
-        EMAIL: EMAIL,
-        DANE_OSOBOWE: DANE_OSOBOWE,
-        TYP: TYP,
-        HASH: HASH,
-      },
-    });
-    return res.status(200).json({
-      mess: "Poprawnie utworzono link do płatności",
-      link: token.data.URL,
-    });
+    try {
+      const token = await hotpayAxios.post("/", null, {
+        params: {
+          SEKRET: SEKRET,
+          KWOTA: KWOTA,
+          KWOTA: KWOTA,
+          NAZWA_USLUGI: NAZWA_USLUGI,
+          ADRES_WWW: ADRES_WWW,
+          ID_ZAMOWIENIA: ID_ZAMOWIENIA,
+          EMAIL: EMAIL,
+          DANE_OSOBOWE: DANE_OSOBOWE,
+          TYP: TYP,
+          HASH: HASH,
+        },
+      });
+      return res.status(200).json({
+        mess: "Poprawnie utworzono link do płatności",
+        link: token.data.URL,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   } else {
     return res.status(405).json({ mess: "WRONG METHOD OR SESSION ERROR" });
   }
