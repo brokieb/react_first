@@ -20,6 +20,7 @@ export default function FinishPaymentModal(props) {
         orderId: props.orderId,
       })
       .then((item) => {
+        console.log(item.data.datas);
         setPaymentLink(item.data.link);
 
         setLoadingData(false);

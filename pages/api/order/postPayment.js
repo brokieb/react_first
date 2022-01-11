@@ -62,10 +62,20 @@ export default async function handler(req, res) {
       return res.status(200).json({
         mess: "Poprawnie utworzono link do płatności",
         link: token.data.URL,
+        datas: {
+          SEKRET: SEKRET,
+          KWOTA: KWOTA,
+          KWOTA: KWOTA,
+          NAZWA_USLUGI: NAZWA_USLUGI,
+          ADRES_WWW: ADRES_WWW,
+          ID_ZAMOWIENIA: ID_ZAMOWIENIA,
+          EMAIL: EMAIL,
+          DANE_OSOBOWE: DANE_OSOBOWE,
+          TYP: TYP,
+          HASH: HASH,
+        },
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   } else {
     return res.status(405).json({ mess: "WRONG METHOD OR SESSION ERROR" });
   }

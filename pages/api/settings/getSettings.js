@@ -2,7 +2,6 @@ import Settings from "../../../model/settings";
 import dbConnect from "../../../app/lib/dbConnect";
 import { getSession } from "next-auth/react";
 export default async function handler(req, res) {
-  console.log(req.query, ":))))");
   if (req.method === "GET") {
     const session = await getSession({ req });
     if (session && session.user.permission == 2) {

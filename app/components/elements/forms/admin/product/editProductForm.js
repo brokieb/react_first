@@ -14,11 +14,12 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Formik } from "formik";
 import axiosInstance from "../../../../../../app/lib/axiosInstance";
-import SweetAlert from "react-bootstrap-sweetalert";
+import PopAlert from "../../../../../../app/components/modules/popAlert";
 import { ProductsDataContext } from "../../../../../../pages/admin/products-list";
 
 export default function EditProductForm({ productData }) {
   const [status, setStatus] = useState(0);
+  const [alertData, setAlertData] = useState({});
   const { ProductsData, setProductsData } = useContext(ProductsDataContext);
 
   const schema = yup
@@ -80,6 +81,26 @@ export default function EditProductForm({ productData }) {
                   }
                   return item;
                 });
+              });
+              setAlertData({
+                variant: "success",
+                title: "Sukces",
+                body: "Poprawnie zaktualizowano produkt",
+                cb: () => {
+                  setAlertData({});
+                },
+              });
+            })
+            .catch((err) => {
+              setAlertData({
+                variant: "danger",
+                title: "danger",
+                body: {
+                  default: "Wystąpił bład przy edycji produktu",
+                },
+                cb: () => {
+                  setAlertData({});
+                },
               });
             });
         }}
@@ -227,6 +248,7 @@ export default function EditProductForm({ productData }) {
           </Form>
         )}
       </Formik>
+      <PopAlert data={alertData} />
     </>
   );
 }

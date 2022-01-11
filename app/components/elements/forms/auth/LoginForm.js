@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import * as yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Formik } from "formik";
-import axiosInstance from "../../../../lib/axiosInstance";
 import PopAlert from "../../../modules/popAlert";
+import axiosInstance from "../../../../../app/lib/axiosInstance";
 
 export default function LoginForm({ csrfToken }) {
   const [alertData, setAlertData] = useState({});
@@ -38,7 +37,7 @@ export default function LoginForm({ csrfToken }) {
                 title: "Sukces",
                 body: "Poprawnie zalogowano się",
                 cb: () => {
-                  router.reload("/");
+                  // router.push("/");
                   setAlertData({});
                 },
               });
@@ -60,16 +59,7 @@ export default function LoginForm({ csrfToken }) {
           csrfToken: csrfToken,
         }}
       >
-        {({
-          errors,
-          values,
-          touched,
-          handleChange,
-          handleSubmit,
-          handleBlur,
-          validateField,
-          setFieldValue,
-        }) => (
+        {({ errors, handleChange, handleSubmit }) => (
           //
           <Form onSubmit={handleSubmit} action="/api/auth/callback/credentials">
             <Form.Group>
@@ -100,7 +90,10 @@ export default function LoginForm({ csrfToken }) {
                 {errors.password}
               </Form.Control.Feedback>
             </Form.Group>
-            <Button className="d-flex align-items-center px-0 py-2 w-100 my-2">
+            <Button
+              type="submit"
+              className="d-flex align-items-center px-0 py-2 w-100 my-2"
+            >
               <FontAwesomeIcon icon={faLock} className="mx-2 fs-4" />
               Zaloguj się
             </Button>

@@ -21,7 +21,7 @@ export default function Home(props) {
 
   useEffect(() => {
     const getData = router.query;
-    console.log(getData);
+
     if (getData.code) {
       axiosInstance
         .put("/api/allegro/putAuthToken", {

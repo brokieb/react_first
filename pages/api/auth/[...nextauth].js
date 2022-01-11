@@ -5,7 +5,6 @@ import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-
 import clientPromise from "../../../app/lib/mongodb";
 import User from "../../../model/users";
 
@@ -51,7 +50,7 @@ export default async function auth(req, res) {
                 name: user.name,
                 email: user.email,
                 image: user.image,
-                permission: 2,
+                permission: user.permission,
               };
             }
           }
@@ -68,7 +67,7 @@ export default async function auth(req, res) {
       signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
     },
     callbacks: {
-      jwt: async ({ token, user }) => {
+      async jwt({ token, user }) {
         user &&
           (token.user = {
             permission: user.permission,
@@ -78,7 +77,7 @@ export default async function auth(req, res) {
           });
         return token;
       },
-      session: async ({ session, token, user }) => {
+      async session({ session, token, user }) {
         session.user.uid = user.id;
         session.user.permission = user.permission ? user.permission : 0;
         return session;

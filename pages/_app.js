@@ -62,11 +62,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               }}
               className="min-vh-100"
             >
-              <Layout
-                onClick={() => {
-                  console.log("KLIKK");
-                }}
-              >
+              <Layout onClick={() => {}}>
                 <AuthProvider>
                   {loading ? (
                     <Loading />

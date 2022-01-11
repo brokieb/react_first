@@ -61,7 +61,9 @@ export default function UserNavPanel(props) {
     router.push(e.target.getAttribute("href"));
   }
 
-  return (
+  return status == "loading" ? (
+    <>Ładowanie..</>
+  ) : (
     <>
       {session && session.user.permission == 2 && (
         <>
@@ -139,16 +141,7 @@ export default function UserNavPanel(props) {
         </>
       )}
       <Link href="/store/cart">
-        <Button
-          variant="link"
-          className="position-relative ps-0"
-          onMouseEnter={() => {
-            console.log("NASUNIĘTO");
-          }}
-          onMouseLeave={() => {
-            console.log("NASUNIĘTO");
-          }}
-        >
+        <Button variant="link" className="position-relative ps-0">
           <FontAwesomeIcon
             style={{ width: "1.5em" }}
             icon={faShoppingCart}
