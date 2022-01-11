@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import orders from "../../model/orders";
+import orders from "../../../model/orders";
 export default async (req, res) => {
   const readyData = req.body;
   if (
