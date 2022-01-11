@@ -1,6 +1,3 @@
 export default async (req, res) => {
-  if (req.method === "GET") {
-  } else {
-    return res.status(405).json({ err: "WRONG METHOD" });
-  }
+  return res.status(200).json("ALL DZIAŁA");
 };
